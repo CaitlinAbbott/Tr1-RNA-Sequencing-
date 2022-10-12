@@ -1,0 +1,232 @@
+---
+title: "Tr1 Analysis"
+author: "Stephen Pederson, Mark Armstrong & Caitlin Abbott"
+date: "`r format(Sys.Date(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 8
+)
+```
+
+
+```{r packages}
+library(tidyverse)
+library(magrittr)
+library(limma)
+library(edgeR)
+library(ggrepel)
+library(ggplot2)
+library(pheatmap)
+library(AnnotationHub)
+library(ensembldb)
+library(plotly)
+library(RColorBrewer)
+library(clusterProfiler)
+library(org.Mm.eg.db)
+library(variancePartition)
+library(KEGGREST)
+library(fgsea)
+library(data.table)
+library(scales)
+library(broom)
+library(glue)
+theme_set(theme_bw())
+```
+
+```{r setup-data}
+counts <- here::here("data", "genes.out.gz") %>% 
+  read_tsv() %>% 
+  rename_all(basename) %>% 
+  rename_all(str_remove_all, pattern = "Aligned.sortedByCoord.out.bam")
+samples <- tibble(
+  sample = setdiff(colnames(counts), "Geneid"),
+  condition = gsub("M2_|M3_|M5_|M6_", "", sample) %>% 
+    factor(levels = c("DN", "DP", "LAG_3", "CD49b")),
+  mouse = str_extract(sample, "M[0-9]")
+)
+dgeList <- counts %>%
+  as.data.frame() %>%
+  column_to_rownames("Geneid") %>%
+  as.matrix() %>%
+  DGEList(
+    samples = samples
+  ) %>% 
+  calcNormFactors(method = "TMM")
+```
+
+```{r setup-annotations}
+ah <- AnnotationHub()
+#Find which genome did we use
+# unique(ah$dataprovider)
+# subset(ah, dataprovider == "Ensembl") %>%  #In Ensembl databse
+#   subset(species == "Mus musculus") %>%  #under Mouse
+#   subset(rdataclass == "EnsDb") 
+ensDb <- ah[["AH69210"]] #This is the genome used for assigning reads to genes
+genes <- genes(ensDb) %>% #extract the genes
+  subset(seqnames %in% c(1:19, "MT", "X", "Y")) %>%
+  keepStandardChromosomes() %>% 
+  sortSeqlevels()
+dgeList$genes <- data.frame(gene_id = rownames(dgeList)) %>% 
+  left_join(
+    mcols(genes) %>% 
+      as.data.frame() %>% 
+      dplyr::select(gene_id, gene_name, gene_biotype, description, entrezid),
+    by = "gene_id"
+  )
+```
+
+
+
+```{r plot-lib-sizes, fig.cap = "*Library sizes for all libraries after summarisation to gene-level counts. The mean library size across all librires is shown as the dashed horizontal line.*"}
+dgeList$samples %>%
+  mutate(CellType = dgeList$samples$condition) %>%
+  ggplot(aes(x = sample, y = lib.size / 1e6, fill = CellType)) +
+  geom_col() +
+  geom_hline(
+    yintercept = mean(dgeList$samples$lib.size / 1e6),
+    linetype = 2, colour = "grey30"
+  ) +
+  labs(y = "Library Size (millions)") +
+  facet_wrap(~mouse, scales = "free_x", nrow = 1) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) 
+```
+
+```{r filter-dge}
+genes2keep <- dgeList %>% 
+  cpm() %>% #log = TRUE) %>% 
+  is_greater_than(1) %>% 
+  rowSums() %>% 
+  is_weakly_greater_than(4)
+dgeFilt <- dgeList[genes2keep, , keep.lib.sizes = FALSE]
+```
+
+Genes were only retained in the final dataset if 4 or more samples returned $<1$ Count per Million (CPM).
+The gave a dataset of `r comma(sum(genes2keep))` of the initial `r comma(length(genes2keep))` genes which were retained for downstream analysis.
+
+```{r plot-densities, fig.cap = "*logCPM densisties after removal of undetectable genes. The double negative (DN) samples for both m% and M6 appear to skew to lower overall counts compared to all other samples, with a handful of highly expressed genes likely to dominate the sample.*"}
+dgeFilt %>% 
+  cpm(log = TRUE) %>% 
+  as_tibble(rownames = "gene_id") %>% 
+  pivot_longer(cols = all_of(colnames(dgeFilt)), names_to = "sample", values_to = "logCPM") %>% 
+  left_join(dgeFilt$samples, by = "sample") %>% 
+  ggplot(aes(logCPM, y = stat(density), colour = condition, group = sample)) +
+  geom_density() +
+  facet_wrap(~mouse) +
+  scale_y_continuous(expand = expansion(c(0.01, 0.05)))
+```
+
+```{r plot-pca, fig.cap = "*PCA on logCPm values, with the two DN samples identified above clearly showing strong divergence from the remainder of the dataset. The CD49b sample fro M2 also appeared slightly divergent, with the previous densityplot also showing a slght skew towards lower overall counts.*"}
+pca <- dgeFilt %>% 
+  cpm(log = TRUE) %>% 
+  t() %>% 
+  prcomp()
+pca %>% 
+  broom::tidy() %>% 
+  dplyr::rename(sample = row) %>% 
+  dplyr::filter(PC %in% c(1, 2)) %>% 
+  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>% 
+  left_join(dgeFilt$samples, by = "sample") %>% 
+  ggplot(aes(PC1, PC2, colour = condition)) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = sample)) +
+  labs(
+    x = glue("PC1 ({percent(summary(pca)$importance[2, 'PC1'])})"),
+    y = glue("PC2 ({percent(summary(pca)$importance[2, 'PC2'])})"),
+    colour = "Cell Type"
+  )
+```
+
+The above PCA revealed some potential problems with two of the four DN samples.
+Exclusion of the clear outliers will reduce the number of viable samples within the DN group to 2 and as an alternative, a weighting strategy was instead sought for all samples.
+
+Sample-level weights were estimated by assuming all samples were drawn from the same group and running `voomWithQualityWeights()`
+
+```{r get-weights}
+X <- matrix(1, nrow = ncol(dgeFilt)) %>% 
+  set_colnames("Intercept")
+v <- voomWithQualityWeights(dgeFilt, design = X)
+```
+
+
+```{r pca2, eval = FALSE, echo=FALSE}
+pca2 <- v$E %>% 
+  t() %>% 
+  prcomp()
+pca2 %>% 
+  broom::tidy() %>% 
+  dplyr::rename(sample = row) %>% 
+  dplyr::filter(PC %in% c(1, 2)) %>% 
+  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>% 
+  left_join(v$targets, by = "sample") %>% 
+  ggplot(aes(PC1, PC2, colour = condition)) +
+  geom_point(aes(size = sample.weights)) +
+  geom_text_repel(aes(label = sample)) +
+  labs(
+    x = glue("PC1 ({percent(summary(pca2)$importance[2, 'PC1'])})"),
+    y = glue("PC2 ({percent(summary(pca2)$importance[2, 'PC2'])})"),
+    colour = "Cell Type"
+  )
+```
+
+Now that initial sample-weights have been defined, we can estimate the within-mouse correlations.
+Once within-mouse correlations have been identified, we then re-estimate the sample weights and recalculate the duplicate correlations
+
+```{r estimate-cors}
+rho <- duplicateCorrelation(v, block = v$targets$mouse)$consensus.correlation
+v <- voomWithQualityWeights(
+  dgeFilt, design = X, block = dgeFilt$samples$mouse, correlation = rho
+)
+rho2 <- duplicateCorrelation(v, block = v$targets$mouse)$consensus.correlation
+```
+
+The initial estimate for $\rho$ was `r round(rho, 4)` which scarcely changed after re-running the process to return $\hat{\rho} =$ `r round(rho2, 4)`
+
+Once this process had been completed, assuming all samples were from with the same sample-group
+
+
+```{r plot-weights, fig.cap = "*Sample-level weights after running `voomWithQualityWeights` setting all samples as being drawn from the same condition. The ideal equal wweighting of 1 is shown as the dashed horizontal line, with those samples below this being assumed to be of lower quality than those above the line. Thw two previously identified DN samples were strongly down-weighted, as were the CD49b samples from M2 and M3.*"}
+v$targets %>% 
+  ggplot(aes(sample, sample.weights, fill = condition)) +
+  geom_col() +
+  geom_hline(yintercept = 1, linetype = 2, col = "grey30") +
+  facet_wrap(~mouse, nrow = 1, scales = "free_x") +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  labs(
+    x = "Sample", y = "Sample Weights", fill = "Cell Type"
+  )
+```
+
+
+```{r}
+X <- model.matrix(~0 + condition, data = dgeFilt$samples)
+colnames(X) <- str_remove(colnames(X), "condition")
+cont.matrix <- makeContrasts(
+  DNvLAG3 = DN - LAG_3,
+  DNvDP = DN - DP,
+  DNvCD49b = DN - CD49b,
+  LAG3vCD49b = LAG_3 - CD49b,
+  CD49bvDP = CD49b - DP,
+  LAG3vDP = LAG_3 - DP,
+  levels = X
+)
+fit <- lmFit(v, design = X, block = v$targets$mouse, correlation = rho2) %>% 
+  contrasts.fit(cont.matrix) %>%
+  eBayes()
+```
+
+```{r}
+colnames(cont.matrix) %>% 
+  lapply(function(x) topTable(fit, coef = x, number = Inf)) %>%
+  lapply(as_tibble) %>% 
+  lapply(dplyr::filter, adj.P.Val < 0.05) %>% 
+  setNames(colnames(cont.matrix))
+```
+
