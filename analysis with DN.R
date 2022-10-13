@@ -18,6 +18,7 @@ BiocManager::install("org.Mm.eg.db")
 BiocManager::install("variancePartition")
 BiocManager::install("KEGG.db")
 install.packages("statmod")
+BiocManager::install("ggnewscale")
 
 
 setwd("C:/Users/caitlin/Desktop/Tr1 RNA seq")
@@ -39,7 +40,8 @@ library(KEGG.db)
 library(fgsea)
 library(data.table)
 
-file <- "Caitlin_genes.out"
+file <- here::here("data", "genes.out.gz")
+# file <- "Caitlin_genes.out"
 counts <- read.delim(file, comment = "#")
 head(counts)
 
@@ -65,7 +67,7 @@ dgeList$samples <- dgeList$samples[c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),]
 #Normfactors based on library size condition is from sample names
 dgeList <- calcNormFactors(dgeList, method = c("TMM"))
 dgeList$samples$condition <- gsub("M2_|M3_|M5_|M6_", "", rownames(dgeList$samples)) #add column to show populations
-dgeList$samples$condition <- factor(dgeList$samples$condition, 
+dgeList$samples$condition <- factor(dgeList$samples$condition,
                                     levels= c("DN", "DP", "LAG_3", "CD49b"))
 dgeList$samples$mouse <- str_extract(colnames(dgeList), "M[0-9]")
 dgeList$samples
@@ -109,7 +111,7 @@ dgeFilt$samples %>%
   cbind(pca$x[.$Sample,]) %>%
   ggplot(aes_string(x, y, shape = "Mouse", colour = "condition")) +
   geom_point(size = 3) +
-  geom_text_repel(aes(label = Sample), show.legend =FALSE) + 
+  geom_text_repel(aes(label = Sample), show.legend =FALSE) +
   labs(
     x = paste0(x, " (", scales::percent(summary(pca)$importance[2, x]), ")"),
     y = paste0(y, " (", scales::percent(summary(pca)$importance[2, y]), ")")
@@ -121,14 +123,14 @@ Ah <- AnnotationHub()
 unique(Ah$dataprovider)
 subset(Ah, dataprovider == "Ensembl") %>%  #In Ensembl databse
   subset(species == "Mus musculus") %>%  #under Mouse
-  subset(rdataclass == "EnsDb") 
+  subset(rdataclass == "EnsDb")
 ensDb <- Ah[["AH69210"]] #This is the genome I used for the sequencing
 genes <- genes(ensDb) %>% #extract the genes
   subset(seqnames %in% c(1:19, "MT", "X", "Y")) %>%
   keepStandardChromosomes()
 seqlevels(genes) <- str_sort(seqlevels(genes), numeric = TRUE) #order it by numeric
 genes
-dgeFilt$genes <- genes[rownames(dgeFilt),]  
+dgeFilt$genes <- genes[rownames(dgeFilt),]
 dgeFilt$genes
 
 #vooming
@@ -136,24 +138,27 @@ design <- model.matrix(~0 + condition, data = dgeFilt$samples)
 colnames(design) <- str_remove(colnames(design), "condition")
 v = voomWithQualityWeights(dgeFilt, design = matrix(1, nrow = ncol(dgeFilt)), plot = TRUE)
 
-mds$cmdscale.out %>%
-  as.data.frame() %>%
-  set_colnames(c("Dim1", "Dim2")) %>%
-  rownames_to_column("sample") %>%
-  cbind(v$targets[.$sample,]) %>%
-  dplyr::rename(w = sample.weights) %>%
-  ggplot(aes(Dim1, Dim2, colour = condition, label = sample)) +
-  geom_point(aes(size = w)) +
-  geom_text_repel() +
-  labs(x = "Leading logFC dim 1",
-       y = "Leading logFC dim 2",
-       size = "Sample\nweight",
-       colour = "Cell Type") +
-  theme_bw(pca <- v$E) %>%
-  #.[,!grepl("DN", colnames(.))] %>%
-  cpm(log = TRUE) %>%
-  t() %>%
-  prcomp()
+##############################
+## I cannot understand this ##
+##############################
+# mds$cmdscale.out %>%
+#   as.data.frame() %>%
+#   set_colnames(c("Dim1", "Dim2")) %>%
+#   rownames_to_column("sample") %>%
+#   cbind(v$targets[.$sample,]) %>%
+#   dplyr::rename(w = sample.weights) %>%
+#   ggplot(aes(Dim1, Dim2, colour = condition, label = sample)) +
+#   geom_point(aes(size = w)) +
+#   geom_text_repel() +
+#   labs(x = "Leading logFC dim 1",
+#        y = "Leading logFC dim 2",
+#        size = "Sample\nweight",
+#        colour = "Cell Type") +
+#   theme_bw(pca <- v$E) %>%
+#   #.[,!grepl("DN", colnames(.))] %>%
+#   cpm(log = TRUE) %>%
+#   t() %>%
+#   prcomp()
 
 x <- "PC1"
 y <- "PC2"
@@ -186,15 +191,15 @@ dupcor <- duplicateCorrelation(tmp, design, block=dgeFilt$samples$mouse)
 # run voom considering the duplicateCorrelation results
 # in order to compute more accurate precision weights
 v = voomWithQualityWeights(
-  counts = dgeFilt, 
-  design = matrix(1, nrow = ncol (dgeFilt)), 
-  plot=FALSE, 
-  block=dgeFilt$samples$mouse, 
+  counts = dgeFilt,
+  design = matrix(1, nrow = ncol (dgeFilt)),
+  plot=FALSE,
+  block=dgeFilt$samples$mouse,
   correlation=dupcor$consensus
 )
 
 # Estimate linear mixed model with a single variance component
-# Fit the model for each gene, 
+# Fit the model for each gene,
 dupcor <- duplicateCorrelation(v, design, block=dgeFilt$samples$mouse)
 
 # But this step uses only the genome-wide average for the random effect
@@ -215,7 +220,7 @@ fit.cont <-  contrasts.fit(fit, cont.matrix) %>%
   eBayes()
 
 summa.fit <- decideTests(fit.cont, lfc = 1)
-summary(summa.fit) 
+summary(summa.fit)
 plotSA(fit.cont)
 
 
@@ -223,33 +228,37 @@ plotSA(fit.cont)
 
 ###################################################################################################
 
+###################################################
+## Does not run. HughConfGenes_CPM doesn't exist ##
+###################################################
+
 #Heatmap
-mat_col <- data.frame(group = v$design)
-mat_colours <- list(group = brewer.pal(4, "Set1"))
-names(mat_colours$group) <- unique(mat_col)
-valueRange <- fit$coefficients[HighConfGenes_CPM, ]%>%
-  subtract(rowMeans(.)) %>%
-  range()
-myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(valueRange),0, length.out = 50),
-              seq(max(valueRange) / 101, max(valueRange), length.out = 50))
-
-#interestedGenes = c("Eomes", "P2rx7", "Cd226")
-#merged_DE_mt_geneIDs = merged_DE_mt$ID.gene_name
-
-pheatmap(mat = fit.cont,
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = NA,
-         # show_colnames = FALSE,
-         show_rownames = FALSE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         #labels_row = merged_DE_mt$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+# mat_col <- data.frame(group = v$design)
+# mat_colours <- list(group = brewer.pal(4, "Set1"))
+# names(mat_colours$group) <- unique(mat_col)
+# valueRange <- fit$coefficients[HighConfGenes_CPM, ]%>%
+#   subtract(rowMeans(.)) %>%
+#   range()
+# myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
+# myBreaks <- c(seq(min(valueRange),0, length.out = 50),
+#               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
+#
+# #interestedGenes = c("Eomes", "P2rx7", "Cd226")
+# #merged_DE_mt_geneIDs = merged_DE_mt$ID.gene_name
+#
+# pheatmap(mat = fit.cont,
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = NA,
+#          # show_colnames = FALSE,
+#          show_rownames = FALSE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          #labels_row = merged_DE_mt$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 ###########################################################################################################
 
@@ -261,7 +270,7 @@ topTable(fit.cont, coef = "DNvLAG3", number = Inf, sort.by = "p", p.value = 0.05
 DNvLAG3 %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltDNLAG3
 
 topTable(fit.cont, coef = "DNvCD49b", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> DNvCD49b
-DNvCD49b %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltDNCD49b  
+DNvCD49b %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltDNCD49b
 
 topTable(fit.cont, coef = "LAG3vDP", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> LAG3vDP
 LAG3vDP %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltLAG3DP
@@ -278,15 +287,18 @@ LAG3vCD49b %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltLAG3CD49b
 merged_DE_mt = rbind(FiltCD49bDP, FiltDNCD49b, FiltDNDP, FiltDNLAG3, FiltLAG3CD49b, FiltLAG3DP)
 merged_DE_mt = merged_DE_mt[!duplicated(merged_DE_mt$ID.gene_id), ]
 
-merged_T100_LFC %>% 
-  select(ID.gene_id, ID.gene_name, AveExpr, logFC, adj.P.Val)  %>%
-  arrange(logFC)-> T100LFCarr
-T100genes <- head(T100LFCarr, 100) %>% arrange(logFC)
-
-merged_T100_LFC %>% 
-  select(ID.gene_id, ID.gene_name, AveExpr, logFC, adj.P.Val)  %>%
-  arrange(adj.P.Val)-> T100LFCarrPV
-T100genesPV <- head(T100LFCarr, 100) %>% arrange(adj.P.Val)
+####################################
+## merged_T100_LFC does not exist ##
+####################################
+# merged_T100_LFC %>%
+#   select(ID.gene_id, ID.gene_name, AveExpr, logFC, adj.P.Val)  %>%
+#   arrange(logFC)-> T100LFCarr
+# T100genes <- head(T100LFCarr, 100) %>% arrange(logFC)
+#
+# merged_T100_LFC %>%
+#   select(ID.gene_id, ID.gene_name, AveExpr, logFC, adj.P.Val)  %>%
+#   arrange(adj.P.Val)-> T100LFCarrPV
+# T100genesPV <- head(T100LFCarr, 100) %>% arrange(adj.P.Val)
 
 
 #Heatmap
@@ -294,25 +306,28 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(merged_T100_LFC$logFC), 0, length.out = 35),
-              seq(max(merged_T100_LFC$logFC) / 101, max(merged_T100_LFC$logFC), length.out = 40))
+###################################
+## merged_T100_LFC doesn't exist ##
+###################################
+# myBreaks <- c(seq(min(merged_T100_LFC$logFC), 0, length.out = 35),
+#               seq(max(merged_T100_LFC$logFC) / 101, max(merged_T100_LFC$logFC), length.out = 40))
 
-pheatmap(mat = fit$coefficients[T100genesPV$ID.gene_id, ],
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = NA,
-         # show_colnames = FALSE,
-         show_rownames = TRUE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = T100genesPV$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+# pheatmap(mat = fit$coefficients[T100genesPV$ID.gene_id, ],
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = NA,
+#          # show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = T100genesPV$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 
 ###################################################################################################################
@@ -321,7 +336,7 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out =40),
@@ -347,7 +362,7 @@ pheatmap(mat = fit$coefficients[merged_DE_mt$ID.gene_id, ],
 #fit$coefficients[merged_DE_mt$ID.gene_id, ]
 
 ###############################Excel Spreadsheet##############################################################
-# make one of these for each of the Filt contrasts 
+# make one of these for each of the Filt contrasts
 merged_DE_df = data.frame(gene_id = merged_DE_mt$ID.gene_id, gene_name = merged_DE_mt$ID.gene_name, fit$coefficients[merged_DE_mt$ID.gene_id, ])
 write.csv(merged_DE_df, file = "C:/Users/caitlin/Desktop/Tr1 RNA seq/merged_DE_mt.csv", col.names = T, row.names = F)
 
@@ -361,91 +376,100 @@ Comparisons <- lapply(allCont, function(x){
   topTable(fit.cont, coef = x, number = nrow(fit)) %>%
     rownames_to_column("Gene") %>%
     as_tibble()
-}) %>% 
+}) %>%
   set_names(allCont)
 
 ######################BIological replicates#####################################################################
 
 ###BR_CPMlog
 dgeFilt.cpm = cpm(dgeFilt)
-BR_CPM = dgeFilt.cpm[as.character(rownames(merged_T100_LFC)), ]
-BR_CPM = dgeFilt.cpm[as.character(rownames(dgeFilt.cpm)) %in% as.character(rownames(merged_T100_LFC)), ]
-dim(BR_CPM)
-table(as.character(rownames(BR_CPM))==as.character(rownames(merged_T100_LFC)))
-BR_CPMlog = log10(BR_CPM+1) 
-
-#BR_CPMlog_minor = BR_CPMlog[, c("M2_DN", "M5_DN")] run this before heatmap to re-order replicates
-#Heatmap BR
-myPalette <- colorRampPalette(c("white", "red"))(101)
-myBreaks <- c(seq(min(BR_CPMlog), 1, length.out = 40),
-              seq(max(BR_CPMlog) / 10, max(BR_CPMlog), length.out = 70))
-
-pheatmap(mat = BR_CPMlog, 
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = "black",
-         # show_colnames = FALSE,
-         show_rownames = TRUE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = merged_T100_LFC$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+###################################
+## merged_T100_LFC doesn't exist ##
+###################################
+# BR_CPM = dgeFilt.cpm[as.character(rownames(merged_T100_LFC)), ]
+# BR_CPM = dgeFilt.cpm[as.character(rownames(dgeFilt.cpm)) %in% as.character(rownames(merged_T100_LFC)), ]
+# dim(BR_CPM)
+# table(as.character(rownames(BR_CPM))==as.character(rownames(merged_T100_LFC)))
+# BR_CPMlog = log10(BR_CPM+1)
+#
+# #BR_CPMlog_minor = BR_CPMlog[, c("M2_DN", "M5_DN")] run this before heatmap to re-order replicates
+# #Heatmap BR
+# myPalette <- colorRampPalette(c("white", "red"))(101)
+# myBreaks <- c(seq(min(BR_CPMlog), 1, length.out = 40),
+#               seq(max(BR_CPMlog) / 10, max(BR_CPMlog), length.out = 70))
+#
+# pheatmap(mat = BR_CPMlog,
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = "black",
+#          # show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = merged_T100_LFC$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 ###BR_LCPM###
 dgeFilt.logcpm = cpm(dgeFilt, log = TRUE)
-BR_LCPM = dgeFilt.logcpm[as.character(rownames(merged_T100_LFC)), ] ##for using in built log function
-BR_CPM = dgeFilt.logcpm[as.character(rownames(dgeFilt.logcpm)) %in% as.character(rownames(merged_T100_LFC)), ]
-dim(BR_LCPM)
-table(as.character(rownames(BR_LCPM))==as.character(rownames(merged_T100_LFC)))
+###################################
+## merged_T100_LFC doesn't exist ##
+###################################
+# BR_LCPM = dgeFilt.logcpm[as.character(rownames(merged_T100_LFC)), ] ##for using in built log function
+# BR_CPM = dgeFilt.logcpm[as.character(rownames(dgeFilt.logcpm)) %in% as.character(rownames(merged_T100_LFC)), ]
+# dim(BR_LCPM)
+# table(as.character(rownames(BR_LCPM))==as.character(rownames(merged_T100_LFC)))
 
 
 #Heatmap BR
 myPalette <- colorRampPalette(c("blue","white", "red"))(101)
-myBreaks <- c(seq(min(valueRange), 1, length.out = 51),
+myBreaks <- c(seq(min(valueRange), 0, length.out = 50),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
-pheatmap(mat = BR_LCPM, 
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = "black",
-         # show_colnames = FALSE,
-         show_rownames = TRUE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = merged_T100_LFC$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+###################################
+## merged_T100_LFC doesn't exist ##
+###################################
+# pheatmap(mat = BR_LCPM,
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = "black",
+#          # show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = merged_T100_LFC$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 
 ################ get averaged BR_CPM###############################################################
-BR_LCPM_DN = BR_LCPM[, c("M2_DN", "M3_DN", "M5_DN", "M6_DN")]
-BR_LCPM_DN_mean = rowMeans(BR_LCPM_DN)
+# BR_LCPM_DN = BR_LCPM[, c("M2_DN", "M3_DN", "M5_DN", "M6_DN")]
+# BR_LCPM_DN_mean = rowMeans(BR_LCPM_DN)
+#
+# BR_LCPM_DP = BR_LCPM[, c("M2_DP", "M3_DP", "M5_DP", "M6_DP")]
+# BR_LCPM_DP_mean = rowMeans(BR_LCPM_DP)
+#
+#
+# BR_LCPM_CD49b = BR_LCPM[, c("M2_CD49b", "M3_CD49b", "M5_CD49b", "M6_CD49b")]
+# BR_LCPM_CD49b_mean = rowMeans(BR_LCPM_CD49b)
+#
+# BR_LCPM_LAG_3 = BR_LCPM[, c("M2_LAG_3", "M3_LAG_3", "M5_LAG_3", "M6_LAG_3")]
+# BR_LCPM_LAG_3_mean = rowMeans(BR_LCPM_LAG_3)
+#
+# BR_LCPM_mean = cbind(BR_LCPM_DN_mean,
+#                                   BR_LCPM_DP_mean,
+#                                   BR_LCPM_LAG_3_mean,
+#                                   BR_LCPM_CD49b_mean)
+#
+# colnames(BR_LCPM_mean) = c("DN", "DP", "LAG_3", "CD49b")
+# BR_CPM_mean_log = log10(BR_CPM_mean + 1)
 
-BR_LCPM_DP = BR_LCPM[, c("M2_DP", "M3_DP", "M5_DP", "M6_DP")]
-BR_LCPM_DP_mean = rowMeans(BR_LCPM_DP)
-
-
-BR_LCPM_CD49b = BR_LCPM[, c("M2_CD49b", "M3_CD49b", "M5_CD49b", "M6_CD49b")]
-BR_LCPM_CD49b_mean = rowMeans(BR_LCPM_CD49b)
-
-BR_LCPM_LAG_3 = BR_LCPM[, c("M2_LAG_3", "M3_LAG_3", "M5_LAG_3", "M6_LAG_3")]
-BR_LCPM_LAG_3_mean = rowMeans(BR_LCPM_LAG_3)
-
-BR_LCPM_mean = cbind(BR_LCPM_DN_mean, 
-                                  BR_LCPM_DP_mean,
-                                  BR_LCPM_LAG_3_mean,
-                                  BR_LCPM_CD49b_mean)
-
-colnames(BR_LCPM_mean) = c("DN", "DP", "LAG_3", "CD49b")
-BR_CPM_mean_log = log10(BR_CPM_mean + 1)
-
-newgenenames <- lapply(
- rownames(merged_T100_LFC),
- function(x) bquote(italic(.(x))))
+# newgenenames <- lapply(
+#  rownames(merged_T100_LFC),
+#  function(x) bquote(italic(.(x))))
 
 # make gene names in italics
 #gene_list <- as.character(df$Gene)
@@ -455,33 +479,33 @@ newgenenames <- lapply(
 #}
 
 #Heatmaps
-mat_col <- data.frame(group = v$design)
-mat_colours <- list(group = brewer.pal(4, "Set1"))
-names(mat_colours$group) <- unique(mat_col)
-valueRange <- BR_LCPM_mean %>%
-subtract(rowMeans(.)) %>%
-range()
-#myPalette <- colorRampPalette(c("blue","white", "red"))(101)
-#myBreaks <- seq(min(BR_CPMlog), max(BR_CPMlog), 101)
-
-myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(BR_LCPM_mean), 0, length.out = 50),
-              seq(max(BR_LCPM_mean) / 101, max(BR_LCPM_mean), length.out = 50))
-
-pheatmap(mat = BR_LCPM_mean,
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = "black",
-         #show_colnames = FALSE,
-         show_rownames = TRUE, 
-         cluster_cols = FALSE,
-         cluster_rows = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = merged_T100_LFC$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 18)
+# mat_col <- data.frame(group = v$design)
+# mat_colours <- list(group = brewer.pal(4, "Set1"))
+# names(mat_colours$group) <- unique(mat_col)
+# valueRange <- BR_LCPM_mean %>%
+# subtract(rowMeans(.)) %>%
+# range()
+# #myPalette <- colorRampPalette(c("blue","white", "red"))(101)
+# #myBreaks <- seq(min(BR_CPMlog), max(BR_CPMlog), 101)
+#
+# myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
+# myBreaks <- c(seq(min(BR_LCPM_mean), 0, length.out = 50),
+#               seq(max(BR_LCPM_mean) / 101, max(BR_LCPM_mean), length.out = 50))
+#
+# pheatmap(mat = BR_LCPM_mean,
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = "black",
+#          #show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          cluster_rows = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = merged_T100_LFC$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 18)
 
 ###############################################################################################
 
@@ -502,7 +526,7 @@ Comparisons[[currentComp]] %>%
   geom_text_repel(data = . %>% tail(25), size =4, aes(fontface=3)) +
   xlim(-5, 5) +
   scale_color_manual(values = c("blue", "grey", "red")) +
-  theme(text = element_text(size = 24)) 
+  theme(text = element_text(size = 24))
 
 currentComp <- "DNvLAG3"
 Comparisons[[currentComp]] %>%
@@ -518,7 +542,7 @@ Comparisons[[currentComp]] %>%
   geom_text_repel(data = . %>% tail(25), size =4, aes(fontface=3)) +
   xlim(-5, 5) +
   scale_color_manual(values = c("blue", "grey", "red")) +
-  theme(text = element_text(size = 24)) 
+  theme(text = element_text(size = 24))
 
 currentComp <- "DNvCD49b"
 Comparisons[[currentComp]] %>%
@@ -534,7 +558,7 @@ Comparisons[[currentComp]] %>%
   geom_text_repel(data = . %>% tail(25), size =4, aes(fontface=3)) +
   xlim(-5, 5) +
   scale_color_manual(values = c("grey", "blue")) +
-  theme(text = element_text(size = 24)) 
+  theme(text = element_text(size = 24))
 
 currentComp <- "LAG3vDP"
 Comparisons[[currentComp]] %>%
@@ -550,7 +574,7 @@ Comparisons[[currentComp]] %>%
   geom_text_repel(data = . %>% tail(25), size =4, aes(fontface=3)) +
   xlim(-5, 5) +
   scale_color_manual(values = c("blue", "grey", "red")) +
-  theme(text = element_text(size = 24)) 
+  theme(text = element_text(size = 24))
 
 currentComp <- "LAG3vCD49b"
 Comparisons[[currentComp]] %>%
@@ -583,13 +607,13 @@ Comparisons[[currentComp]] %>%
   xlim(-5, 5) +
   scale_color_manual(values = c("blue", "grey", "red")) +
   theme(text = element_text(size = 24))
-  
+
 ##############updated code for heatmaps#############################
 
 options(ggrepel.max.overlaps = Inf)
 
 ##change current comp to plot each comparison###
-  
+
 currentComp <- "CD49bvDP"
 Comparisons[[currentComp]] %>%
 dplyr::rename(fdr = adj.P.Val,
@@ -604,7 +628,7 @@ dplyr::rename(fdr = adj.P.Val,
   geom_text_repel(data = . %>% tail(25), aes(size = 20)) +
   xlim(-5, 5) +
   scale_color_manual(values = c("blue", "grey", "red")) +
-  theme(text = element_text(size = 24)) 
+  theme(text = element_text(size = 24))
 
 ##################################################################
 
@@ -689,7 +713,7 @@ Comparisons <- lapply(allCont, function(x){
   topTable(fit.cont, coef = x, number = nrow(fit)) %>%
     rownames_to_column("Gene") %>%
     as_tibble()
-}) %>% 
+}) %>%
   set_names(allCont)
 
 #High confidence table
@@ -697,7 +721,7 @@ highConfTable <- lapply(allCont, function(x){
   topTable(fit.cont, coef = x, number = nrow(fit), sort.by = "p", p.value = 0.05, lfc = 1) %>%
     rownames_to_column("Gene") %>%
     as_tibble()
-}) %>% 
+}) %>%
   set_names(allCont)
 
 HighConfGenes <- highConfTable%>%
@@ -714,10 +738,10 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
- subtract(rowMeans(.)) %>%
+ magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(valueRange), 0, length.out = 40),
+myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
 
@@ -743,14 +767,14 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(valueRange), 0, length.out = 50),
+myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
 
-pheatmap(mat = fit$coefficients[FiltLAG3CD49b$ID.gene_id, c("LAG3", "CD49b")],
+pheatmap(mat = fit$coefficients[FiltLAG3CD49b$ID.gene_id, c("LAG_3", "CD49b")],
          color = myPalette,
          breaks = myBreaks,
          border_color = NA,
@@ -778,9 +802,9 @@ cpm(dgeList, log = TRUE)["ENSMUSG00000029378",] %>%
   group_by(condition) %>%
   #summarise(CPM = mean(CPM)) %>%
   ggplot(aes(Sample, CPM, fill = condition)) +
-  scale_fill_manual(values = c("#000066","#228B22", "#FFA500", "#B22222") ) +  
+  scale_fill_manual(values = c("#000066","#228B22", "#FFA500", "#B22222") ) +
   ylim(-1, 12) +
-  geom_bar(stat = "identity", color="black", position = position_dodge()) + 
+  geom_bar(stat = "identity", color="black", position = position_dodge()) +
   ##geom_text to label the value for each column CPM remove to visualise the pops change colour to "#0099FF"
   #geom_text(aes(label = stat(y), angle = 90)) +
   #scale_y_continuous(breaks = seq(0, 12, by = 2,)) +
@@ -804,7 +828,7 @@ cpm(dgeList, log = TRUE)["ENSMUSG00000030342",] %>%
   group_by(condition) %>%
   summarise(CPM = mean(CPM)) %>%
   ggplot(aes(condition, CPM, fill = condition)) +
-  scale_fill_manual(values = c("#000066", "#228B22", "#FFA500", "#B22222") ) +  
+  scale_fill_manual(values = c("#000066", "#228B22", "#FFA500", "#B22222") ) +
   ylim(-1, 12) +
   geom_bar(stat = "identity") +
   #scale_y_continuous(breaks = seq(0, 12, by = 2,)) +
@@ -826,7 +850,7 @@ CD49bvDPLFC <- head(CD49bvDP, 100) %>% arrange(logFC)
 
 #DN pop
 UponDN = subset(DNvDPLFC, logFC >=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr)
-UponDN = c(subset(DNvLAG3LFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponDN) 
+UponDN = c(subset(DNvLAG3LFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponDN)
 UponDN = c(subset(DNvCD49bLFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponDN)
 #UponDN %>% unlist() %>% unique() -> UponDN
 
@@ -835,29 +859,29 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
-              seq(max(valueRange) / 101, max(valueRange), length.out = 35))
+              seq(max(valueRange) / 101, max(valueRange), length.out = 30))
 
 pheatmap(mat = fit$coefficients[UponDN$ID.gene_id, ] %>%
-           subtract(rowMeans(.)),
+           magrittr::subtract(rowMeans(.)),
          color = myPalette,
          breaks = myBreaks,
-         border_color = "black", 
-         # show_colnames = FALSE, 
-         show_rownames = TRUE, 
+         border_color = "black",
+         # show_colnames = FALSE,
+         show_rownames = TRUE,
          cluster_cols = FALSE,
          scale = "none",
          labels_row = UponDN$ID.gene_name,
          #cutree_rows = 3,
-         drop_levels = TRUE, 
-         fontsize = 11)  
+         drop_levels = TRUE,
+         fontsize = 11)
  #########################UP on DP###################################
 #DP pop
 UponDP = subset(DNvDPLFC, logFC<=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr)
-UponDP = c(subset(LAG3vDPLFC, logFC<=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponDP) 
+UponDP = c(subset(LAG3vDPLFC, logFC<=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponDP)
 UponDP = c(subset(CD49bvDPLFC, logFC<=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponDP)
 #UponDN %>% unlist() %>% unique() -> UponDN
 
@@ -866,30 +890,30 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
-              seq(max(valueRange) / 101, max(valueRange), length.out = 35))
+              seq(max(valueRange) / 101, max(valueRange), length.out = 30))
 
 pheatmap(mat = fit$coefficients[UponDP$ID.gene_id, ] %>%
-           subtract(rowMeans(.)),
+           magrittr::subtract(rowMeans(.)),
          color = myPalette,
          breaks = myBreaks,
-         border_color = "black", 
-         # show_colnames = FALSE, 
-         show_rownames = TRUE, 
+         border_color = "black",
+         # show_colnames = FALSE,
+         show_rownames = TRUE,
          cluster_cols = FALSE,
          scale = "none",
          labels_row = UponDP$ID.gene_name,
          #cutree_rows = 3,
-         drop_levels = TRUE, 
-         fontsize = 11)  
+         drop_levels = TRUE,
+         fontsize = 11)
 
 #########################UP on LAG3###################################
 #LAG3 pop
 UponLAG3 = subset(DNvLAG3LFC, logFC<=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr)
-UponLAG3 = c(subset(LAG3vDPLFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponLAG3) 
+UponLAG3 = c(subset(LAG3vDPLFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponLAG3)
 UponLAG3 = c(subset(LAG3vCD49bLFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponLAG3)
 #UponDN %>% unlist() %>% unique() -> UponDN
 
@@ -898,30 +922,30 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
-              seq(max(valueRange) / 101, max(valueRange), length.out = 35))
+              seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
 pheatmap(mat = fit$coefficients[UponLAG3$ID.gene_id, ] %>%
-           subtract(rowMeans(.)),
+           magrittr::subtract(rowMeans(.)),
          color = myPalette,
          breaks = myBreaks,
-         border_color = "black", 
-         # show_colnames = FALSE, 
-         show_rownames = TRUE, 
+         border_color = "black",
+         # show_colnames = FALSE,
+         show_rownames = TRUE,
          cluster_cols = FALSE,
          scale = "none",
          labels_row = UponLAG3$ID.gene_name,
          #cutree_rows = 3,
-         drop_levels = TRUE, 
-         fontsize = 11)  
+         drop_levels = TRUE,
+         fontsize = 11)
 
 #########################UP on CD49b###################################
 #CD49b pop
 UponCD49b = subset(DNvCD49bLFC, logFC<=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr)
-UponCD49b = c(subset(CD49bvDPLFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponCD49b) 
+UponCD49b = c(subset(CD49bvDPLFC, logFC>=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponCD49b)
 UponCD49b = c(subset(LAG3vCD49bLFC, logFC<=0.1) %>% select(ID.gene_id, ID.gene_name, AveExpr), UponCD49b)
 #UponDN %>% unlist() %>% unique() -> UponDN
 
@@ -930,25 +954,25 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
-              seq(max(valueRange) / 101, max(valueRange), length.out = 35))
+              seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
 pheatmap(mat = fit$coefficients[UponCD49b$ID.gene_id, ] %>%
-           subtract(rowMeans(.)),
+           magrittr::subtract(rowMeans(.)),
          color = myPalette,
          breaks = myBreaks,
-         border_color = "black", 
-         # show_colnames = FALSE, 
-         show_rownames = TRUE, 
+         border_color = "black",
+         # show_colnames = FALSE,
+         show_rownames = TRUE,
          cluster_cols = FALSE,
          scale = "none",
          labels_row = UponCD49b$ID.gene_name,
          #cutree_rows = 3,
-         drop_levels = TRUE, 
-         fontsize = 11)  
+         drop_levels = TRUE,
+         fontsize = 11)
 
 ###################### union matix LFC #####################################################################
 
@@ -956,7 +980,7 @@ merged_T100_LFC = rbind(DNvDPLFC, DNvLAG3LFC, DNvCD49bLFC, LAG3vDPLFC, LAG3vCD49
 merged_T100_LFC = merged_T100_LFC[!duplicated(merged_T100_LFC$ID.gene_id), ]
 
 
-# make one of these for each of the Filt contrasts 
+# make one of these for each of the Filt contrasts
 write.csv(merged_DE_df, file = "C:/Users/caitlin/Desktop/Tr1 RNA seq/merged_DE_df.csv", col.names = T, row.names = F)
 
 write.csv(FiltCD49bDP, file = "C:/Users/caitlin/Desktop/Tr1 RNA seq/FiltCD49bDP.csv", col.names = T, row.names = F)
@@ -966,7 +990,7 @@ write.csv(DNvLAG3, file = "C:/Users/caitlin/Desktop/Tr1 RNA seq/DNvLAG3.csv", co
 
 
 ###############################Excel Spreadsheet##############################################################
-# make one of these for each of the Filt contrasts 
+# make one of these for each of the Filt contrasts
 merged_DE_df = data.frame(gene_id = merged_DE_mt$ID.gene_id, gene_name = merged_DE_mt$ID.gene_name, fit$coefficients[merged_DE_mt$ID.gene_id, ])
 write.csv(merged_DE_df, file = "C:/Users/caitlin/Desktop/Tr1 RNA seq/merged_DE_mt.csv", col.names = T, row.names = F)
 
@@ -979,7 +1003,7 @@ Allgenestable <- lapply(allCont, function(x){
   topTable(fit.cont, coef = x, number = nrow(fit), sort.by = "p", p.value = 0.05, lfc = 1) %>%
     rownames_to_column("Gene") %>%
     as_tibble()
-}) %>% 
+}) %>%
   set_names(allCont)
 
 
@@ -987,26 +1011,29 @@ Allgenestable <- lapply(allCont, function(x){
 mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
-valueRange <- fit.cont$coefficients[merged_DE_df$CD49b, ] %>%
- subtract(rowMeans(.)) %>%
+valueRange <- fit.cont$coefficients[merged_DE_df$gene_id, ] %>%
+ magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(valueRange), 0, length.out = 50),
+myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
-pheatmap(mat = merged_T100_LFC,
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = NA,
-         #show_colnames = FALSE,
-         show_rownames = TRUE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = merged_T100_LFC$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+###############################################################################
+## merged_T100_LFC is a data.frame with annotations, not a numeric matrix/df ##
+###############################################################################
+# pheatmap(mat = merged_T100_LFC,
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = NA,
+#          #show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = merged_T100_LFC$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 
 ImpGenes <- Allgenestable%>%
@@ -1024,41 +1051,44 @@ Allgenestable <- sapply(allCont, function(x){
 }, simplify = FALSE)
 Allgenestable$genes <- genes[ImpGenes,] #table containing our high confidence genes
 
-alltable <- topTable(fit.cont, coef = "DNvDP", number = Inf) %>% 
+alltable <- topTable(fit.cont, coef = "DNvDP", number = Inf) %>%
   rownames_to_column("Gene") %>%
   dplyr::filter(Gene %in% ImpGenes) %>%
   select(Gene, ID.gene_name, logFC, adj.P.Val, ID.entrezid)
 
 #Try making a new table with all the highConfGenes in it regardless of P or logFC
-#alltable <- topTable(fit.cont, coef = "LAG3vCD49b", number = Inf) %>% 
+#alltable <- topTable(fit.cont, coef = "LAG3vCD49b", number = Inf) %>%
 #  rownames_to_column("Gene") %>%
 # dplyr::filter(Gene %in% HighConfGenes) %>%
 #  select(Gene, ID.gene_name, logFC, adj.P.Val, ID.entrezid)
 
+################################
+## Heatmapgenes doesn't exist ##
+################################
 #Heatmap
-mat_col <- data.frame(group = v$design)
-mat_colours <- list(group = brewer.pal(4, "Set1"))
-names(mat_colours$group) <- unique(mat_col)
-valueRange <- fit.cont$coefficients[Heatmapgenes,] %>%
-  subtract(rowMeans(.)) %>%
-  range()
-myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
-              seq(max(valueRange) / 101, max(valueRange), length.out = 50))
-
-pheatmap(mat = fit$coefficients[HeatmapGenes$gene_id,] %>% subtract(rowMeans(.)),
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = NA,
-         #show_colnames = FALSE,
-         show_rownames = TRUE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = HeatmapGenes$gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+# mat_col <- data.frame(group = v$design)
+# mat_colours <- list(group = brewer.pal(4, "Set1"))
+# names(mat_colours$group) <- unique(mat_col)
+# valueRange <- fit.cont$coefficients[Heatmapgenes,] %>%
+#   magrittr::subtract(rowMeans(.)) %>%
+#   range()
+# myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
+# myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
+#               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
+#
+# pheatmap(mat = fit$coefficients[HeatmapGenes$gene_id,] %>% magrittr::subtract(rowMeans(.)),
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = NA,
+#          #show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = HeatmapGenes$gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 #list for heatmaps with selected genes*******************make a table containing all genes and gene IDs
 highConfTable <- sapply(allCont, function(x){
@@ -1066,80 +1096,87 @@ highConfTable <- sapply(allCont, function(x){
     rownames_to_column("Gene") %>%
     as_tibble() %>%
     dplyr::filter(Gene %in% HighConfGenes)
-}, simplify = FALSE) 
+}, simplify = FALSE)
 
-pheatmap(avg.mat)
+###########################
+## avg.mat diesn't exist ##
+###########################
+# pheatmap(avg.mat)
 
 ########################################################### Making selected genes heatmap###########
 
-
-HighConfGenes <- c("ENSMUSG00000039521", "ENSMUSG00000026770", "ENSMUSG00000068227", "ENSMUSG00000002578", 
-                   "ENSMUSG00000026069", "ENSMUSG00000015619", "ENSMUSG00000000869", "ENSMUSG00000036117", 
-                   "ENSMUSG00000020383", "ENSMUSG00000028150", "ENSMUSG00000025929", "ENSMUSG00000041872", 
-                   "ENSMUSG00000040899", "ENSMUSG00000049103",  
-                   "ENSMUSG00000050232", "ENSMUSG00000048521", "ENSMUSG00000024401", "ENSMUSG00000055170", 
-                   "ENSMUSG00000022508", "ENSMUSG00000047880", "ENSMUSG00000000782", "ENSMUSG00000074607", 
-                   "ENSMUSG00000079227", "ENSMUSG00000016529", "ENSMUSG00000027718", "ENSMUSG00000002603", 
-                   "ENSMUSG00000015437", "ENSMUSG00000030124", "ENSMUSG00000015533", "ENSMUSG00000026009", 
-                   "ENSMUSG00000026285", "ENSMUSG00000026011", "ENSMUSG00000020399", "ENSMUSG00000071552", 
-                   "ENSMUSG00000034028", "ENSMUSG00000055435", "ENSMUSG00000038151", "ENSMUSG00000034266", 
-                   "ENSMUSG00000019256", "ENSMUSG00000032446", "ENSMUSG00000018899", "ENSMUSG00000021356", 
+## Not sure how these were defined?
+## "ENSMUSG00000036117" "ENSMUSG00000020383" "ENSMUSG00000028150" "ENSMUSG00000040899"
+## do not exist in the dgeList
+HighConfGenes <- c("ENSMUSG00000039521", "ENSMUSG00000026770", "ENSMUSG00000068227", "ENSMUSG00000002578",
+                   "ENSMUSG00000026069", "ENSMUSG00000015619", "ENSMUSG00000000869", "ENSMUSG00000036117",
+                   "ENSMUSG00000020383", "ENSMUSG00000028150", "ENSMUSG00000025929", "ENSMUSG00000041872",
+                   "ENSMUSG00000040899", "ENSMUSG00000049103",
+                   "ENSMUSG00000050232", "ENSMUSG00000048521", "ENSMUSG00000024401", "ENSMUSG00000055170",
+                   "ENSMUSG00000022508", "ENSMUSG00000047880", "ENSMUSG00000000782", "ENSMUSG00000074607",
+                   "ENSMUSG00000079227", "ENSMUSG00000016529", "ENSMUSG00000027718", "ENSMUSG00000002603",
+                   "ENSMUSG00000015437", "ENSMUSG00000030124", "ENSMUSG00000015533", "ENSMUSG00000026009",
+                   "ENSMUSG00000026285", "ENSMUSG00000026011", "ENSMUSG00000020399", "ENSMUSG00000071552",
+                   "ENSMUSG00000034028", "ENSMUSG00000055435", "ENSMUSG00000038151", "ENSMUSG00000034266",
+                   "ENSMUSG00000019256", "ENSMUSG00000032446", "ENSMUSG00000018899", "ENSMUSG00000021356",
                    "ENSMUSG00000026104", "ENSMUSG00000004040")
 
 #logCPM of each population genes#
 
 ###############################################################################################################
 
+########################################
+## HighConfGenes_logCPM doesn't exist ##
+########################################
+# HighConfGenes_logCPM_DN = HighConfGenes_logCPM[, c("M2_DN", "M3_DN", "M5_DN", "M6_DN")]
+# HighConfGenes_logCPM_DN_mean = rowMeans(HighConfGenes_logCPM_DN)
+#
+# HighConfGenes_logCPM_DP = HighConfGenes_logCPM[, c("M2_DP", "M3_DP", "M5_DP", "M6_DP")]
+# HighConfGenes_logCPM_DP_mean = rowMeans(HighConfGenes_logCPM_DP)
+#
+#
+# HighConfGenes_logCPM_CD49b = HighConfGenes_logCPM[, c("M2_CD49b", "M3_CD49b", "M5_CD49b", "M6_CD49b")]
+# HighConfGenes_logCPM_CD49b_mean = rowMeans(HighConfGenes_logCPM_CD49b)
+#
+# HighConfGenes_logCPM_LAG_3 = HighConfGenes_logCPM[, c("M2_LAG_3", "M3_LAG_3", "M5_LAG_3", "M6_LAG_3")]
+# HighConfGenes_logCPM_LAG_3_mean = rowMeans(HighConfGenes_logCPM_LAG_3)
+#
+# HighConfGenes_logCPM_mean = cbind(HighConfGenes_logCPM_DN_mean,
+#                                   HighConfGenes_logCPM_DP_mean,
+#                                   HighConfGenes_logCPM_LAG_3_mean,
+#                                   HighConfGenes_logCPM_CD49b_mean)
+#
+#
+# colnames(HighConfGenes_logCPM_mean) = c("DN", "DP", "LAG_3", "CD49b")
+# rownames(HighConfGenes_logCPM_mean) = c("Foxp3", "Il2ra", "Il2rb", "Ikzf4", "Il1rl1",
+#                                         "Gata3", "Il4", "Il5", "Il13",
+#                                         "Rorc","Il17a", "Il17f", "Ccr6",
+#                                         "Tbx21", "Cxcr3", "Cxcr6", "Tnfa", "Ifng",
+#                                         "Bcl6", "Cxcr5","Tcf7","Tox2",
+#                                         "Ccr5","Il10", "Il21" , "Tgfb1", "Gzmb", "Lag3", "Itga2", "Icos", "Pdcd1", "Ctla4", "Havcr2", "Tigit", "Cd226", "Maf", "Prdm1", "Batf", "Ahr", "Eomes", "Irf1", "Irf4", "Stat1", "Stat3")
+#
+# newnames <- lapply(
+#   rownames(HighConfGenes_logCPM_mean),
+#   function(x) bquote(italic(.(x))))
 
-HighConfGenes_logCPM_DN = HighConfGenes_logCPM[, c("M2_DN", "M3_DN", "M5_DN", "M6_DN")]
-HighConfGenes_logCPM_DN_mean = rowMeans(HighConfGenes_logCPM_DN)
-
-HighConfGenes_logCPM_DP = HighConfGenes_logCPM[, c("M2_DP", "M3_DP", "M5_DP", "M6_DP")]
-HighConfGenes_logCPM_DP_mean = rowMeans(HighConfGenes_logCPM_DP)
-
-
-HighConfGenes_logCPM_CD49b = HighConfGenes_logCPM[, c("M2_CD49b", "M3_CD49b", "M5_CD49b", "M6_CD49b")]
-HighConfGenes_logCPM_CD49b_mean = rowMeans(HighConfGenes_logCPM_CD49b)
-
-HighConfGenes_logCPM_LAG_3 = HighConfGenes_logCPM[, c("M2_LAG_3", "M3_LAG_3", "M5_LAG_3", "M6_LAG_3")]
-HighConfGenes_logCPM_LAG_3_mean = rowMeans(HighConfGenes_logCPM_LAG_3)
-
-HighConfGenes_logCPM_mean = cbind(HighConfGenes_logCPM_DN_mean, 
-                                  HighConfGenes_logCPM_DP_mean,
-                                  HighConfGenes_logCPM_LAG_3_mean,
-                                  HighConfGenes_logCPM_CD49b_mean)
-
-
-colnames(HighConfGenes_logCPM_mean) = c("DN", "DP", "LAG_3", "CD49b")
-rownames(HighConfGenes_logCPM_mean) = c("Foxp3", "Il2ra", "Il2rb", "Ikzf4", "Il1rl1", 
-                                        "Gata3", "Il4", "Il5", "Il13",  
-                                        "Rorc","Il17a", "Il17f", "Ccr6", 
-                                        "Tbx21", "Cxcr3", "Cxcr6", "Tnfa", "Ifng",
-                                        "Bcl6", "Cxcr5","Tcf7","Tox2", 
-                                        "Ccr5","Il10", "Il21" , "Tgfb1", "Gzmb", "Lag3", "Itga2", "Icos", "Pdcd1", "Ctla4", "Havcr2", "Tigit", "Cd226", "Maf", "Prdm1", "Batf", "Ahr", "Eomes", "Irf1", "Irf4", "Stat1", "Stat3")
-
-newnames <- lapply(
-  rownames(HighConfGenes_logCPM_mean),
-  function(x) bquote(italic(.(x))))
-
-myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(HighConfGenes_logCPM_mean), 0, length.out = 45),
-              seq(max(HighConfGenes_logCPM_mean) / 101, max(HighConfGenes_logCPM_mean), length.out = 50)) #table containing our high confidence genes
-
-pheatmap(mat = HighConfGenes_logCPM_mean,
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = "black",
-         #show_colnames = FALSE,
-         show_rownames = TRUE, 
-         cluster_cols = FALSE,
-         cluster_rows = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = as.expression(newnames),
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 18)
+# myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
+# myBreaks <- c(seq(min(HighConfGenes_logCPM_mean), 0, length.out = 45),
+#               seq(max(HighConfGenes_logCPM_mean) / 101, max(HighConfGenes_logCPM_mean), length.out = 50)) #table containing our high confidence genes
+#
+# pheatmap(mat = HighConfGenes_logCPM_mean,
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = "black",
+#          #show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          cluster_rows = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = as.expression(newnames),
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 18)
 
 
 
@@ -1150,8 +1187,8 @@ filtLogCPM <- cpm(dgeList$counts, log = TRUE)
 HighConfGenes_logCPM <- filtLogCPM[HighConfGenes, ]
 
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(HighConfGenes_logCPM), 0, length.out = 50),
-              seq(max(HighConfGenes_logCPM) / 101, max(HighConfGenes_logCPM), length.out = 40)) #table containing our high confidence genes
+myBreaks <- c(seq(min(HighConfGenes_logCPM), 0, length.out = 51),
+              seq(max(HighConfGenes_logCPM) / 101, max(HighConfGenes_logCPM), length.out = 50)) #table containing our high confidence genes
 
 pheatmap(mat = HighConfGenes_logCPM,
          color = myPalette,
@@ -1159,7 +1196,8 @@ pheatmap(mat = HighConfGenes_logCPM,
          border_color = "black",
          #show_colnames = FALSE,
          show_rownames = TRUE,
-         cluster_cols = FALSE,
+         # cluster_cols = FALSE,
+         cluster_cols = TRUE,
          scale = "none",
          #labels_col = hello,
          labels_row = merged_DE_mt$ID.gene_name,
@@ -1231,8 +1269,8 @@ head(summary(LAG3vDP))
 
 dotplot(clusterLag3vDP, showCategory = 10, font.size = 18) +
 theme(title = element_text(size = 18),legend.text = element_text(size = 14))
-  
-cnetplot(clusterLag3vDP, node_label = "all", foldChange = FCLAG3DP) 
+
+cnetplot(clusterLag3vDP, node_label = "all", foldChange = FCLAG3DP)
 emapplot(clusterLag3vDP)
 
 id <- clusterLag3vDP$ID[1:10]
@@ -1240,9 +1278,9 @@ id
 
 clusterLag3vDP[[id[1]]]
 
-geneInCategory(clusterLag3vDP)[id] 
+geneInCategory(clusterLag3vDP)[id]
 
-GO_Lag3vDP = geneInCategory(clusterLag3vDP)[id] 
+GO_Lag3vDP = geneInCategory(clusterLag3vDP)[id]
 
 
 #ClusteredprofileR LAG-3 v CD49b
@@ -1263,13 +1301,13 @@ FCLAG3CD49b <- FCLAG3CD49b[!is.na(names(FCLAG3CD49b))]
 
 
 #make the cluster into a dataframe for easy readability
-dCD49vLag3 <- as.data.frame(cluster49vLag3)
-head(summary(dCP49vLag3))
+# dCD49vLag3 <- as.data.frame(cluster49vLag3)
+# head(summary(dCP49vLag3))
 
 dotplot(clusterLag3vCD49b, showCategory = 10, font.size = 18) +
 theme(title = element_text(size = 18),legend.text = element_text(size = 14))
 
-cnetplot(clusterLag3vCD49b, node_label = "all", foldChange = FCLAG3CD49b) 
+cnetplot(clusterLag3vCD49b, node_label = "all", foldChange = FCLAG3CD49b)
 emapplot(clusterLag3vDP)
 
 id <- clusterLag3vCD49b$ID[1:10]
@@ -1277,9 +1315,9 @@ id
 
 clusterLag3vCD49b[[id[1]]]
 
-geneInCategory(clusterLag3vCD49b)[id] 
+geneInCategory(clusterLag3vCD49b)[id]
 
-GO_Lag3vCD49b = geneInCategory(clusterLag3vCD49b)[id] 
+GO_Lag3vCD49b = geneInCategory(clusterLag3vCD49b)[id]
 
 #CLusterProfileR CD49b v DP
 
@@ -1305,16 +1343,16 @@ head(summary(dCD49bvDP))
 dotplot(clusterCD49bvDP, showCategory = 10, font.size = 18) +
   theme(title = element_text(size = 18),legend.text = element_text(size = 14))
 
-cnetplot(clusterCD49bvDP, node_label = "all", foldChange = FC49bvDP) 
+cnetplot(clusterCD49bvDP, node_label = "all", foldChange = FC49bvDP)
 
 id <- clusterCD49bvDP$ID[1:10]
 id
 
 clusterCD49bvDP[[id[1]]]
 
-geneInCategory(clusterCD49bvDP)[id] 
+geneInCategory(clusterCD49bvDP)[id]
 
-GO_CD49bvDP = geneInCategory(clusterCD49bvDP)[id] 
+GO_CD49bvDP = geneInCategory(clusterCD49bvDP)[id]
 
 
 #CLusterProfileR DN v DP
@@ -1339,16 +1377,16 @@ dDNvDP <- as.data.frame(clusterDNvDP)
 head(summary(dDNvDP))
 dotplot(clusterDNvDP, showCategory = 10, font.size = 18) +
   theme(title = element_text(size = 18),legend.text = element_text(size = 14))
-cnetplot(clusterCD49bvDP, node_label = "all", foldChange = FC49bvDP) 
+cnetplot(clusterCD49bvDP, node_label = "all", foldChange = FC49bvDP)
 
 id <- clusterDNvDP$ID[1:10]
 id
 
 clusterDNvDP[[id[1]]]
 
-geneInCategory(clusterDNvDP)[id] 
+geneInCategory(clusterDNvDP)[id]
 
-GO_DNvDP = geneInCategory(clusterDNvDP)[id] 
+GO_DNvDP = geneInCategory(clusterDNvDP)[id]
 
 
 #CLusterProfileR DN v LAG3
@@ -1374,16 +1412,16 @@ head(summary(dDNvLAG3))
 dotplot(clusterDNvLAG3, showCategory = 10, font.size = 18) +
 theme(title = element_text(size = 18),legend.text = element_text(size = 14))
 
-cnetplot(clusterDNvLAG3, node_label = "all", foldChange = FCDNvLAG3) 
+cnetplot(clusterDNvLAG3, node_label = "all", foldChange = FCDNvLAG3)
 
 id <- clusterDNvLAG3$ID[1:10]
 id
 
 clusterDNvLAG3[[id[1]]]
 
-geneInCategory(clusterDNvLAG3)[id] 
+geneInCategory(clusterDNvLAG3)[id]
 
-GO_DNvLAG3 = geneInCategory(clusterDNvLAG3)[id] 
+GO_DNvLAG3 = geneInCategory(clusterDNvLAG3)[id]
 
 
 #CLusterProfileR CD49b v DN
@@ -1398,7 +1436,11 @@ clusterCD49bvDN <- enrichGO(gene = DEDNvCD49b$ID.entrezid,
                             qvalueCutoff = 0.05,
                             readable = TRUE)
 
-FC49bvDN <- structure(highConfTable$CD49bvDN$logFC, names = highConfTable$CD49bvDN$ID.entrezid %>%
+####################################################
+## highConfTable doesn't have a CD49byDN element  ##
+## I have renamed to DNvDC49b which does exist    ##
+####################################################
+FC49bvDN <- structure(highConfTable$DNvCD49b$logFC, names = highConfTable$DNvCD49b$ID.entrezid %>%
                         vapply(function(x){as.character(x)[[1]]}, character(1))) #grab the fold change and make it into a character
 FC49bvDN <- FC49bvDN[!is.na(names(FC49bvDN))]
 
@@ -1409,7 +1451,7 @@ head(summary(dCD49bvDN))
 dotplot(clusterCD49bvDN, showCategory = 10, font.size = 18) +
   theme(title = element_text(size = 18),legend.text = element_text(size = 14))
 
-cnetplot(clusterCD49bvDN, node_label = "all", foldChange = FC49bvDP) 
+cnetplot(clusterCD49bvDN, node_label = "all", foldChange = FC49bvDP)
 
 id <- clusterCD49bvDN$ID[1:10]
 id
@@ -1418,26 +1460,27 @@ clusterCD49bvDN[[id[1]]]
 
 geneInCategory(clusterCD49bvDN)[id]
 
-GO_CD49bvDN = geneInCategory(clusterCD49bvDN)[id] 
+GO_CD49bvDN = geneInCategory(clusterCD49bvDN)[id]
 
 
 
 
 ##################################################################END GO TERMS#####################################
 
+HighConfGenes <- intersect(HighConfGenes, rownames(fit.cont$coefficients))
 
 mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes, ] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50)) #table containing our high confidence genes
 
 
-pheatmap(mat = fit$coefficients[HighConfGenes] %>% subtract(rowMeans(.)),
+pheatmap(mat = fit$coefficients[HighConfGenes,] %>% magrittr::subtract(rowMeans(.)),
          color = myPalette,
          breaks = myBreaks,
          border_color = NA,
@@ -1446,13 +1489,16 @@ pheatmap(mat = fit$coefficients[HighConfGenes] %>% subtract(rowMeans(.)),
          cluster_cols = FALSE,
          scale = "none",
          #labels_col = hello,
-         labels_row = highConfTable$gene_name,
+         # labels_row = highConfTable$gene_name,
+         labels_row = genes[HighConfGenes]$gene_name,
          #cutree_rows = 3,
          drop_levels = TRUE,
          fontsize = 11)
 
 ###Attempt to make heatmaps of shared genes #######################################################################
+## idx not found
 filt.mat = logcount[]
+idx = sapply(stringr::str_split(colnames(filt.mat), "_"), "[[", 2)
 dat.split = lapply(split(1:ncol(filt.mat), idx), function(x) filt.mat[, x])
 
 count = 0
@@ -1467,7 +1513,6 @@ unique(idx)
 #### how to get pretty heatmaps ####
 
 filt.mat = logcount[]
-idx = sapply(stringr::str_split(colnames(filt.mat), "_"), "[[", 2)
 
 
 dat.split = lapply(split(1:ncol(filt.mat), idx), function(x) filt.mat[, x])
@@ -1490,7 +1535,7 @@ for (i in unique(idx)) {
  split.mat[[count]] = filt.mat[, grep(i, colnames(filt.mat))]
  }
  length(split.mat)
- 
+
 names(split.mat)
 
  avg = lapply(split.mat, rowMeans)
@@ -1500,7 +1545,8 @@ names(split.mat)
 avg.mat = do.call(cbind, avg)
 head(avg.mat)
 
-pheatmap(avg.mat)
+## THis always causes a crash
+# pheatmap(avg.mat)
 
 ###########################################################################################################
 
@@ -1510,22 +1556,22 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[att2Get,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
 
-<- sapply(allCont, function(x){
-  topTable(fit.cont, coef = x, number = Inf) %>%
-    rownames_to_column("Gene") %>%
-    as_tibble() %>%
-    dplyr::filter(Gene %in% HighConfGenes)
-}, simplify = FALSE)
-highConfTable$genes <- genes[HighConfGenes,]
+# <- sapply(allCont, function(x){
+#   topTable(fit.cont, coef = x, number = Inf) %>%
+#     rownames_to_column("Gene") %>%
+#     as_tibble() %>%
+#     dplyr::filter(Gene %in% HighConfGenes)
+# }, simplify = FALSE)
+# highConfTable$genes <- genes[HighConfGenes,]
 
-pheatmap(mat = fit$coefficients[heatmapgenes,] %>% subtract(rowMeans(.)),
+pheatmap(mat = fit.cont$coefficients[heatmapgenes,] %>% magrittr::subtract(rowMeans(.)),
          color = myPalette,
          breaks = myBreaks,
          border_color = NA,
@@ -1534,7 +1580,8 @@ pheatmap(mat = fit$coefficients[heatmapgenes,] %>% subtract(rowMeans(.)),
          cluster_cols = FALSE,
          scale = "none",
          #labels_col = hello,
-         labels_row = heatmapgenes$gene_name,
+         # labels_row = heatmapgenes$gene_name,
+         labels_row = genes[heatmapgenes]$gene_name,
          #cutree_rows = 3,
          drop_levels = TRUE,
          fontsize = 11)
@@ -1561,47 +1608,47 @@ CD49bup <- c(DNvCD49bLFC$ID.gene_name[1:2], LAG3vCD49bLFC$ID.gene_name[1:29], CD
 
 #confirm that the genes are properly regulated
 #DN pop
-ConfirmDNvDP <- subset(DNvDPLFC, DNvDPLFC$ID.gene_name %in% DNup) %>% 
+ConfirmDNvDP <- subset(DNvDPLFC, DNvDPLFC$ID.gene_name %in% DNup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmDNvLAG3 <- subset(DNvLAG3LFC, DNvLAG3LFC$ID.gene_name %in% DNup) %>% 
+ConfirmDNvLAG3 <- subset(DNvLAG3LFC, DNvLAG3LFC$ID.gene_name %in% DNup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmDNvCD49b <- subset(DNvCD49bLFC, DNvCD49bLFC$ID.gene_name %in% DNup) %>% 
+ConfirmDNvCD49b <- subset(DNvCD49bLFC, DNvCD49bLFC$ID.gene_name %in% DNup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
 
 #LAG3 pop
-ConfirmLAG3vDP <- subset(LAG3vDPLFC, LAG3vDPLFC$ID.gene_name %in% LAG3up) %>% 
+ConfirmLAG3vDP <- subset(LAG3vDPLFC, LAG3vDPLFC$ID.gene_name %in% LAG3up) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmLAG3vDN <- subset(DNvLAG3LFC, DNvLAG3LFC$ID.gene_name %in% LAG3up) %>% 
+ConfirmLAG3vDN <- subset(DNvLAG3LFC, DNvLAG3LFC$ID.gene_name %in% LAG3up) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmLAG3vCD49b <- subset(LAG3vCD49bLFC, LAG3vCD49bLFC$ID.gene_name %in% LAG3up) %>% 
+ConfirmLAG3vCD49b <- subset(LAG3vCD49bLFC, LAG3vCD49bLFC$ID.gene_name %in% LAG3up) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
 
 
 #DP pop
-ConfirmDPvLAG3 <- subset(LAG3vDPLFC, LAG3vDPLFC$ID.gene_name %in% DPup) %>% 
+ConfirmDPvLAG3 <- subset(LAG3vDPLFC, LAG3vDPLFC$ID.gene_name %in% DPup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmDPvDN <- subset(DNvDPLFC, DNvDPLFC$ID.gene_name %in% DPup) %>% 
+ConfirmDPvDN <- subset(DNvDPLFC, DNvDPLFC$ID.gene_name %in% DPup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmDPvCD49b <- subset(CD49bvDPLFC, CD49bvDPLFC$ID.gene_name %in% DPup) %>% 
+ConfirmDPvCD49b <- subset(CD49bvDPLFC, CD49bvDPLFC$ID.gene_name %in% DPup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
 
 #CD49b pop
-ConfirmCD49bvLAG3 <- subset(LAG3vCD49bLFC, LAG3vCD49bLFC$ID.gene_name %in% CD49bup) %>% 
+ConfirmCD49bvLAG3 <- subset(LAG3vCD49bLFC, LAG3vCD49bLFC$ID.gene_name %in% CD49bup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmCD49bvDN <- subset(DNvCD49bLFC, DNvCD49bLFC$ID.gene_name %in% CD49bup) %>% 
+ConfirmCD49bvDN <- subset(DNvCD49bLFC, DNvCD49bLFC$ID.gene_name %in% CD49bup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
-ConfirmCD49bvDP <- subset(CD49bvDPLFC, CD49bvDPLFC$ID.gene_name %in% CD49bup) %>% 
+ConfirmCD49bvDP <- subset(CD49bvDPLFC, CD49bvDPLFC$ID.gene_name %in% CD49bup) %>%
   select(ID.gene_name, logFC, adj.P.Val) %>%
   arrange(logFC)
 
@@ -1611,53 +1658,59 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(valueRange), 0, length.out = 50),
+myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
-pheatmap(mat = fit$coefficients[FinalDNup$ID.gene_id, ] %>%
-           subtract(rowMeans(.)),
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = NA, 
-         # show_colnames = FALSE, 
-         show_rownames = TRUE, 
-         cluster_cols = FALSE,
-         scale = "none",
-         labels_row = FinalDNup$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE, 
-         fontsize = 11)  
+#############################
+## FinalDNup doesn't exist ##
+#############################
+# pheatmap(mat = fit$coefficients[FinalDNup$ID.gene_id, ] %>%
+#            magrittr::subtract(rowMeans(.)),
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = NA,
+#          # show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          labels_row = FinalDNup$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 #Heatmap
 mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
-#valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-#subtract(rowMeans(.)) %>%
-#range()
+valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
+  magrittr::subtract(rowMeans(.)) %>%
+  range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 51),
-              seq(max(valueRange) / 101, max(valueRange), length.out = 35))
+              seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
 #interestedGenes = c("Eomes", "P2rx7", "Cd226")
 #merged_DE_mt_geneIDs = merged_DE_mt$ID.gene_name
 
-pheatmap(mat = merged_DE_mt_geneIDs,
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = NA,
-         # show_colnames = FALSE,
-         show_rownames = TRUE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = merged_DE_mt$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+########################################
+## merged_DE_mt_geneIDs doesn't exist ##
+########################################
+# pheatmap(mat = merged_DE_mt_geneIDs,
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = NA,
+#          # show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = merged_DE_mt$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 ####################################################################################################################
 #MORE TROUBLESHOOTING#
@@ -1669,26 +1722,28 @@ mat_col <- data.frame(group = v$design)
 mat_colours <- list(group = brewer.pal(4, "Set1"))
 names(mat_colours$group) <- unique(mat_col)
 valueRange <- fit.cont$coefficients[HighConfGenes,] %>%
-  subtract(rowMeans(.)) %>%
+  magrittr::subtract(rowMeans(.)) %>%
   range()
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
 myBreaks <- c(seq(min(valueRange), 0, length.out = 50),
               seq(max(valueRange) / 101, max(valueRange), length.out = 50))
 
-
-pheatmap(mat = fit$coefficients[FCLAG3CD49b$ID.gene_id, c("LAG-3", "CD49b")],
-         color = myPalette,
-         breaks = myBreaks,
-         border_color = NA,
-         # show_colnames = FALSE,
-         show_rownames = TRUE,
-         cluster_cols = FALSE,
-         scale = "none",
-         #labels_col = hello,
-         labels_row = FCLAG3CD49b$ID.gene_name,
-         #cutree_rows = 3,
-         drop_levels = TRUE,
-         fontsize = 11)
+###########################################
+## FCLAG3CD49b is a vector of entrez ids ##
+###########################################
+# pheatmap(mat = fit$coefficients[FCLAG3CD49b$ID.gene_id, c("LAG-3", "CD49b")],
+#          color = myPalette,
+#          breaks = myBreaks,
+#          border_color = NA,
+#          # show_colnames = FALSE,
+#          show_rownames = TRUE,
+#          cluster_cols = FALSE,
+#          scale = "none",
+#          #labels_col = hello,
+#          labels_row = FCLAG3CD49b$ID.gene_name,
+#          #cutree_rows = 3,
+#          drop_levels = TRUE,
+#          fontsize = 11)
 
 
 ##########  Heatmap of biological replicates- 244 genes of interest #########################
@@ -1706,21 +1761,21 @@ HighConfGenes_logCPM_CD49b = HighConfGenes_logCPM[, c("M2_CD49b", "M3_CD49b", "M
 
 HighConfGenes_logCPM_LAG_3 = HighConfGenes_logCPM[, c("M2_LAG_3", "M3_LAG_3", "M5_LAG_3", "M6_LAG_3")]
 
-HighConfGenes_logCPM = cbind(HighConfGenes_logCPM_DN, 
+HighConfGenes_logCPM = cbind(HighConfGenes_logCPM_DN,
                              HighConfGenes_logCPM_DP,
                              HighConfGenes_logCPM_LAG_3,
                              HighConfGenes_logCPM_CD49b)
 
 myPalette <- colorRampPalette(c("blue", "white", "red"))(101)
-myBreaks <- c(seq(min(HighConfGenes_logCPM), 0, length.out = 48),
-              seq(max(HighConfGenes_logCPM) / 101, max(HighConfGenes_logCPM), length.out = 40)) #table containing our high confidence genes
+myBreaks <- c(seq(min(HighConfGenes_logCPM), 0, length.out = 51),
+              seq(max(HighConfGenes_logCPM) / 101, max(HighConfGenes_logCPM), length.out = 50)) #table containing our high confidence genes
 
 pheatmap(mat = HighConfGenes_logCPM,
          color = myPalette,
          breaks = myBreaks,
          border_color = "black",
          #show_colnames = FALSE,
-         show_rownames = TRUE, 
+         show_rownames = TRUE,
          cluster_cols = FALSE,
          cluster_rows = FALSE,
          scale = "none",
