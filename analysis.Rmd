@@ -27,19 +27,24 @@ library(ggplot2)
 library(pheatmap)
 library(AnnotationHub)
 library(ensembldb)
-library(plotly)
-library(RColorBrewer)
-library(clusterProfiler)
-library(org.Mm.eg.db)
-library(variancePartition)
-library(KEGGREST)
-library(fgsea)
-library(data.table)
+# library(plotly)
+# library(RColorBrewer)
+# library(clusterProfiler)
+# library(org.Mm.eg.db)
+# library(KEGGREST)
+# library(fgsea)
+# library(data.table)
 library(scales)
 library(broom)
 library(glue)
-theme_set(theme_bw())
+library(pander)
+theme_set(
+  theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5))
+)
 ```
+
+## Data Preparation & Inspection
 
 ```{r setup-data}
 counts <- here::here("data", "genes.out.gz") %>% 
@@ -50,7 +55,8 @@ samples <- tibble(
   sample = setdiff(colnames(counts), "Geneid"),
   condition = gsub("M2_|M3_|M5_|M6_", "", sample) %>% 
     factor(levels = c("DN", "DP", "LAG_3", "CD49b")),
-  mouse = str_extract(sample, "M[0-9]")
+  mouse = str_extract(sample, "M[0-9]"),
+  label = glue("{condition} ({mouse})")
 )
 dgeList <- counts %>%
   as.data.frame() %>%
@@ -85,30 +91,31 @@ dgeList$genes <- data.frame(gene_id = rownames(dgeList)) %>%
 
 
 
-```{r plot-lib-sizes, fig.cap = "*Library sizes for all libraries after summarisation to gene-level counts. The mean library size across all librires is shown as the dashed horizontal line.*"}
+```{r plot-lib-sizes, fig.height=6, fig.cap = "**Figure S7a** *Library sizes for all libraries after summarisation to gene-level counts. The mean library size across all libraries is shown as a dashed horizontal line.*"}
 dgeList$samples %>%
   mutate(CellType = dgeList$samples$condition) %>%
-  ggplot(aes(x = sample, y = lib.size / 1e6, fill = CellType)) +
+  ggplot(aes(x = label, y = lib.size / 1e6, fill = CellType)) +
   geom_col() +
   geom_hline(
     yintercept = mean(dgeList$samples$lib.size / 1e6),
     linetype = 2, colour = "grey30"
   ) +
-  labs(y = "Library Size (millions)") +
+  labs(x = "Sample", y = "Library Size (millions)") +
   facet_wrap(~mouse, scales = "free_x", nrow = 1) +
+  scale_x_discrete(labels = label_wrap(5)) +
   scale_y_continuous(expand = expansion(c(0, 0.05))) 
 ```
 
 ```{r filter-dge}
 genes2keep <- dgeList %>% 
-  cpm() %>% #log = TRUE) %>% 
+  cpm(log = TRUE) %>% 
   is_greater_than(1) %>% 
   rowSums() %>% 
-  is_weakly_greater_than(4)
-dgeFilt <- dgeList[genes2keep, , keep.lib.sizes = FALSE]
+  is_greater_than(4)
+dgeFilt <- dgeList[genes2keep,, keep.lib.sizes = FALSE]
 ```
 
-Genes were only retained in the final dataset if 4 or more samples returned $<1$ Count per Million (CPM).
+Genes were only retained in the final dataset if 4 or more samples returned $>1$ log~2~ Counts per Million (logCPM).
 The gave a dataset of `r comma(sum(genes2keep))` of the initial `r comma(length(genes2keep))` genes which were retained for downstream analysis.
 
 ```{r plot-densities, fig.cap = "*logCPM densisties after removal of undetectable genes. The double negative (DN) samples for both m% and M6 appear to skew to lower overall counts compared to all other samples, with a handful of highly expressed genes likely to dominate the sample.*"}
@@ -123,7 +130,7 @@ dgeFilt %>%
   scale_y_continuous(expand = expansion(c(0.01, 0.05)))
 ```
 
-```{r plot-pca, fig.cap = "*PCA on logCPm values, with the two DN samples identified above clearly showing strong divergence from the remainder of the dataset. The CD49b sample fro M2 also appeared slightly divergent, with the previous densityplot also showing a slght skew towards lower overall counts.*"}
+```{r plot-pca, fig.cap = "**Figure S7b** *PCA on logCPM values, with the two DN samples identified above clearly showing strong divergence from the remainder of the dataset. The CD49b sample fro M2 also appeared slightly divergent, with the previous density plot also showing a slght skew towards lower overall counts.*"}
 pca <- dgeFilt %>% 
   cpm(log = TRUE) %>% 
   t() %>% 
@@ -136,7 +143,10 @@ pca %>%
   left_join(dgeFilt$samples, by = "sample") %>% 
   ggplot(aes(PC1, PC2, colour = condition)) +
   geom_point(size = 3) +
-  geom_text_repel(aes(label = sample)) +
+  geom_text_repel(
+    aes(label = label),#str_replace_all(label, " ", "\n")),
+    max.overlaps = Inf
+  ) +
   labs(
     x = glue("PC1 ({percent(summary(pca)$importance[2, 'PC1'])})"),
     y = glue("PC2 ({percent(summary(pca)$importance[2, 'PC2'])})"),
@@ -147,14 +157,23 @@ pca %>%
 The above PCA revealed some potential problems with two of the four DN samples.
 Exclusion of the clear outliers will reduce the number of viable samples within the DN group to 2 and as an alternative, a weighting strategy was instead sought for all samples.
 
-Sample-level weights were estimated by assuming all samples were drawn from the same group and running `voomWithQualityWeights()`
+## Model Fitting
 
 ```{r get-weights}
-X <- matrix(1, nrow = ncol(dgeFilt)) %>% 
+U <- matrix(1, nrow = ncol(dgeFilt)) %>% 
   set_colnames("Intercept")
-v <- voomWithQualityWeights(dgeFilt, design = X)
+v <- voomWithQualityWeights(dgeFilt, design = U)
+X <- model.matrix(~0 + condition, data = dgeFilt$samples) %>% 
+  set_colnames(str_remove(colnames(.), "condition"))
+rho <- duplicateCorrelation(v, X, block=dgeFilt$samples$mouse)$consensus.correlation
+v <- voomWithQualityWeights(
+  counts = dgeFilt, design = U, block=dgeFilt$samples$mouse, correlation=rho
+)
 ```
 
+Sample-level weights were estimated by assuming all samples were drawn from the same group and running `voomWithQualityWeights()`.
+After running this, samples were compared within each mouse-of-origin and correlations within mice were estimated using `duplicateCorrelation()` ($\rho=$ `r round(rho, 3)`).
+`voomWithQualityWeights()` was then run again setting mouse as the blocking variable and including the consensus correlations
 
 ```{r pca2, eval = FALSE, echo=FALSE}
 pca2 <- v$E %>% 
@@ -176,28 +195,14 @@ pca2 %>%
   )
 ```
 
-Now that initial sample-weights have been defined, we can estimate the within-mouse correlations.
-Once within-mouse correlations have been identified, we then re-estimate the sample weights and recalculate the duplicate correlations
 
-```{r estimate-cors}
-rho <- duplicateCorrelation(v, block = v$targets$mouse)$consensus.correlation
-v <- voomWithQualityWeights(
-  dgeFilt, design = X, block = dgeFilt$samples$mouse, correlation = rho
-)
-rho2 <- duplicateCorrelation(v, block = v$targets$mouse)$consensus.correlation
-```
-
-The initial estimate for $\rho$ was `r round(rho, 4)` which scarcely changed after re-running the process to return $\hat{\rho} =$ `r round(rho2, 4)`
-
-Once this process had been completed, assuming all samples were from with the same sample-group
-
-
-```{r plot-weights, fig.cap = "*Sample-level weights after running `voomWithQualityWeights` setting all samples as being drawn from the same condition. The ideal equal wweighting of 1 is shown as the dashed horizontal line, with those samples below this being assumed to be of lower quality than those above the line. Thw two previously identified DN samples were strongly down-weighted, as were the CD49b samples from M2 and M3.*"}
+```{r plot-weights, fig.height=6, fig.cap = "*Sample-level weights after running `voomWithQualityWeights` setting all samples as being drawn from the same condition. The ideal equal wweighting of 1 is shown as the dashed horizontal line, with those samples below this being assumed to be of lower quality than those above the line. Thw two previously identified DN samples were strongly down-weighted, as was the CD49b sample from M2*"}
 v$targets %>% 
-  ggplot(aes(sample, sample.weights, fill = condition)) +
+  ggplot(aes(label, sample.weights, fill = condition)) +
   geom_col() +
   geom_hline(yintercept = 1, linetype = 2, col = "grey30") +
   facet_wrap(~mouse, nrow = 1, scales = "free_x") +
+  scale_x_discrete(labels = scales::label_wrap(5)) +
   scale_y_continuous(expand = expansion(c(0, 0.05))) +
   labs(
     x = "Sample", y = "Sample Weights", fill = "Cell Type"
@@ -205,9 +210,7 @@ v$targets %>%
 ```
 
 
-```{r}
-X <- model.matrix(~0 + condition, data = dgeFilt$samples)
-colnames(X) <- str_remove(colnames(X), "condition")
+```{r fit}
 cont.matrix <- makeContrasts(
   DNvLAG3 = DN - LAG_3,
   DNvDP = DN - DP,
@@ -217,16 +220,328 @@ cont.matrix <- makeContrasts(
   LAG3vDP = LAG_3 - DP,
   levels = X
 )
-fit <- lmFit(v, design = X, block = v$targets$mouse, correlation = rho2) %>% 
+fit <- lmFit(v, design = X, block = v$targets$mouse, correlation = rho) %>% 
   contrasts.fit(cont.matrix) %>%
+  # treat()
   eBayes()
 ```
 
-```{r}
-colnames(cont.matrix) %>% 
+### Summary Table
+
+```{r top-tables}
+top_tables <- colnames(cont.matrix) %>% 
   lapply(function(x) topTable(fit, coef = x, number = Inf)) %>%
-  lapply(as_tibble) %>% 
-  lapply(dplyr::filter, adj.P.Val < 0.05) %>% 
+  # lapply(function(x) topTreat(fit, coef = x, number = Inf)) %>%
+  lapply(as_tibble) %>%
+  lapply(mutate, DE = adj.P.Val < 0.05 & abs(logFC) > 1) %>% 
   setNames(colnames(cont.matrix))
+top_tables %>% 
+  lapply(
+    function(x){
+      df <- dplyr::filter(x,DE)
+      tibble(
+        Up = sum(df$logFC > 0),
+        Down = sum(df$logFC < 0),
+        `Total DE` = Up + Down
+      )
+    }
+  ) %>% 
+  bind_rows(.id = "Comparison") %>% 
+  pander(
+    justify = "lrrr",
+    caption = "Results from each comparison, where genes are considered DE using an FDR < 0.05 along with an estimated logFC beyond $\\pm1$."
+  )
+```
+
+### MA Plots {.tabset}
+
+#### DN Vs. LAG3
+
+```{r plot-ma-dnvlag3, fig.cap = "MA-Plot for DN Vs. LAG3. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+top_tables$DNvLAG3 %>% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC > 0) %>% 
+      arrange(desc(logFC)) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC < 0) %>% 
+      arrange(logFC) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("DN Vs. LAG3") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### DN Vs. DP
+
+```{r plot-ma-dnvdp, fig.cap = "MA-Plot for DN Vs. DP. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+top_tables$DNvDP %>% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC > 0) %>% 
+      arrange(desc(logFC)) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC < 0) %>% 
+      arrange(logFC) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("DN Vs. DP") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### DN Vs. CD49b
+
+```{r plot-ma-dnvcd49, fig.cap = "MA-Plot for DN Vs. CD49b The most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+top_tables$DNvCD49b %>% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC > 0) %>% 
+      arrange(desc(logFC)) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC < 0) %>% 
+      arrange(logFC) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("DN Vs. CD49b") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### LAG3 Vs. CD49b
+
+```{r plot-ma-lag3vcd49, fig.cap = "MA-Plot for LAG3 Vs. CD49b. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+top_tables$LAG3vCD49b %>% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC > 0) %>% 
+      arrange(desc(logFC)) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC < 0) %>% 
+      arrange(logFC) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("LAG3 Vs. CD49b") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### LAG3 Vs. DP
+
+```{r plot-ma-lag3vdp, fig.cap = "MA-Plot for LAG3 Vs. DP The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+top_tables$LAG3vDP %>% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC > 0) %>% 
+      arrange(desc(logFC)) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC < 0) %>% 
+      arrange(logFC) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("LAG3 Vs. DP") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### CD49b Vs. DP
+
+```{r plot-ma-cd49vdp, fig.cap = "MA-Plot for CD49b Vs. DP. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+top_tables$CD49bvDP %>% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC > 0) %>% 
+      arrange(desc(logFC)) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE, logFC < 0) %>% 
+      arrange(logFC) %>% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("CD49b Vs. DP") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+### Volcano Plots {.tabset}
+
+#### DN Vs. LAG3
+
+```{r plot-volcano-dnvlag3, fig.cap = "Volcano Plot for DN Vs. LAG3. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+top_tables$DNvLAG3 %>% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE) %>% 
+      arrange(P.Value) %>% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("DN Vs. LAG3") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### DN Vs. DP
+
+```{r plot-volcano-dnvdp, fig.cap = "Volcano Plot for DN Vs. DP. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+top_tables$DNvDP %>% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE) %>% 
+      arrange(P.Value) %>% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("DN Vs. DP") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### DN Vs. CD49b
+
+```{r plot-volcano-dnvcd49, fig.cap = "Volcano Plot for DN Vs. CD49b The most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+top_tables$DNvCD49b %>% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE) %>% 
+      arrange(P.Value) %>% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("DN Vs. CD49b") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### LAG3 Vs. CD49b
+
+```{r plot-volcano-lag3vcd49, fig.cap = "Volcano Plot for LAG3 Vs. CD49b. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+top_tables$LAG3vCD49b %>% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE) %>% 
+      arrange(P.Value) %>% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("LAG3 Vs. CD49b") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### LAG3 Vs. DP
+
+```{r plot-volcano-lag3vdp, fig.cap = "Volcano Plot for LAG3 Vs. DP The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+top_tables$LAG3vDP %>% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE) %>% 
+      arrange(P.Value) %>% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("LAG3 Vs. DP") +
+  scale_colour_manual(values = c("grey30", "red"))
+```
+
+#### CD49b Vs. DP
+
+```{r plot-volcano-cd49vdp, fig.cap = "Volcano Plot for CD49b Vs. DP. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+top_tables$CD49bvDP %>% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %>% 
+      dplyr::filter(DE) %>% 
+      arrange(P.Value) %>% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle("CD49b Vs. DP") +
+  scale_colour_manual(values = c("grey30", "red"))
 ```
 
