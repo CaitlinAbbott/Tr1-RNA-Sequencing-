@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Stephen Pederson &amp; Caitlin Abbott" />
+
+
+<title>Tr1: Differential Gene Expression</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Tr1-RNA-Sequencing-</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="dge.html">DGE Analysis</a>
+</li>
+<li>
+  <a href="enrichment.html">Enrichment</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Tr1: Differential Gene Expression</h1>
+<h4 class="author">Stephen Pederson &amp; Caitlin Abbott</h4>
+<h4 class="date">25 October, 2022</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-10-25
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Tr1-RNA-Sequencing-/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20221025code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20221025)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20221025code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20221025)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtreeec60d0f223f81eb2ecf69a1ceb5ff446a5c8748btargetblankec60d0fa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/ec60d0f223f81eb2ecf69a1ceb5ff446a5c8748b" target="_blank">ec60d0f</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtreeec60d0f223f81eb2ecf69a1ceb5ff446a5c8748btargetblankec60d0fa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/ec60d0f223f81eb2ecf69a1ceb5ff446a5c8748b" target="_blank">ec60d0f</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/dge.Rmd
+    Untracked:  analysis/enrichment.Rmd
+    Untracked:  analysis/figure/
+    Untracked:  code/analysis with DN.R
+    Untracked:  output/dgeFilt.rds
+    Untracked:  output/top_tables.rds
+
+Unstaged changes:
+    Deleted:    analysis with DN.R
+    Deleted:    analysis.Rmd
+    Deleted:    analysis.html
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/about.Rmd
+    Modified:   analysis/index.Rmd
+    Deleted:    analysis/license.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 8,
+  dev = c(&quot;png&quot;, &quot;pdf&quot;)
+)</code></pre>
+<pre class="r"><code>library(tidyverse)
+library(magrittr)
+library(limma)
+library(edgeR)
+library(ggrepel)
+library(ggplot2)
+library(pheatmap)
+library(AnnotationHub)
+library(ensembldb)
+library(scales)
+library(broom)
+library(glue)
+library(pander)
+theme_set(
+  theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5))
+)</code></pre>
+<div id="data-preparation-inspection" class="section level2 tabset">
+<h2 class="tabset">Data Preparation &amp; Inspection</h2>
+<pre class="r"><code>counts &lt;- here::here(&quot;data&quot;, &quot;genes.out.gz&quot;) %&gt;% 
+  read_tsv() %&gt;% 
+  rename_all(basename) %&gt;% 
+  rename_all(str_remove_all, pattern = &quot;Aligned.sortedByCoord.out.bam&quot;)
+samples &lt;- tibble(
+  sample = setdiff(colnames(counts), &quot;Geneid&quot;),
+  condition = gsub(&quot;M2_|M3_|M5_|M6_&quot;, &quot;&quot;, sample) %&gt;% 
+    factor(levels = c(&quot;DN&quot;, &quot;DP&quot;, &quot;LAG_3&quot;, &quot;CD49b&quot;)),
+  mouse = str_extract(sample, &quot;M[0-9]&quot;),
+  label = glue(&quot;{condition} ({mouse})&quot;)
+)
+dgeList &lt;- counts %&gt;%
+  as.data.frame() %&gt;%
+  column_to_rownames(&quot;Geneid&quot;) %&gt;%
+  as.matrix() %&gt;%
+  DGEList(
+    samples = samples
+  ) %&gt;% 
+  calcNormFactors(method = &quot;TMM&quot;)</code></pre>
+<pre class="r"><code>ah &lt;- AnnotationHub()
+#Find which genome did we use
+# unique(ah$dataprovider)
+# subset(ah, dataprovider == &quot;Ensembl&quot;) %&gt;%  #In Ensembl databse
+#   subset(species == &quot;Mus musculus&quot;) %&gt;%  #under Mouse
+#   subset(rdataclass == &quot;EnsDb&quot;) 
+ensDb &lt;- ah[[&quot;AH69210&quot;]] #This is the genome used for assigning reads to genes
+genes &lt;- genes(ensDb) %&gt;% #extract the genes
+  subset(seqnames %in% c(1:19, &quot;MT&quot;, &quot;X&quot;, &quot;Y&quot;)) %&gt;%
+  keepStandardChromosomes() %&gt;% 
+  sortSeqlevels()
+dgeList$genes &lt;- data.frame(gene_id = rownames(dgeList)) %&gt;% 
+  left_join(
+    mcols(genes) %&gt;% 
+      as.data.frame() %&gt;% 
+      dplyr::select(gene_id, gene_name, gene_biotype, description, entrezid),
+    by = &quot;gene_id&quot;
+  )</code></pre>
+<pre class="r"><code>genes2keep &lt;- dgeList %&gt;% 
+  cpm(log = TRUE) %&gt;% 
+  is_greater_than(1) %&gt;% 
+  rowSums() %&gt;% 
+  is_greater_than(4)
+dgeFilt &lt;- dgeList[genes2keep,, keep.lib.sizes = FALSE]</code></pre>
+<p>Genes were only retained in the final dataset if <span
+class="math inline">\(&gt; 4\)</span> samples returned <span
+class="math inline">\(&gt;1\)</span> log<sub>2</sub> Counts per Million
+(logCPM). The gave a dataset of 11,117 of the initial 55,450 genes which
+were retained for downstream analysis.</p>
+<div id="library-sizes" class="section level3">
+<h3>Library Sizes</h3>
+<pre class="r"><code>dgeList$samples %&gt;%
+  mutate(CellType = dgeList$samples$condition) %&gt;%
+  ggplot(aes(x = label, y = lib.size / 1e6, fill = CellType)) +
+  geom_col() +
+  geom_hline(
+    yintercept = mean(dgeList$samples$lib.size / 1e6),
+    linetype = 2, colour = &quot;grey30&quot;
+  ) +
+  labs(x = &quot;Sample&quot;, y = &quot;Library Size (millions)&quot;) +
+  facet_wrap(~mouse, scales = &quot;free_x&quot;, nrow = 1) +
+  scale_x_discrete(labels = label_wrap(5)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) </code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-lib-sizes-1.png" alt="**Figure S7a** *Library sizes for all libraries after summarisation to gene-level counts. The mean library size across all libraries is shown as a dashed horizontal line.*" width="960" />
+<p class="caption">
+<strong>Figure S7a</strong> <em>Library sizes for all libraries after
+summarisation to gene-level counts. The mean library size across all
+libraries is shown as a dashed horizontal line.</em>
+</p>
+</div>
+</div>
+<div id="count-densities" class="section level3">
+<h3>Count Densities</h3>
+<pre class="r"><code>dgeFilt %&gt;% 
+  cpm(log = TRUE) %&gt;% 
+  as_tibble(rownames = &quot;gene_id&quot;) %&gt;% 
+  pivot_longer(cols = all_of(colnames(dgeFilt)), names_to = &quot;sample&quot;, values_to = &quot;logCPM&quot;) %&gt;% 
+  left_join(dgeFilt$samples, by = &quot;sample&quot;) %&gt;% 
+  ggplot(aes(logCPM, y = stat(density), colour = condition, group = sample)) +
+  geom_density() +
+  facet_wrap(~mouse) +
+  scale_y_continuous(expand = expansion(c(0.01, 0.05)))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-densities-1.png" alt="*logCPM densisties after removal of undetectable genes. The double negative (DN) samples for both m% and M6 appear to skew to lower overall counts compared to all other samples, with a handful of highly expressed genes likely to dominate the sample.*" width="960" />
+<p class="caption">
+<em>logCPM densisties after removal of undetectable genes. The double
+negative (DN) samples for both m% and M6 appear to skew to lower overall
+counts compared to all other samples, with a handful of highly expressed
+genes likely to dominate the sample.</em>
+</p>
+</div>
+</div>
+<div id="pca" class="section level3">
+<h3>PCA</h3>
+<pre class="r"><code>pca &lt;- dgeFilt %&gt;% 
+  cpm(log = TRUE) %&gt;% 
+  t() %&gt;% 
+  prcomp()
+pca %&gt;% 
+  broom::tidy() %&gt;% 
+  dplyr::rename(sample = row) %&gt;% 
+  dplyr::filter(PC %in% c(1, 2)) %&gt;% 
+  pivot_wider(names_from = &quot;PC&quot;, names_prefix = &quot;PC&quot;, values_from = &quot;value&quot;) %&gt;% 
+  left_join(dgeFilt$samples, by = &quot;sample&quot;) %&gt;% 
+  ggplot(aes(PC1, PC2, colour = condition)) +
+  geom_point(size = 3) +
+  geom_text_repel(
+    aes(label = label),#str_replace_all(label, &quot; &quot;, &quot;\n&quot;)),
+    max.overlaps = Inf
+  ) +
+  labs(
+    x = glue(&quot;PC1 ({percent(summary(pca)$importance[2, &#39;PC1&#39;])})&quot;),
+    y = glue(&quot;PC2 ({percent(summary(pca)$importance[2, &#39;PC2&#39;])})&quot;),
+    colour = &quot;Cell Type&quot;
+  )</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-pca-1.png" alt="**Figure S7b** *PCA on logCPM values, with the two DN samples identified above clearly showing strong divergence from the remainder of the dataset. The CD49b sample fro M2 also appeared slightly divergent, with the previous density plot also showing a slght skew towards lower overall counts.*" width="960" />
+<p class="caption">
+<strong>Figure S7b</strong> <em>PCA on logCPM values, with the two DN
+samples identified above clearly showing strong divergence from the
+remainder of the dataset. The CD49b sample fro M2 also appeared slightly
+divergent, with the previous density plot also showing a slght skew
+towards lower overall counts.</em>
+</p>
+</div>
+<p>The above PCA revealed some potential problems with two of the four
+DN samples. Exclusion of the clear outliers will reduce the number of
+viable samples within the DN group to 2 and as an alternative, a
+weighting strategy was instead sought for all samples.</p>
+</div>
+</div>
+<div id="model-fitting" class="section level2">
+<h2>Model Fitting</h2>
+<pre class="r"><code>U &lt;- matrix(1, nrow = ncol(dgeFilt)) %&gt;% 
+  set_colnames(&quot;Intercept&quot;)
+v &lt;- voomWithQualityWeights(dgeFilt, design = U)
+X &lt;- model.matrix(~0 + condition, data = dgeFilt$samples) %&gt;% 
+  set_colnames(str_remove(colnames(.), &quot;condition&quot;))
+rho &lt;- duplicateCorrelation(v, X, block=dgeFilt$samples$mouse)$consensus.correlation
+v &lt;- voomWithQualityWeights(
+  counts = dgeFilt, design = U, block=dgeFilt$samples$mouse, correlation=rho
+)
+v$design &lt;- X</code></pre>
+<p>Sample-level weights were estimated by assuming all samples were
+drawn from the same group and running
+<code>voomWithQualityWeights()</code>. After running this, samples were
+compared within each mouse-of-origin and correlations within mice were
+estimated using <code>duplicateCorrelation()</code> (<span
+class="math inline">\(\rho=\)</span> 0.118).
+<code>voomWithQualityWeights()</code> was then run again setting mouse
+as the blocking variable and including the consensus correlations</p>
+<pre class="r"><code>v$targets %&gt;% 
+  ggplot(aes(label, sample.weights, fill = condition)) +
+  geom_col() +
+  geom_hline(yintercept = 1, linetype = 2, col = &quot;grey30&quot;) +
+  facet_wrap(~mouse, nrow = 1, scales = &quot;free_x&quot;) +
+  scale_x_discrete(labels = scales::label_wrap(5)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  labs(
+    x = &quot;Sample&quot;, y = &quot;Sample Weights&quot;, fill = &quot;Cell Type&quot;
+  )</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-weights-1.png" alt="*Sample-level weights after running `voomWithQualityWeights` setting all samples as being drawn from the same condition. The ideal equal wweighting of 1 is shown as the dashed horizontal line, with those samples below this being assumed to be of lower quality than those above the line. Thw two previously identified DN samples were strongly down-weighted, as was the CD49b sample from M2*" width="960" />
+<p class="caption">
+<em>Sample-level weights after running
+<code>voomWithQualityWeights</code> setting all samples as being drawn
+from the same condition. The ideal equal wweighting of 1 is shown as the
+dashed horizontal line, with those samples below this being assumed to
+be of lower quality than those above the line. Thw two previously
+identified DN samples were strongly down-weighted, as was the CD49b
+sample from M2</em>
+</p>
+</div>
+<pre class="r"><code>cont.matrix &lt;- makeContrasts(
+  DNvLAG3 = DN - LAG_3,
+  DNvDP = DN - DP,
+  DNvCD49b = DN - CD49b,
+  LAG3vCD49b = LAG_3 - CD49b,
+  CD49bvDP = CD49b - DP,
+  LAG3vDP = LAG_3 - DP,
+  levels = X
+)
+fit &lt;- lmFit(v, design = X, block = v$targets$mouse, correlation = rho) %&gt;% 
+  contrasts.fit(cont.matrix) %&gt;%
+  # treat()
+  eBayes()</code></pre>
+<div id="summary-table" class="section level3">
+<h3>Summary Table</h3>
+<pre class="r"><code>top_tables &lt;- colnames(cont.matrix) %&gt;% 
+  lapply(function(x) topTable(fit, coef = x, number = Inf)) %&gt;%
+  # lapply(function(x) topTreat(fit, coef = x, number = Inf)) %&gt;%
+  lapply(as_tibble) %&gt;%
+  lapply(mutate, DE = adj.P.Val &lt; 0.05 &amp; abs(logFC) &gt; 1) %&gt;% 
+  setNames(colnames(cont.matrix))
+top_tables %&gt;% 
+  lapply(
+    function(x){
+      df &lt;- dplyr::filter(x,DE)
+      tibble(
+        Up = sum(df$logFC &gt; 0),
+        Down = sum(df$logFC &lt; 0),
+        `Total DE` = Up + Down
+      )
+    }
+  ) %&gt;% 
+  bind_rows(.id = &quot;Comparison&quot;) %&gt;% 
+  pander(
+    justify = &quot;lrrr&quot;,
+    caption = &quot;Results from each comparison, where genes are considered DE using an FDR &lt; 0.05 along with an estimated logFC beyond $\\pm1$.&quot;
+  )</code></pre>
+<table style="width:51%;">
+<caption>Results from each comparison, where genes are considered DE
+using an FDR &lt; 0.05 along with an estimated logFC beyond <span
+class="math inline">\(\pm1\)</span>.</caption>
+<colgroup>
+<col width="18%" />
+<col width="8%" />
+<col width="9%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Comparison</th>
+<th align="right">Up</th>
+<th align="right">Down</th>
+<th align="right">Total DE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DNvLAG3</td>
+<td align="right">46</td>
+<td align="right">31</td>
+<td align="right">77</td>
+</tr>
+<tr class="even">
+<td align="left">DNvDP</td>
+<td align="right">27</td>
+<td align="right">34</td>
+<td align="right">61</td>
+</tr>
+<tr class="odd">
+<td align="left">DNvCD49b</td>
+<td align="right">16</td>
+<td align="right">2</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">LAG3vCD49b</td>
+<td align="right">111</td>
+<td align="right">56</td>
+<td align="right">167</td>
+</tr>
+<tr class="odd">
+<td align="left">CD49bvDP</td>
+<td align="right">6</td>
+<td align="right">32</td>
+<td align="right">38</td>
+</tr>
+<tr class="even">
+<td align="left">LAG3vDP</td>
+<td align="right">16</td>
+<td align="right">17</td>
+<td align="right">33</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="ma-plots" class="section level3 tabset">
+<h3 class="tabset">MA Plots</h3>
+<div id="dn-vs.-lag3" class="section level4">
+<h4>DN Vs. LAG3</h4>
+<pre class="r"><code>top_tables$DNvLAG3 %&gt;% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &gt; 0) %&gt;% 
+      arrange(desc(logFC)) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &lt; 0) %&gt;% 
+      arrange(logFC) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;DN Vs. LAG3&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-ma-dnvlag3-1.png" alt="MA-Plot for DN Vs. LAG3. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+MA-Plot for DN Vs. LAG3. The 5 most up/down-regulated genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="dn-vs.-dp" class="section level4">
+<h4>DN Vs. DP</h4>
+<pre class="r"><code>top_tables$DNvDP %&gt;% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &gt; 0) %&gt;% 
+      arrange(desc(logFC)) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &lt; 0) %&gt;% 
+      arrange(logFC) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;DN Vs. DP&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-ma-dnvdp-1.png" alt="MA-Plot for DN Vs. DP. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+MA-Plot for DN Vs. DP. The 5 most up/down-regulated genes are labelled,
+with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="dn-vs.-cd49b" class="section level4">
+<h4>DN Vs. CD49b</h4>
+<pre class="r"><code>top_tables$DNvCD49b %&gt;% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &gt; 0) %&gt;% 
+      arrange(desc(logFC)) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &lt; 0) %&gt;% 
+      arrange(logFC) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;DN Vs. CD49b&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-ma-dnvcd49-1.png" alt="MA-Plot for DN Vs. CD49b The most up/down-regulated genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+MA-Plot for DN Vs. CD49b The most up/down-regulated genes are labelled,
+with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="lag3-vs.-cd49b" class="section level4">
+<h4>LAG3 Vs. CD49b</h4>
+<pre class="r"><code>top_tables$LAG3vCD49b %&gt;% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &gt; 0) %&gt;% 
+      arrange(desc(logFC)) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &lt; 0) %&gt;% 
+      arrange(logFC) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;LAG3 Vs. CD49b&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-ma-lag3vcd49-1.png" alt="MA-Plot for LAG3 Vs. CD49b. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+MA-Plot for LAG3 Vs. CD49b. The 5 most up/down-regulated genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="lag3-vs.-dp" class="section level4">
+<h4>LAG3 Vs. DP</h4>
+<pre class="r"><code>top_tables$LAG3vDP %&gt;% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &gt; 0) %&gt;% 
+      arrange(desc(logFC)) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &lt; 0) %&gt;% 
+      arrange(logFC) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;LAG3 Vs. DP&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-ma-lag3vdp-1.png" alt="MA-Plot for LAG3 Vs. DP The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+MA-Plot for LAG3 Vs. DP The 5 most up/down-regulated genes are labelled,
+with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="cd49b-vs.-dp" class="section level4">
+<h4>CD49b Vs. DP</h4>
+<pre class="r"><code>top_tables$CD49bvDP %&gt;% 
+  ggplot(aes(AveExpr, logFC)) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_smooth(se = FALSE) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &gt; 0) %&gt;% 
+      arrange(desc(logFC)) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE, logFC &lt; 0) %&gt;% 
+      arrange(logFC) %&gt;% 
+      dplyr::slice(1:5),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;CD49b Vs. DP&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-ma-cd49vdp-1.png" alt="MA-Plot for CD49b Vs. DP. The 5 most up/down-regulated genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+MA-Plot for CD49b Vs. DP. The 5 most up/down-regulated genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+</div>
+<div id="volcano-plots" class="section level3 tabset">
+<h3 class="tabset">Volcano Plots</h3>
+<div id="dn-vs.-lag3-1" class="section level4">
+<h4>DN Vs. LAG3</h4>
+<pre class="r"><code>top_tables$DNvLAG3 %&gt;% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE) %&gt;% 
+      arrange(P.Value) %&gt;% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;DN Vs. LAG3&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-volcano-dnvlag3-1.png" alt="Volcano Plot for DN Vs. LAG3. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+Volcano Plot for DN Vs. LAG3. The 10 most highly-ranked genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="dn-vs.-dp-1" class="section level4">
+<h4>DN Vs. DP</h4>
+<pre class="r"><code>top_tables$DNvDP %&gt;% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE) %&gt;% 
+      arrange(P.Value) %&gt;% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;DN Vs. DP&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-volcano-dnvdp-1.png" alt="Volcano Plot for DN Vs. DP. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+Volcano Plot for DN Vs. DP. The 10 most highly-ranked genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="dn-vs.-cd49b-1" class="section level4">
+<h4>DN Vs. CD49b</h4>
+<pre class="r"><code>top_tables$DNvCD49b %&gt;% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE) %&gt;% 
+      arrange(P.Value) %&gt;% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;DN Vs. CD49b&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-volcano-dnvcd49-1.png" alt="Volcano Plot for DN Vs. CD49b The most up/down-regulated genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+Volcano Plot for DN Vs. CD49b The most up/down-regulated genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="lag3-vs.-cd49b-1" class="section level4">
+<h4>LAG3 Vs. CD49b</h4>
+<pre class="r"><code>top_tables$LAG3vCD49b %&gt;% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE) %&gt;% 
+      arrange(P.Value) %&gt;% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;LAG3 Vs. CD49b&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" alt="Volcano Plot for LAG3 Vs. CD49b. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+Volcano Plot for LAG3 Vs. CD49b. The 10 most highly-ranked genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="lag3-vs.-dp-1" class="section level4">
+<h4>LAG3 Vs. DP</h4>
+<pre class="r"><code>top_tables$LAG3vDP %&gt;% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE) %&gt;% 
+      arrange(P.Value) %&gt;% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;LAG3 Vs. DP&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-volcano-lag3vdp-1.png" alt="Volcano Plot for LAG3 Vs. DP The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+Volcano Plot for LAG3 Vs. DP The 10 most highly-ranked genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+<div id="cd49b-vs.-dp-1" class="section level4">
+<h4>CD49b Vs. DP</h4>
+<pre class="r"><code>top_tables$CD49bvDP %&gt;% 
+  ggplot(aes(logFC, -log10(P.Value))) +
+  geom_point(aes(colour = DE), alpha = 0.6) +
+  geom_label_repel(
+    aes(label = gene_name, colour = DE),
+    data = . %&gt;% 
+      dplyr::filter(DE) %&gt;% 
+      arrange(P.Value) %&gt;% 
+      dplyr::slice(1:10),
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  ggtitle(&quot;CD49b Vs. DP&quot;) +
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/plot-volcano-cd49vdp-1.png" alt="Volcano Plot for CD49b Vs. DP. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data." width="960" />
+<p class="caption">
+Volcano Plot for CD49b Vs. DP. The 10 most highly-ranked genes are
+labelled, with the blue line representing a spline through the data.
+</p>
+</div>
+</div>
+</div>
+<div id="data-export" class="section level3">
+<h3>Data Export</h3>
+<pre class="r"><code>write_rds(dgeFilt, here::here(&quot;output&quot;, &quot;dgeFilt.rds&quot;), compress = &quot;gz&quot;)
+write_rds(top_tables, here::here(&quot;output&quot;, &quot;top_tables.rds&quot;), compress = &quot;gz&quot;)
+write_rds(v, here::here(&quot;output&quot;, &quot;v.rds&quot;), compress = &quot;gz&quot;)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.1 (2022-06-23)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04.5 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats4    stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] pander_0.6.5            glue_1.6.2              broom_1.0.0            
+ [4] scales_1.2.0            ensembldb_2.20.2        AnnotationFilter_1.20.0
+ [7] GenomicFeatures_1.48.3  AnnotationDbi_1.58.0    Biobase_2.56.0         
+[10] GenomicRanges_1.48.0    GenomeInfoDb_1.32.2     IRanges_2.30.0         
+[13] S4Vectors_0.34.0        AnnotationHub_3.4.0     BiocFileCache_2.4.0    
+[16] dbplyr_2.2.1            BiocGenerics_0.42.0     pheatmap_1.0.12        
+[19] ggrepel_0.9.1           edgeR_3.38.1            limma_3.52.2           
+[22] magrittr_2.0.3          forcats_0.5.1           stringr_1.4.0          
+[25] dplyr_1.0.9             purrr_0.3.4             readr_2.1.2            
+[28] tidyr_1.2.0             tibble_3.1.8            ggplot2_3.3.6          
+[31] tidyverse_1.3.2         workflowr_1.7.0        
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.4.0                  backports_1.4.1              
+  [3] lazyeval_0.2.2                splines_4.2.1                
+  [5] BiocParallel_1.30.3           digest_0.6.29                
+  [7] htmltools_0.5.3               fansi_1.0.3                  
+  [9] memoise_2.0.1                 googlesheets4_1.0.0          
+ [11] tzdb_0.3.0                    Biostrings_2.64.0            
+ [13] modelr_0.1.8                  matrixStats_0.62.0           
+ [15] vroom_1.5.7                   prettyunits_1.1.1            
+ [17] colorspace_2.0-3              blob_1.2.3                   
+ [19] rvest_1.0.2                   rappdirs_0.3.3               
+ [21] haven_2.5.0                   xfun_0.31                    
+ [23] callr_3.7.1                   crayon_1.5.1                 
+ [25] RCurl_1.98-1.7                jsonlite_1.8.0               
+ [27] gtable_0.3.0                  gargle_1.2.0                 
+ [29] zlibbioc_1.42.0               XVector_0.36.0               
+ [31] DelayedArray_0.22.0           DBI_1.1.3                    
+ [33] Rcpp_1.0.9                    xtable_1.8-4                 
+ [35] progress_1.2.2                bit_4.0.4                    
+ [37] httr_1.4.3                    RColorBrewer_1.1-3           
+ [39] ellipsis_0.3.2                farver_2.1.1                 
+ [41] pkgconfig_2.0.3               XML_3.99-0.10                
+ [43] sass_0.4.2                    here_1.0.1                   
+ [45] locfit_1.5-9.6                utf8_1.2.2                   
+ [47] labeling_0.4.2                tidyselect_1.1.2             
+ [49] rlang_1.0.4                   later_1.3.0                  
+ [51] munsell_0.5.0                 BiocVersion_3.15.2           
+ [53] cellranger_1.1.0              tools_4.2.1                  
+ [55] cachem_1.0.6                  cli_3.3.0                    
+ [57] generics_0.1.3                RSQLite_2.2.15               
+ [59] evaluate_0.15                 fastmap_1.1.0                
+ [61] yaml_2.3.5                    processx_3.7.0               
+ [63] knitr_1.39                    bit64_4.0.5                  
+ [65] fs_1.5.2                      KEGGREST_1.36.3              
+ [67] nlme_3.1-159                  whisker_0.4                  
+ [69] mime_0.12                     xml2_1.3.3                   
+ [71] biomaRt_2.52.0                compiler_4.2.1               
+ [73] rstudioapi_0.13               filelock_1.0.2               
+ [75] curl_4.3.2                    png_0.1-7                    
+ [77] interactiveDisplayBase_1.34.0 reprex_2.0.1                 
+ [79] statmod_1.4.36                bslib_0.4.0                  
+ [81] stringi_1.7.8                 highr_0.9                    
+ [83] ps_1.7.1                      lattice_0.20-45              
+ [85] ProtGenerics_1.28.0           Matrix_1.5-1                 
+ [87] vctrs_0.4.1                   pillar_1.8.0                 
+ [89] lifecycle_1.0.1               BiocManager_1.30.18          
+ [91] jquerylib_0.1.4               bitops_1.0-7                 
+ [93] httpuv_1.6.5                  rtracklayer_1.56.1           
+ [95] R6_2.5.1                      BiocIO_1.6.0                 
+ [97] promises_1.2.0.1              codetools_0.2-18             
+ [99] assertthat_0.2.1              SummarizedExperiment_1.26.1  
+[101] rprojroot_2.0.3               rjson_0.2.21                 
+[103] withr_2.5.0                   GenomicAlignments_1.32.1     
+[105] Rsamtools_2.12.0              GenomeInfoDbData_1.2.8       
+[107] mgcv_1.8-40                   parallel_4.2.1               
+[109] hms_1.1.1                     grid_4.2.1                   
+[111] rmarkdown_2.14                MatrixGenerics_1.8.1         
+[113] googledrive_2.0.0             git2r_0.30.1                 
+[115] getPass_0.2-2                 shiny_1.7.2                  
+[117] lubridate_1.8.0               restfulr_0.0.15              </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
