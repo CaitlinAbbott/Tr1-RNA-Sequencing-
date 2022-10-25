@@ -1,7 +1,7 @@
 ---
-title: "enrichment"
-author: "Steve Pederson"
-date: "2022-10-25"
+title: "Tr1: Enrichment Analysis"
+author: "Stephen Pederson & Caitlin Abbott"
+date: "`r format(Sys.Date(), '%d %B, %Y')`"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -10,6 +10,19 @@ editor_options:
 ## Introduction
 
 ```{r}
-
+library(tidyverse)
+library(limma)
+library(edgeR)
+library(RColorBrewer)
+library(pheatmap)
+library(magrittr)
 ```
+
+```{r}
+top_tables <- read_rds(here::here("output", "top_tables.rds"))
+v <- read_rds(here::here("output", "v.rds"))
+dgeFilt <- read_rds(here::here("output", "dgeFilt.rds"))
+fit <- read_rds(here::here("output", "fit.rds"))
+```
+
 

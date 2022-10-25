@@ -332,7 +332,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Tr1-RNA-Sequencing-</a>
+      <a class="navbar-brand" href="index.html">Tr1-RNA-Sequencing</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -343,7 +343,7 @@ div.tocify {
   <a href="dge.html">DGE Analysis</a>
 </li>
 <li>
-  <a href="enrichment.html">Enrichment</a>
+  <a href="enrichment.html">Enrichment Analysis</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -434,10 +434,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -530,15 +530,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtreeec60d0f223f81eb2ecf69a1ceb5ff446a5c8748btargetblankec60d0fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree173bae6af4faff28c8cd6d42c7e5c0ed4eb9f6fctargetblank173bae6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/ec60d0f223f81eb2ecf69a1ceb5ff446a5c8748b" target="_blank">ec60d0f</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/173bae6af4faff28c8cd6d42c7e5c0ed4eb9f6fc" target="_blank">173bae6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtreeec60d0f223f81eb2ecf69a1ceb5ff446a5c8748btargetblankec60d0fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree173bae6af4faff28c8cd6d42c7e5c0ed4eb9f6fctargetblank173bae6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -548,7 +548,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/ec60d0f223f81eb2ecf69a1ceb5ff446a5c8748b" target="_blank">ec60d0f</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/173bae6af4faff28c8cd6d42c7e5c0ed4eb9f6fc" target="_blank">173bae6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -567,21 +567,13 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  analysis/dge.Rmd
-    Untracked:  analysis/enrichment.Rmd
-    Untracked:  analysis/figure/
-    Untracked:  code/analysis with DN.R
-    Untracked:  output/dgeFilt.rds
-    Untracked:  output/top_tables.rds
+    Untracked:  output/fit.rds
 
 Unstaged changes:
-    Deleted:    analysis with DN.R
-    Deleted:    analysis.Rmd
-    Deleted:    analysis.html
     Modified:   analysis/_site.yml
-    Deleted:    analysis/about.Rmd
-    Modified:   analysis/index.Rmd
-    Deleted:    analysis/license.Rmd
+    Modified:   analysis/dge.Rmd
+    Modified:   analysis/enrichment.Rmd
+    Modified:   code/analysis with DN.R
 
 </code></pre>
 <p>
@@ -596,10 +588,73 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/dge.Rmd</code>) and HTML
+(<code>docs/dge.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/analysis/dge.Rmd" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+<td>
+Shifted to workflowr
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/8745ba2c539e132ad5328b7b767920569b16577c/docs/dge.html" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+<td>
+Shifted to workflowr
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -622,6 +677,7 @@ library(scales)
 library(broom)
 library(glue)
 library(pander)
+library(grid)
 theme_set(
   theme_bw() +
     theme(plot.title = element_text(hjust = 0.5))
@@ -664,7 +720,8 @@ dgeList$genes &lt;- data.frame(gene_id = rownames(dgeList)) %&gt;%
       as.data.frame() %&gt;% 
       dplyr::select(gene_id, gene_name, gene_biotype, description, entrezid),
     by = &quot;gene_id&quot;
-  )</code></pre>
+  )
+id2gene &lt;- setNames(genes$gene_name, genes$gene_id)</code></pre>
 <pre class="r"><code>genes2keep &lt;- dgeList %&gt;% 
   cpm(log = TRUE) %&gt;% 
   is_greater_than(1) %&gt;% 
@@ -698,6 +755,43 @@ summarisation to gene-level counts. The mean library size across all
 libraries is shown as a dashed horizontal line.</em>
 </p>
 </div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-lib-sizes-1">
+Past versions of plot-lib-sizes-1.png
+</button>
+</p>
+<div id="fig-plot-lib-sizes-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-lib-sizes-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="count-densities" class="section level3">
 <h3>Count Densities</h3>
@@ -718,6 +812,43 @@ negative (DN) samples for both m% and M6 appear to skew to lower overall
 counts compared to all other samples, with a handful of highly expressed
 genes likely to dominate the sample.</em>
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-densities-1">
+Past versions of plot-densities-1.png
+</button>
+</p>
+<div id="fig-plot-densities-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-densities-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="pca" class="section level3">
@@ -752,6 +883,43 @@ remainder of the dataset. The CD49b sample fro M2 also appeared slightly
 divergent, with the previous density plot also showing a slght skew
 towards lower overall counts.</em>
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-pca-1">
+Past versions of plot-pca-1.png
+</button>
+</p>
+<div id="fig-plot-pca-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-pca-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <p>The above PCA revealed some potential problems with two of the four
 DN samples. Exclusion of the clear outliers will reduce the number of
@@ -801,6 +969,43 @@ identified DN samples were strongly down-weighted, as was the CD49b
 sample from M2</em>
 </p>
 </div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-weights-1">
+Past versions of plot-weights-1.png
+</button>
+</p>
+<div id="fig-plot-weights-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-weights-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cont.matrix &lt;- makeContrasts(
   DNvLAG3 = DN - LAG_3,
   DNvDP = DN - DP,
@@ -836,12 +1041,20 @@ top_tables %&gt;%
   bind_rows(.id = &quot;Comparison&quot;) %&gt;% 
   pander(
     justify = &quot;lrrr&quot;,
-    caption = &quot;Results from each comparison, where genes are considered DE using an FDR &lt; 0.05 along with an estimated logFC beyond $\\pm1$.&quot;
+    caption = glue(
+      &quot;
+      Results from each comparison, where genes are considered DE using an FDR
+      &lt; 0.05 along with an estimated logFC beyond $\\pm1$. In total, 
+      {length(unique(dplyr::filter(bind_rows(top_tables), DE)$gene_id))} 
+      unique genes were considered to be DE in at least one comparison.
+      &quot;
+    )
   )</code></pre>
 <table style="width:51%;">
 <caption>Results from each comparison, where genes are considered DE
 using an FDR &lt; 0.05 along with an estimated logFC beyond <span
-class="math inline">\(\pm1\)</span>.</caption>
+class="math inline">\(\pm1\)</span>. In total, 243 unique genes were
+considered to be DE in at least one comparison.</caption>
 <colgroup>
 <col width="18%" />
 <col width="8%" />
@@ -911,6 +1124,7 @@ class="math inline">\(\pm1\)</span>.</caption>
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -920,6 +1134,7 @@ class="math inline">\(\pm1\)</span>.</caption>
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. LAG3&quot;) +
@@ -930,6 +1145,43 @@ class="math inline">\(\pm1\)</span>.</caption>
 MA-Plot for DN Vs. LAG3. The 5 most up/down-regulated genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-ma-dnvlag3-1">
+Past versions of plot-ma-dnvlag3-1.png
+</button>
+</p>
+<div id="fig-plot-ma-dnvlag3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvlag3-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="dn-vs.-dp" class="section level4">
@@ -945,6 +1197,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -954,6 +1207,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. DP&quot;) +
@@ -964,6 +1218,43 @@ labelled, with the blue line representing a spline through the data.
 MA-Plot for DN Vs. DP. The 5 most up/down-regulated genes are labelled,
 with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-ma-dnvdp-1">
+Past versions of plot-ma-dnvdp-1.png
+</button>
+</p>
+<div id="fig-plot-ma-dnvdp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvdp-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="dn-vs.-cd49b" class="section level4">
@@ -979,6 +1270,7 @@ with the blue line representing a spline through the data.
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -988,6 +1280,7 @@ with the blue line representing a spline through the data.
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. CD49b&quot;) +
@@ -998,6 +1291,43 @@ with the blue line representing a spline through the data.
 MA-Plot for DN Vs. CD49b The most up/down-regulated genes are labelled,
 with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-ma-dnvcd49-1">
+Past versions of plot-ma-dnvcd49-1.png
+</button>
+</p>
+<div id="fig-plot-ma-dnvcd49-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvcd49-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="lag3-vs.-cd49b" class="section level4">
@@ -1013,6 +1343,7 @@ with the blue line representing a spline through the data.
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -1022,6 +1353,7 @@ with the blue line representing a spline through the data.
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;LAG3 Vs. CD49b&quot;) +
@@ -1032,6 +1364,43 @@ with the blue line representing a spline through the data.
 MA-Plot for LAG3 Vs. CD49b. The 5 most up/down-regulated genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-ma-lag3vcd49-1">
+Past versions of plot-ma-lag3vcd49-1.png
+</button>
+</p>
+<div id="fig-plot-ma-lag3vcd49-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-lag3vcd49-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="lag3-vs.-dp" class="section level4">
@@ -1047,6 +1416,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -1056,6 +1426,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;LAG3 Vs. DP&quot;) +
@@ -1066,6 +1437,43 @@ labelled, with the blue line representing a spline through the data.
 MA-Plot for LAG3 Vs. DP The 5 most up/down-regulated genes are labelled,
 with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-ma-lag3vdp-1">
+Past versions of plot-ma-lag3vdp-1.png
+</button>
+</p>
+<div id="fig-plot-ma-lag3vdp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-lag3vdp-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="cd49b-vs.-dp" class="section level4">
@@ -1081,6 +1489,7 @@ with the blue line representing a spline through the data.
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -1090,6 +1499,7 @@ with the blue line representing a spline through the data.
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;CD49b Vs. DP&quot;) +
@@ -1100,6 +1510,43 @@ with the blue line representing a spline through the data.
 MA-Plot for CD49b Vs. DP. The 5 most up/down-regulated genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-ma-cd49vdp-1">
+Past versions of plot-ma-cd49vdp-1.png
+</button>
+</p>
+<div id="fig-plot-ma-cd49vdp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-cd49vdp-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -1117,6 +1564,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(P.Value) %&gt;% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. LAG3&quot;) +
@@ -1127,6 +1575,43 @@ labelled, with the blue line representing a spline through the data.
 Volcano Plot for DN Vs. LAG3. The 10 most highly-ranked genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-volcano-dnvlag3-1">
+Past versions of plot-volcano-dnvlag3-1.png
+</button>
+</p>
+<div id="fig-plot-volcano-dnvlag3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="dn-vs.-dp-1" class="section level4">
@@ -1141,6 +1626,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(P.Value) %&gt;% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. DP&quot;) +
@@ -1151,6 +1637,43 @@ labelled, with the blue line representing a spline through the data.
 Volcano Plot for DN Vs. DP. The 10 most highly-ranked genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-volcano-dnvdp-1">
+Past versions of plot-volcano-dnvdp-1.png
+</button>
+</p>
+<div id="fig-plot-volcano-dnvdp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="dn-vs.-cd49b-1" class="section level4">
@@ -1165,6 +1688,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(P.Value) %&gt;% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. CD49b&quot;) +
@@ -1175,6 +1699,43 @@ labelled, with the blue line representing a spline through the data.
 Volcano Plot for DN Vs. CD49b The most up/down-regulated genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-volcano-dnvcd49-1">
+Past versions of plot-volcano-dnvcd49-1.png
+</button>
+</p>
+<div id="fig-plot-volcano-dnvcd49-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="lag3-vs.-cd49b-1" class="section level4">
@@ -1189,6 +1750,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(P.Value) %&gt;% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;LAG3 Vs. CD49b&quot;) +
@@ -1199,6 +1761,43 @@ labelled, with the blue line representing a spline through the data.
 Volcano Plot for LAG3 Vs. CD49b. The 10 most highly-ranked genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-volcano-lag3vcd49-1">
+Past versions of plot-volcano-lag3vcd49-1.png
+</button>
+</p>
+<div id="fig-plot-volcano-lag3vcd49-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="lag3-vs.-dp-1" class="section level4">
@@ -1213,6 +1812,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(P.Value) %&gt;% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;LAG3 Vs. DP&quot;) +
@@ -1223,6 +1823,43 @@ labelled, with the blue line representing a spline through the data.
 Volcano Plot for LAG3 Vs. DP The 10 most highly-ranked genes are
 labelled, with the blue line representing a spline through the data.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-volcano-lag3vdp-1">
+Past versions of plot-volcano-lag3vdp-1.png
+</button>
+</p>
+<div id="fig-plot-volcano-lag3vdp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="cd49b-vs.-dp-1" class="section level4">
@@ -1237,6 +1874,7 @@ labelled, with the blue line representing a spline through the data.
       arrange(P.Value) %&gt;% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;CD49b Vs. DP&quot;) +
@@ -1248,13 +1886,126 @@ Volcano Plot for CD49b Vs. DP. The 10 most highly-ranked genes are
 labelled, with the blue line representing a spline through the data.
 </p>
 </div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-volcano-cd49vdp-1">
+Past versions of plot-volcano-cd49vdp-1.png
+</button>
+</p>
+<div id="fig-plot-volcano-cd49vdp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">8745ba2</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-25
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div id="data-export" class="section level3">
-<h3>Data Export</h3>
+</div>
+</div>
+</div>
+<div id="heatmaps" class="section level2 tabset">
+<h2 class="tabset">Heatmaps</h2>
+<pre class="r"><code>grp_coef &lt;- v$E %&gt;% 
+  as_tibble(rownames = &quot;gene_id&quot;) %&gt;% 
+  pivot_longer(
+    cols = all_of(colnames(v)), names_to = &quot;sample&quot;, values_to = &quot;logCPM&quot;
+  ) %&gt;% 
+  left_join(v$targets) %&gt;% 
+  group_by(gene_id, condition) %&gt;% 
+  # summarise(logCPM = weighted.mean(logCPM, sample.weights)) %&gt;%
+  summarise(logCPM = mean(logCPM)) %&gt;%
+  pivot_wider(names_from = &quot;condition&quot;, values_from = &quot;logCPM&quot;) %&gt;% 
+  as.data.frame() %&gt;%
+  column_to_rownames(&quot;gene_id&quot;) %&gt;% 
+  as.matrix()</code></pre>
+<p>In order to visualise the data using heatmaps, the average expression
+within each cell type was calculated.</p>
+<div id="top-100" class="section level3">
+<h3>Top 100</h3>
+<p>All DE genes were combined across all comparisons and the 100 with
+the most extreme estimates of logFC were chosen for visualisation.</p>
+<pre class="r"><code>top_100 &lt;- top_tables %&gt;% 
+  lapply(dplyr::filter, DE) %&gt;% 
+  bind_rows(.id = &quot;comparison&quot;) %&gt;% 
+  arrange(desc(abs(logFC))) %&gt;% 
+  distinct(gene_id) %&gt;% 
+  dplyr::slice(1:100) %&gt;% 
+  pull(&quot;gene_id&quot;)
+p &lt;- grp_coef[top_100,] %&gt;% 
+  t() %&gt;% 
+  pheatmap(
+    color = hcl.colors(101, &quot;inferno&quot;),
+    labels_col = id2gene[top_100],
+    labels_row = c(DN = &quot;DN&quot;, DP = &quot;DP&quot;, &quot;LAG_3&quot; = &quot;Lag3+&quot;, CD49b = &quot;Cd49b+&quot;),
+    cluster_rows = FALSE,
+    # annotation_col = top_tables %&gt;%
+    #   lapply(
+    #     function(x) {
+    #       up &lt;- dplyr::filter(x, DE, logFC &gt; 0)$gene_id
+    #       down &lt;- dplyr::filter(x, DE, logFC &lt; 0)$gene_id
+    #       case_when(
+    #         top_100 %in% up ~ &quot;Up&quot;,
+    #         top_100 %in% down ~ &quot;Down&quot;,
+    #         TRUE ~ &quot;Unchanged&quot;
+    #       )
+    #     }
+    #   ) %&gt;%
+    #   lapply(factor, levels = c(&quot;Up&quot;, &quot;Down&quot;, &quot;Unchanged&quot;)) %&gt;%
+    #   as.data.frame() %&gt;%
+    #   set_colnames(str_replace_all(colnames(.), &quot;v&quot;, &quot; Vs. &quot;)) %&gt;%
+    #   set_rownames(top_100),
+    # annotation_colors = top_tables %&gt;%
+    #   setNames(str_replace_all(names(.), &quot;v&quot;, &quot; Vs. &quot;)) %&gt;%
+    #   lapply(function(x) c(&quot;Unchanged&quot; = &quot;grey&quot;, &quot;Up&quot; = &quot;red&quot;, &quot;Down&quot; = &quot;blue&quot;)),
+    # annotation_legend = FALSE,
+    cutree_cols = 8,
+    cellheight = 15,
+    fontsize = 8,
+    silent = TRUE
+  ) %&gt;% 
+  .[[&quot;gtable&quot;]]
+p$grobs[[3]]$gp &lt;- gpar(fontsize = 8, fontface = &quot;italic&quot;)
+p$grobs[[4]]$gp &lt;- gpar(fontsize = 10)
+grid.newpage()
+grid.draw(p)</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/heatmap-top100-1.png" alt="The 100 genes showing the most extreme fold-change across one or more comparisons" width="960" />
+<p class="caption">
+The 100 genes showing the most extreme fold-change across one or more
+comparisons
+</p>
+</div>
+</div>
+</div>
+<div id="data-export" class="section level2">
+<h2>Data Export</h2>
 <pre class="r"><code>write_rds(dgeFilt, here::here(&quot;output&quot;, &quot;dgeFilt.rds&quot;), compress = &quot;gz&quot;)
 write_rds(top_tables, here::here(&quot;output&quot;, &quot;top_tables.rds&quot;), compress = &quot;gz&quot;)
-write_rds(v, here::here(&quot;output&quot;, &quot;v.rds&quot;), compress = &quot;gz&quot;)</code></pre>
+write_rds(v, here::here(&quot;output&quot;, &quot;v.rds&quot;), compress = &quot;gz&quot;)
+write_rds(fit, here::here(&quot;output&quot;, &quot;fit.rds&quot;), compress = &quot;gz&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1281,8 +2032,8 @@ locale:
 [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] stats4    stats     graphics  grDevices utils     datasets  methods  
-[8] base     
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
 
 other attached packages:
  [1] pander_0.6.5            glue_1.6.2              broom_1.0.0            
@@ -1352,12 +2103,11 @@ loaded via a namespace (and not attached):
 [103] withr_2.5.0                   GenomicAlignments_1.32.1     
 [105] Rsamtools_2.12.0              GenomeInfoDbData_1.2.8       
 [107] mgcv_1.8-40                   parallel_4.2.1               
-[109] hms_1.1.1                     grid_4.2.1                   
-[111] rmarkdown_2.14                MatrixGenerics_1.8.1         
-[113] googledrive_2.0.0             git2r_0.30.1                 
-[115] getPass_0.2-2                 shiny_1.7.2                  
-[117] lubridate_1.8.0               restfulr_0.0.15              </code></pre>
-</div>
+[109] hms_1.1.1                     rmarkdown_2.14               
+[111] MatrixGenerics_1.8.1          googledrive_2.0.0            
+[113] git2r_0.30.1                  getPass_0.2-2                
+[115] shiny_1.7.2                   lubridate_1.8.0              
+[117] restfulr_0.0.15              </code></pre>
 </div>
 </div>
 

@@ -264,28 +264,28 @@ plotSA(fit.cont)
 
 #MAke TAbles sorted by p value and lfc
 topTable(fit.cont, coef = "DNvDP", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> DNvDP
-DNvDP %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltDNDP
+DNvDP %>% select(gene_id, gene_name, P.Value) -> FiltDNDP
 
 topTable(fit.cont, coef = "DNvLAG3", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> DNvLAG3
-DNvLAG3 %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltDNLAG3
+DNvLAG3 %>% select(gene_id, gene_name, P.Value) -> FiltDNLAG3
 
 topTable(fit.cont, coef = "DNvCD49b", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> DNvCD49b
-DNvCD49b %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltDNCD49b
+DNvCD49b %>% select(gene_id, gene_name, P.Value) -> FiltDNCD49b
 
 topTable(fit.cont, coef = "LAG3vDP", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> LAG3vDP
-LAG3vDP %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltLAG3DP
+LAG3vDP %>% select(gene_id, gene_name, P.Value) -> FiltLAG3DP
 
 topTable(fit.cont, coef = "CD49bvDP", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> CD49bvDP
-CD49bvDP %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltCD49bDP
+CD49bvDP %>% select(gene_id, gene_name, P.Value) -> FiltCD49bDP
 
 topTable(fit.cont, coef = "LAG3vCD49b", number = Inf, sort.by = "p", p.value = 0.05, lfc = 1) -> LAG3vCD49b
-LAG3vCD49b %>% select(ID.gene_id, ID.gene_name, P.Value) -> FiltLAG3CD49b
+LAG3vCD49b %>% select(gene_id, gene_name, P.Value) -> FiltLAG3CD49b
 
 
 ###################### union matix #####################################################################
 
 merged_DE_mt = rbind(FiltCD49bDP, FiltDNCD49b, FiltDNDP, FiltDNLAG3, FiltLAG3CD49b, FiltLAG3DP)
-merged_DE_mt = merged_DE_mt[!duplicated(merged_DE_mt$ID.gene_id), ]
+merged_DE_mt = merged_DE_mt[!duplicated(merged_DE_mt$gene_id), ]
 
 ####################################
 ## merged_T100_LFC does not exist ##
@@ -345,7 +345,7 @@ myBreaks <- c(seq(min(valueRange), 0, length.out =40),
 #interestedGenes = c("Eomes", "P2rx7", "Cd226")
 #merged_DE_mt_geneIDs = merged_DE_mt$ID.gene_name
 
-pheatmap(mat = fit$coefficients[merged_DE_mt$ID.gene_id, ],
+pheatmap(mat = fit$coefficients[merged_DE_mt$gene_id, ],
          color = myPalette,
          breaks = myBreaks,
          border_color = NA,

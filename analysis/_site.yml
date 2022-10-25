@@ -7,7 +7,7 @@ navbar:
     href: index.html
   - text: DGE Analysis
     href: dge.html
-  - text: Enrichment
+  - text: Enrichment Analysis
     href: enrichment.html
 output:
   workflowr::wflow_html:

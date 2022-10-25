@@ -30,6 +30,7 @@ library(scales)
 library(broom)
 library(glue)
 library(pander)
+library(grid)
 theme_set(
   theme_bw() +
     theme(plot.title = element_text(hjust = 0.5))
@@ -79,6 +80,7 @@ dgeList$genes <- data.frame(gene_id = rownames(dgeList)) %>%
       dplyr::select(gene_id, gene_name, gene_biotype, description, entrezid),
     by = "gene_id"
   )
+id2gene <- setNames(genes$gene_name, genes$gene_id)
 ```
 
 
@@ -247,7 +249,14 @@ top_tables %>%
   bind_rows(.id = "Comparison") %>% 
   pander(
     justify = "lrrr",
-    caption = "Results from each comparison, where genes are considered DE using an FDR < 0.05 along with an estimated logFC beyond $\\pm1$."
+    caption = glue(
+      "
+      Results from each comparison, where genes are considered DE using an FDR
+      < 0.05 along with an estimated logFC beyond $\\pm1$. In total, 
+      {length(unique(dplyr::filter(bind_rows(top_tables), DE)$gene_id))} 
+      unique genes were considered to be DE in at least one comparison.
+      "
+    )
   )
 ```
 
@@ -267,6 +276,7 @@ top_tables$DNvLAG3 %>%
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -276,6 +286,7 @@ top_tables$DNvLAG3 %>%
       arrange(logFC) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. LAG3") +
@@ -296,6 +307,7 @@ top_tables$DNvDP %>%
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -305,6 +317,7 @@ top_tables$DNvDP %>%
       arrange(logFC) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. DP") +
@@ -325,6 +338,7 @@ top_tables$DNvCD49b %>%
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -334,6 +348,7 @@ top_tables$DNvCD49b %>%
       arrange(logFC) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. CD49b") +
@@ -354,6 +369,7 @@ top_tables$LAG3vCD49b %>%
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -363,6 +379,7 @@ top_tables$LAG3vCD49b %>%
       arrange(logFC) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("LAG3 Vs. CD49b") +
@@ -383,6 +400,7 @@ top_tables$LAG3vDP %>%
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -392,6 +410,7 @@ top_tables$LAG3vDP %>%
       arrange(logFC) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("LAG3 Vs. DP") +
@@ -412,6 +431,7 @@ top_tables$CD49bvDP %>%
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   geom_label_repel(
@@ -421,6 +441,7 @@ top_tables$CD49bvDP %>%
       arrange(logFC) %>% 
       dplyr::slice(1:5),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("CD49b Vs. DP") +
@@ -442,6 +463,7 @@ top_tables$DNvLAG3 %>%
       arrange(P.Value) %>% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. LAG3") +
@@ -461,6 +483,7 @@ top_tables$DNvDP %>%
       arrange(P.Value) %>% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. DP") +
@@ -480,6 +503,7 @@ top_tables$DNvCD49b %>%
       arrange(P.Value) %>% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. CD49b") +
@@ -499,6 +523,7 @@ top_tables$LAG3vCD49b %>%
       arrange(P.Value) %>% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("LAG3 Vs. CD49b") +
@@ -518,6 +543,7 @@ top_tables$LAG3vDP %>%
       arrange(P.Value) %>% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("LAG3 Vs. DP") +
@@ -537,16 +563,92 @@ top_tables$CD49bvDP %>%
       arrange(P.Value) %>% 
       dplyr::slice(1:10),
     max.overlaps = Inf,
+    fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("CD49b Vs. DP") +
   scale_colour_manual(values = c("grey30", "red"))
 ```
 
-### Data Export
+## Heatmaps {.tabset}
+
+```{r grp-coef}
+grp_coef <- v$E %>% 
+  as_tibble(rownames = "gene_id") %>% 
+  pivot_longer(
+    cols = all_of(colnames(v)), names_to = "sample", values_to = "logCPM"
+  ) %>% 
+  left_join(v$targets) %>% 
+  group_by(gene_id, condition) %>% 
+  # summarise(logCPM = weighted.mean(logCPM, sample.weights)) %>%
+  summarise(logCPM = mean(logCPM)) %>%
+  pivot_wider(names_from = "condition", values_from = "logCPM") %>% 
+  as.data.frame() %>%
+  column_to_rownames("gene_id") %>% 
+  as.matrix()
+```
+
+
+In order to visualise the data using heatmaps, the average expression within each cell type was calculated.
+
+### Top 100
+
+All DE genes were combined across all comparisons and the 100 with the most extreme estimates of logFC were chosen for visualisation.
+
+```{r heatmap-top100, fig.height=4, fig.cap="The 100 genes showing the most extreme fold-change across one or more comparisons"}
+top_100 <- top_tables %>% 
+  lapply(dplyr::filter, DE) %>% 
+  bind_rows(.id = "comparison") %>% 
+  arrange(desc(abs(logFC))) %>% 
+  distinct(gene_id) %>% 
+  dplyr::slice(1:100) %>% 
+  pull("gene_id")
+p <- grp_coef[top_100,] %>% 
+  t() %>% 
+  pheatmap(
+    color = hcl.colors(101, "inferno"),
+    labels_col = id2gene[top_100],
+    labels_row = c(DN = "DN", DP = "DP", "LAG_3" = "Lag3+", CD49b = "Cd49b+"),
+    cluster_rows = FALSE,
+    # annotation_col = top_tables %>%
+    #   lapply(
+    #     function(x) {
+    #       up <- dplyr::filter(x, DE, logFC > 0)$gene_id
+    #       down <- dplyr::filter(x, DE, logFC < 0)$gene_id
+    #       case_when(
+    #         top_100 %in% up ~ "Up",
+    #         top_100 %in% down ~ "Down",
+    #         TRUE ~ "Unchanged"
+    #       )
+    #     }
+    #   ) %>%
+    #   lapply(factor, levels = c("Up", "Down", "Unchanged")) %>%
+    #   as.data.frame() %>%
+    #   set_colnames(str_replace_all(colnames(.), "v", " Vs. ")) %>%
+    #   set_rownames(top_100),
+    # annotation_colors = top_tables %>%
+    #   setNames(str_replace_all(names(.), "v", " Vs. ")) %>%
+    #   lapply(function(x) c("Unchanged" = "grey", "Up" = "red", "Down" = "blue")),
+    # annotation_legend = FALSE,
+    cutree_cols = 8,
+    cellheight = 15,
+    fontsize = 8,
+    silent = TRUE
+  ) %>% 
+  .[["gtable"]]
+p$grobs[[3]]$gp <- gpar(fontsize = 8, fontface = "italic")
+p$grobs[[4]]$gp <- gpar(fontsize = 10)
+grid.newpage()
+grid.draw(p)
+```
+
+
+
+## Data Export
 
 ```{r export}
 write_rds(dgeFilt, here::here("output", "dgeFilt.rds"), compress = "gz")
 write_rds(top_tables, here::here("output", "top_tables.rds"), compress = "gz")
 write_rds(v, here::here("output", "v.rds"), compress = "gz")
+write_rds(fit, here::here("output", "fit.rds"), compress = "gz")
 ```
