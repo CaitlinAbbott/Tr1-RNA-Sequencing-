@@ -1,7 +1,7 @@
 name: "Tr1-RNA-Sequencing"
 output_dir: ../docs
 navbar:
-  title: "Tr1-RNA-Sequencing-"
+  title: "Tr1-RNA-Sequencing"
   left:
   - text: Home
     href: index.html
