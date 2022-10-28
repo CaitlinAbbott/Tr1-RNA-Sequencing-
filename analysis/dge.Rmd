@@ -62,7 +62,7 @@ dgeList <- counts %>%
 ```
 
 ```{r setup-annotations}
-ah <- AnnotationHub()
+ah <- AnnotationHub(localHub = TRUE)
 #Find which genome did we use
 # unique(ah$dataprovider)
 # subset(ah, dataprovider == "Ensembl") %>%  #In Ensembl databse
@@ -591,7 +591,7 @@ grp_coef <- v$E %>%
 
 In order to visualise the data using heatmaps, the average expression within each cell type was calculated.
 
-### Top 100
+### Top 100 By logFC
 
 All DE genes were combined across all comparisons and the 100 with the most extreme estimates of logFC were chosen for visualisation.
 
@@ -642,6 +642,63 @@ grid.newpage()
 grid.draw(p)
 ```
 
+### High Confidence Genes
+
+```{r}
+highConf_df <- tribble(
+  ~Group, ~gene_name,
+  "Treg", "Foxp3",
+  "Treg", "Il2ra",
+  "Treg", "Il2rb",
+  "Treg", "Ikzf4",
+  "Treg", "Il1rl1",
+  "Th2", "Gata3",
+  "Th2", "Il4",
+  "Th2", "Il5",
+  "Th2", "Il13",
+  "Th17", "Rorc",
+  "Th17", "Il17a",
+  "Th17", "Il17f",
+  "Th17", "Ccr6",
+  "Th1", "Tbx21",
+  "Th1", "Cxcr3",
+  "Th1", "Cxcr6",
+  "Th1", "Tnf",
+  "Th1", "Ifng",
+  "Tfh", "Bcl6",
+  "Tfh", "Cxcr5",
+  "Tfh", "Tcf7",
+  "Tfh", "Tox2",
+  "Tr1", "Ccr5",
+  "Tr1", "Il10",
+  "Tr1", "Il21",
+  "Tr1", "Tgfb1",
+  "Tr1", "Gzmb",
+  "Tr1", "Lag3",
+  "Tr1", "Itga2",
+  "Tr1", "Icos",
+  "Tr1", "Pdcd1",
+  "Tr1", "Ctla4",
+  "Tr1", "Havcr2",
+  "Tr1", "Tigit",
+  "Tr1", "Cd226",
+  "Tr1", "Maf",
+  "Tr1", "Prdm1",
+  "Tr1", "Batf",
+  "Tr1", "Ahr",
+  "Tr1", "Eomes",
+  "Tr1", "Irf1",
+  "Tr1", "Irf4",
+  "Tr1", "Stat1",
+  "Tr1", "Stat3"
+) %>%
+  left_join(
+    # dplyr::select(dgeFilt$genes, gene_name, gene_id)
+    dplyr::select(dgeList$genes, gene_name, gene_id)
+  ) %>% 
+  as.data.frame() %>% 
+  column_to_rownames("gene_id")
+```
 
 
 ## Data Export
