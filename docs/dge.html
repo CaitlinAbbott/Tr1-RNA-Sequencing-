@@ -530,15 +530,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree0c8218dbd8611ceebbae583a3b2ccef44f754728targetblank0c8218da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676targetblank2ae9dfba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/0c8218dbd8611ceebbae583a3b2ccef44f754728" target="_blank">0c8218d</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676" target="_blank">2ae9dfb</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree0c8218dbd8611ceebbae583a3b2ccef44f754728targetblank0c8218da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676targetblank2ae9dfba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -548,7 +548,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/0c8218dbd8611ceebbae583a3b2ccef44f754728" target="_blank">0c8218d</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676" target="_blank">2ae9dfb</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -612,6 +612,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676/analysis/dge.Rmd" target="_blank">2ae9dfb</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-31
+</td>
+<td>
+Added top100 pdf
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676/docs/dge.html" target="_blank">2ae9dfb</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-31
+</td>
+<td>
+Added top100 pdf
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2318,8 +2352,8 @@ genes. The same figure is available <a
 href="assets/highconf_heat.pdf">here</a> as a pdf.</p>
 </div>
 </div>
-<div id="top-100-by-logfc" class="section level3">
-<h3>Top 100 By logFC</h3>
+<div id="top-100" class="section level3">
+<h3>Top 100</h3>
 <p>All DE genes were combined across all comparisons and the 100 with
 the most extreme estimates of logFC were chosen for visualisation.</p>
 <pre class="r"><code>top_100 &lt;- top_tables %&gt;% 
@@ -2383,6 +2417,54 @@ dev.off()</code></pre>
 <p class="caption">Expression patterns the top 100 DE genes by logFC.
 The same figure is available <a href="assets/top100_heat.pdf">here</a>
 as a pdf.</p>
+</div>
+</div>
+<div id="top-100-by-logfc" class="section level3">
+<h3>Top 100 By logFC</h3>
+<pre class="r"><code>n &lt;- 101
+myPalette &lt;- colorRampPalette(c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;))(n)
+myBreaks &lt;- c(
+  seq(-7, -7/n, length.out = (n - 1) / 2), 
+  0,
+  seq(9 / n, 9, length.out = (n - 1) / 2)
+)
+p &lt;- fit$coefficients[top_100,c(1:4, 6, 5)] %&gt;% 
+  pheatmap(
+    color = myPalette,
+    breaks = myBreaks,
+    legend_breaks = seq(-6, 8, by = 2),
+    cellwidth = 15,
+    labels_row = id2gene[top_100],
+    cutree_rows = 5,
+    fontsize = 8,
+    cluster_cols = FALSE,
+    labels_col = setNames(
+      str_replace(colnames(.), &quot;v&quot;, &quot; Vs. &quot;),
+      colnames(.)
+    ),
+    silent = TRUE
+  ) %&gt;% 
+  .[[&quot;gtable&quot;]]
+p$grobs[[4]]$gp &lt;- gpar(fontface = &quot;italic&quot;)
+png(
+  here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;top100_logfc_heat.png&quot;),
+  height = 12, width = 5, units = &quot;in&quot;, res = 300
+)
+grid.newpage()
+grid.draw(p)
+dev.off()
+pdf(
+  here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;top100_logfc_heat.pdf&quot;),
+  height = 12, width = 5
+)
+grid.newpage()
+grid.draw(p)
+dev.off()</code></pre>
+<div class="figure">
+<img src="assets/top100_logfc_heat.png" width="300" alt="" />
+<p class="caption">Changes in relative expression for the top 100 DE
+genes by logFC. The same figure is available <a
+href="assets/top100_fogfc_heat.pdf">here</a> as a pdf.</p>
 </div>
 </div>
 </div>

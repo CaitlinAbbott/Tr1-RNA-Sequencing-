@@ -720,7 +720,7 @@ dev.off()
 
 ![Expression patterns across all groups for key marker genes. The same figure is available [here](assets/highconf_heat.pdf) as a pdf.](assets/highconf_heat.png){width=300px}
 
-### Top 100 By logFC
+### Top 100
 
 All DE genes were combined across all comparisons and the 100 with the most extreme estimates of logFC were chosen for visualisation.
 
@@ -784,6 +784,53 @@ dev.off()
 ```
 
 ![Expression patterns the top 100 DE genes by logFC. The same figure is available [here](assets/top100_heat.pdf) as a pdf.](assets/top100_heat.png){width=300px}
+
+### Top 100 By logFC
+
+```{r heatmap-top100-logfc, results='hide'}
+n <- 101
+myPalette <- colorRampPalette(c("blue", "white", "red"))(n)
+myBreaks <- c(
+  seq(-7, -7/n, length.out = (n - 1) / 2), 
+  0,
+  seq(9 / n, 9, length.out = (n - 1) / 2)
+)
+p <- fit$coefficients[top_100,c(1:4, 6, 5)] %>% 
+  pheatmap(
+    color = myPalette,
+    breaks = myBreaks,
+    legend_breaks = seq(-6, 8, by = 2),
+    cellwidth = 15,
+    labels_row = id2gene[top_100],
+    cutree_rows = 5,
+    fontsize = 8,
+    cluster_cols = FALSE,
+    labels_col = setNames(
+      str_replace(colnames(.), "v", " Vs. "),
+      colnames(.)
+    ),
+    silent = TRUE
+  ) %>% 
+  .[["gtable"]]
+p$grobs[[4]]$gp <- gpar(fontface = "italic")
+png(
+  here::here("docs", "assets", "top100_logfc_heat.png"),
+  height = 12, width = 5, units = "in", res = 300
+)
+grid.newpage()
+grid.draw(p)
+dev.off()
+pdf(
+  here::here("docs", "assets", "top100_logfc_heat.pdf"),
+  height = 12, width = 5
+)
+grid.newpage()
+grid.draw(p)
+dev.off()
+```
+
+
+![Changes in relative expression for the top 100 DE genes by logFC. The same figure is available [here](assets/top100_fogfc_heat.pdf) as a pdf.](assets/top100_logfc_heat.png){width=300px}
 
 ## Data Export
 
