@@ -745,6 +745,27 @@ grp_df %>%
     }
   )
 dev.off()
+pdf(
+  here::here("docs", "assets", "highconf_heat.pdf"),
+  width = 5, height = 10
+)
+grid.newpage()
+grid.draw(p)
+grp_df %>% 
+  lapply(
+    function(x) {
+      grid.lines(
+        x = 0.305, 
+        y = c(x$y_max, x$y_min), 
+        gp = gpar(lwd = 2.5)
+      )
+      grid.text(
+        x$Group, x = 0.25,
+        y = 0.5 * (x$y_min + x$y_max) + 0.01
+      )
+    }
+  )
+dev.off()
 ```
 
 ![Expression patterns across all groups for key marker genes](assets/highconf_heat.png)

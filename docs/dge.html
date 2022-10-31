@@ -530,15 +530,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree18916d3d329d995956aa9bfbb1e6e32169a81f4btargetblank18916d3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3targetblank5c676b4a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/18916d3d329d995956aa9bfbb1e6e32169a81f4b" target="_blank">18916d3</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3" target="_blank">5c676b4</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree18916d3d329d995956aa9bfbb1e6e32169a81f4btargetblank18916d3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3targetblank5c676b4a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -548,7 +548,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/18916d3d329d995956aa9bfbb1e6e32169a81f4b" target="_blank">18916d3</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3" target="_blank">5c676b4</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -565,6 +565,9 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/figure/
 
 Unstaged changes:
     Modified:   analysis/dge.Rmd
@@ -612,6 +615,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/analysis/dge.Rmd" target="_blank">5c676b4</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-31
+</td>
+<td>
+Finished high-conf heatmap
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/docs/dge.html" target="_blank">5c676b4</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-31
+</td>
+<td>
+Finished high-conf heatmap
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2200,6 +2237,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/docs/figure/dge.Rmd/heatmap-top100-1.png" target="_blank">5c676b4</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/heatmap-top100-1.png" target="_blank">0892674</a>
 </td>
 <td>
@@ -2297,6 +2345,27 @@ grp_df &lt;- highConf_df %&gt;%
 png(
   here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;highconf_heat.png&quot;),
   width = 5, height = 10, res = 300, units = &quot;in&quot;
+)
+grid.newpage()
+grid.draw(p)
+grp_df %&gt;% 
+  lapply(
+    function(x) {
+      grid.lines(
+        x = 0.305, 
+        y = c(x$y_max, x$y_min), 
+        gp = gpar(lwd = 2.5)
+      )
+      grid.text(
+        x$Group, x = 0.25,
+        y = 0.5 * (x$y_min + x$y_max) + 0.01
+      )
+    }
+  )
+dev.off()
+pdf(
+  here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;highconf_heat.pdf&quot;),
+  width = 5, height = 10
 )
 grid.newpage()
 grid.draw(p)
