@@ -7,22 +7,134 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+```{r setup}
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  fig.width = 10, fig.height = 8,
+  dev = c("png", "pdf")
+)
+```
 
-```{r}
+
+```{r packages}
 library(tidyverse)
 library(limma)
 library(edgeR)
 library(RColorBrewer)
 library(pheatmap)
 library(magrittr)
+library(clusterProfiler)
+library(org.Mm.eg.db)
 ```
 
-```{r}
+```{r load-data}
 top_tables <- read_rds(here::here("output", "top_tables.rds"))
-v <- read_rds(here::here("output", "v.rds"))
 dgeFilt <- read_rds(here::here("output", "dgeFilt.rds"))
-fit <- read_rds(here::here("output", "fit.rds"))
 ```
 
 
+```{r universe}
+universe <- dgeFilt$genes$entrezid %>%
+  unlist() %>%
+  extract(!is.na(.)) %>% #keep non NA gene
+  unique() %>%
+  as.character()
+```
+
+```{r ego-results}
+ego_results <- top_tables %>% 
+  lapply(
+    function(x) {
+      de <- dplyr::filter(x, adj.P.Val < 0.05, abs(logFC) > 1)
+      ids <- unique(unlist(de$entrezid))
+      enrichGO(
+        ids,
+        universe = universe,
+        OrgDb = org.Mm.eg.db,
+        ont = "ALL",
+        keyType = "ENTREZID",
+        pAdjustMethod = "bonferroni",
+        pvalueCutoff = 0.05,
+        qvalueCutoff = 0.05,
+        readable = TRUE
+      )
+    }
+  )
+```
+
+## Enrichment Results {.tabset}
+
+Enrichment testing was performed using all three available Gene Ontologies and the function `enrichGO()` from the package `clusterProfiler`.
+Ontologies were only considered to be enriched amongst the differentially expressed genes if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing.
+
+### DN Vs. Lag3^+^
+
+```{r dotplot-dn-lag3}
+dotplot(ego_results$DNvLAG3) +
+  ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. DP
+
+```{r dotplot-dn-dp}
+dotplot(ego_results$DNvDP) +
+  ggtitle("DN Vs. DP") +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. Cd49b^+^
+
+```{r dotplot-dn-cd49}
+dotplot(ego_results$DNvCD49b) +
+  ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### Lag3^+^ Vs Cd49^+^
+
+```{r dotplot-lag3-cd49}
+dotplot(ego_results$LAG3vCD49b) +
+  ggtitle(
+    expression(
+      paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")})
+    )
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Lag3^+^ Vs. DP
+
+```{r dotplot-lag3-dp}
+dotplot(ego_results$LAG3vDP) +
+  ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Cd49b^+^ Vs. DP
+
+```{r dotplot-cd49-dp}
+dotplot(ego_results$CD49bvDP) +
+  ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
