@@ -592,56 +592,6 @@ grp_coef <- dgeList %>%
 
 In order to visualise the data using heatmaps, the average expression within each cell type was calculated.
 
-### Top 100 By logFC
-
-All DE genes were combined across all comparisons and the 100 with the most extreme estimates of logFC were chosen for visualisation.
-
-```{r heatmap-top100, fig.height=4, fig.cap="The 100 genes showing the most extreme fold-change across one or more comparisons"}
-top_100 <- top_tables %>% 
-  lapply(dplyr::filter, DE) %>% 
-  bind_rows(.id = "comparison") %>% 
-  arrange(desc(abs(logFC))) %>% 
-  distinct(gene_id) %>% 
-  dplyr::slice(1:100) %>% 
-  pull("gene_id")
-p <- grp_coef[top_100,] %>% 
-  t() %>% 
-  pheatmap(
-    color = hcl.colors(101, "inferno"),
-    labels_col = id2gene[top_100],
-    labels_row = c(DN = "DN", DP = "DP", "LAG_3" = "Lag3+", CD49b = "Cd49b+"),
-    cluster_rows = FALSE,
-    # annotation_col = top_tables %>%
-    #   lapply(
-    #     function(x) {
-    #       up <- dplyr::filter(x, DE, logFC > 0)$gene_id
-    #       down <- dplyr::filter(x, DE, logFC < 0)$gene_id
-    #       case_when(
-    #         top_100 %in% up ~ "Up",
-    #         top_100 %in% down ~ "Down",
-    #         TRUE ~ "Unchanged"
-    #       )
-    #     }
-    #   ) %>%
-    #   lapply(factor, levels = c("Up", "Down", "Unchanged")) %>%
-    #   as.data.frame() %>%
-    #   set_colnames(str_replace_all(colnames(.), "v", " Vs. ")) %>%
-    #   set_rownames(top_100),
-    # annotation_colors = top_tables %>%
-    #   setNames(str_replace_all(names(.), "v", " Vs. ")) %>%
-    #   lapply(function(x) c("Unchanged" = "grey", "Up" = "red", "Down" = "blue")),
-    # annotation_legend = FALSE,
-    cutree_cols = 8,
-    cellheight = 15,
-    fontsize = 8,
-    silent = TRUE
-  ) %>% 
-  .[["gtable"]]
-p$grobs[[3]]$gp <- gpar(fontsize = 8, fontface = "italic")
-p$grobs[[4]]$gp <- gpar(fontsize = 10)
-grid.newpage()
-grid.draw(p)
-```
 
 ### High Confidence Genes
 
@@ -768,7 +718,72 @@ grp_df %>%
 dev.off()
 ```
 
-![Expression patterns across all groups for key marker genes](assets/highconf_heat.png)
+![Expression patterns across all groups for key marker genes. The same figure is available [here](assets/highconf_heat.pdf) as a pdf.](assets/highconf_heat.png){width=300px}
+
+### Top 100 By logFC
+
+All DE genes were combined across all comparisons and the 100 with the most extreme estimates of logFC were chosen for visualisation.
+
+```{r heatmap-top100, results='hide', fig.height=4, fig.cap="The 100 genes showing the most extreme fold-change across one or more comparisons"}
+top_100 <- top_tables %>% 
+  lapply(dplyr::filter, DE) %>% 
+  bind_rows(.id = "comparison") %>% 
+  arrange(desc(abs(logFC))) %>% 
+  distinct(gene_id) %>% 
+  dplyr::slice(1:100) %>% 
+  pull("gene_id")
+p <- grp_coef[top_100,] %>% 
+  # t() %>% 
+  pheatmap(
+    color = hcl.colors(101, "inferno"),
+    labels_row = id2gene[top_100],
+    labels_col = c(DN = "DN", DP = "DP", "LAG_3" = "Lag3+", CD49b = "Cd49b+"),
+    cluster_cols = FALSE,
+    # annotation_col = top_tables %>%
+    #   lapply(
+    #     function(x) {
+    #       up <- dplyr::filter(x, DE, logFC > 0)$gene_id
+    #       down <- dplyr::filter(x, DE, logFC < 0)$gene_id
+    #       case_when(
+    #         top_100 %in% up ~ "Up",
+    #         top_100 %in% down ~ "Down",
+    #         TRUE ~ "Unchanged"
+    #       )
+    #     }
+    #   ) %>%
+    #   lapply(factor, levels = c("Up", "Down", "Unchanged")) %>%
+    #   as.data.frame() %>%
+    #   set_colnames(str_replace_all(colnames(.), "v", " Vs. ")) %>%
+    #   set_rownames(top_100),
+    # annotation_colors = top_tables %>%
+    #   setNames(str_replace_all(names(.), "v", " Vs. ")) %>%
+    #   lapply(function(x) c("Unchanged" = "grey", "Up" = "red", "Down" = "blue")),
+    # annotation_legend = FALSE,
+    cutree_rows = 8,
+    cellwidth = 15,
+    fontsize = 8,
+    silent = TRUE
+  ) %>% 
+  .[["gtable"]]
+p$grobs[[4]]$gp <- gpar(fontsize = 8, fontface = "italic")
+p$grobs[[3]]$gp <- gpar(fontsize = 10)
+png(
+  here::here("docs", "assets", "top100_heat.png"),
+  height = 12, width = 5, units = "in", res = 300
+)
+grid.newpage()
+grid.draw(p)
+dev.off()
+pdf(
+  here::here("docs", "assets", "top100_heat.pdf"),
+  height = 12, width = 5
+)
+grid.newpage()
+grid.draw(p)
+dev.off()
+```
+
+![Expression patterns the top 100 DE genes by logFC. The same figure is available [here](assets/top100_heat.pdf) as a pdf.](assets/top100_heat.png){width=300px}
 
 ## Data Export
 

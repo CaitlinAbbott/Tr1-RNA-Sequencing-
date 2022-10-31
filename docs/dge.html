@@ -530,15 +530,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3targetblank5c676b4a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree0c8218dbd8611ceebbae583a3b2ccef44f754728targetblank0c8218da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3" target="_blank">5c676b4</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/0c8218dbd8611ceebbae583a3b2ccef44f754728" target="_blank">0c8218d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3targetblank5c676b4a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree0c8218dbd8611ceebbae583a3b2ccef44f754728targetblank0c8218da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -548,7 +548,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3" target="_blank">5c676b4</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/0c8218dbd8611ceebbae583a3b2ccef44f754728" target="_blank">0c8218d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -565,9 +565,6 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-
-Untracked files:
-    Untracked:  analysis/figure/
 
 Unstaged changes:
     Modified:   analysis/dge.Rmd
@@ -615,6 +612,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0c8218dbd8611ceebbae583a3b2ccef44f754728/analysis/dge.Rmd" target="_blank">0c8218d</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-31
+</td>
+<td>
+Added pdf
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/0c8218dbd8611ceebbae583a3b2ccef44f754728/docs/dge.html" target="_blank">0c8218d</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-10-31
+</td>
+<td>
+Added pdf
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2158,110 +2189,6 @@ Steve Pederson
   as.matrix()</code></pre>
 <p>In order to visualise the data using heatmaps, the average expression
 within each cell type was calculated.</p>
-<div id="top-100-by-logfc" class="section level3">
-<h3>Top 100 By logFC</h3>
-<p>All DE genes were combined across all comparisons and the 100 with
-the most extreme estimates of logFC were chosen for visualisation.</p>
-<pre class="r"><code>top_100 &lt;- top_tables %&gt;% 
-  lapply(dplyr::filter, DE) %&gt;% 
-  bind_rows(.id = &quot;comparison&quot;) %&gt;% 
-  arrange(desc(abs(logFC))) %&gt;% 
-  distinct(gene_id) %&gt;% 
-  dplyr::slice(1:100) %&gt;% 
-  pull(&quot;gene_id&quot;)
-p &lt;- grp_coef[top_100,] %&gt;% 
-  t() %&gt;% 
-  pheatmap(
-    color = hcl.colors(101, &quot;inferno&quot;),
-    labels_col = id2gene[top_100],
-    labels_row = c(DN = &quot;DN&quot;, DP = &quot;DP&quot;, &quot;LAG_3&quot; = &quot;Lag3+&quot;, CD49b = &quot;Cd49b+&quot;),
-    cluster_rows = FALSE,
-    # annotation_col = top_tables %&gt;%
-    #   lapply(
-    #     function(x) {
-    #       up &lt;- dplyr::filter(x, DE, logFC &gt; 0)$gene_id
-    #       down &lt;- dplyr::filter(x, DE, logFC &lt; 0)$gene_id
-    #       case_when(
-    #         top_100 %in% up ~ &quot;Up&quot;,
-    #         top_100 %in% down ~ &quot;Down&quot;,
-    #         TRUE ~ &quot;Unchanged&quot;
-    #       )
-    #     }
-    #   ) %&gt;%
-    #   lapply(factor, levels = c(&quot;Up&quot;, &quot;Down&quot;, &quot;Unchanged&quot;)) %&gt;%
-    #   as.data.frame() %&gt;%
-    #   set_colnames(str_replace_all(colnames(.), &quot;v&quot;, &quot; Vs. &quot;)) %&gt;%
-    #   set_rownames(top_100),
-    # annotation_colors = top_tables %&gt;%
-    #   setNames(str_replace_all(names(.), &quot;v&quot;, &quot; Vs. &quot;)) %&gt;%
-    #   lapply(function(x) c(&quot;Unchanged&quot; = &quot;grey&quot;, &quot;Up&quot; = &quot;red&quot;, &quot;Down&quot; = &quot;blue&quot;)),
-    # annotation_legend = FALSE,
-    cutree_cols = 8,
-    cellheight = 15,
-    fontsize = 8,
-    silent = TRUE
-  ) %&gt;% 
-  .[[&quot;gtable&quot;]]
-p$grobs[[3]]$gp &lt;- gpar(fontsize = 8, fontface = &quot;italic&quot;)
-p$grobs[[4]]$gp &lt;- gpar(fontsize = 10)
-grid.newpage()
-grid.draw(p)</code></pre>
-<div class="figure" style="text-align: center">
-<img src="figure/dge.Rmd/heatmap-top100-1.png" alt="The 100 genes showing the most extreme fold-change across one or more comparisons" width="960" />
-<p class="caption">
-The 100 genes showing the most extreme fold-change across one or more
-comparisons
-</p>
-</div>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-heatmap-top100-1">
-Past versions of heatmap-top100-1.png
-</button>
-</p>
-<div id="fig-heatmap-top100-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/docs/figure/dge.Rmd/heatmap-top100-1.png" target="_blank">5c676b4</a>
-</td>
-<td>
-Steve Pederson
-</td>
-<td>
-2022-10-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/heatmap-top100-1.png" target="_blank">0892674</a>
-</td>
-<td>
-Steve Pederson
-</td>
-<td>
-2022-10-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
 <div id="high-confidence-genes" class="section level3">
 <h3>High Confidence Genes</h3>
 <pre class="r"><code>highConf_df &lt;- tribble(
@@ -2385,9 +2312,77 @@ grp_df %&gt;%
   )
 dev.off()</code></pre>
 <div class="figure">
-<img src="assets/highconf_heat.png" alt="" />
+<img src="assets/highconf_heat.png" width="300" alt="" />
 <p class="caption">Expression patterns across all groups for key marker
-genes</p>
+genes. The same figure is available <a
+href="assets/highconf_heat.pdf">here</a> as a pdf.</p>
+</div>
+</div>
+<div id="top-100-by-logfc" class="section level3">
+<h3>Top 100 By logFC</h3>
+<p>All DE genes were combined across all comparisons and the 100 with
+the most extreme estimates of logFC were chosen for visualisation.</p>
+<pre class="r"><code>top_100 &lt;- top_tables %&gt;% 
+  lapply(dplyr::filter, DE) %&gt;% 
+  bind_rows(.id = &quot;comparison&quot;) %&gt;% 
+  arrange(desc(abs(logFC))) %&gt;% 
+  distinct(gene_id) %&gt;% 
+  dplyr::slice(1:100) %&gt;% 
+  pull(&quot;gene_id&quot;)
+p &lt;- grp_coef[top_100,] %&gt;% 
+  # t() %&gt;% 
+  pheatmap(
+    color = hcl.colors(101, &quot;inferno&quot;),
+    labels_row = id2gene[top_100],
+    labels_col = c(DN = &quot;DN&quot;, DP = &quot;DP&quot;, &quot;LAG_3&quot; = &quot;Lag3+&quot;, CD49b = &quot;Cd49b+&quot;),
+    cluster_cols = FALSE,
+    # annotation_col = top_tables %&gt;%
+    #   lapply(
+    #     function(x) {
+    #       up &lt;- dplyr::filter(x, DE, logFC &gt; 0)$gene_id
+    #       down &lt;- dplyr::filter(x, DE, logFC &lt; 0)$gene_id
+    #       case_when(
+    #         top_100 %in% up ~ &quot;Up&quot;,
+    #         top_100 %in% down ~ &quot;Down&quot;,
+    #         TRUE ~ &quot;Unchanged&quot;
+    #       )
+    #     }
+    #   ) %&gt;%
+    #   lapply(factor, levels = c(&quot;Up&quot;, &quot;Down&quot;, &quot;Unchanged&quot;)) %&gt;%
+    #   as.data.frame() %&gt;%
+    #   set_colnames(str_replace_all(colnames(.), &quot;v&quot;, &quot; Vs. &quot;)) %&gt;%
+    #   set_rownames(top_100),
+    # annotation_colors = top_tables %&gt;%
+    #   setNames(str_replace_all(names(.), &quot;v&quot;, &quot; Vs. &quot;)) %&gt;%
+    #   lapply(function(x) c(&quot;Unchanged&quot; = &quot;grey&quot;, &quot;Up&quot; = &quot;red&quot;, &quot;Down&quot; = &quot;blue&quot;)),
+    # annotation_legend = FALSE,
+    cutree_rows = 8,
+    cellwidth = 15,
+    fontsize = 8,
+    silent = TRUE
+  ) %&gt;% 
+  .[[&quot;gtable&quot;]]
+p$grobs[[4]]$gp &lt;- gpar(fontsize = 8, fontface = &quot;italic&quot;)
+p$grobs[[3]]$gp &lt;- gpar(fontsize = 10)
+png(
+  here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;top100_heat.png&quot;),
+  height = 12, width = 5, units = &quot;in&quot;, res = 300
+)
+grid.newpage()
+grid.draw(p)
+dev.off()
+pdf(
+  here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;top100_heat.pdf&quot;),
+  height = 12, width = 5
+)
+grid.newpage()
+grid.draw(p)
+dev.off()</code></pre>
+<div class="figure">
+<img src="assets/top100_heat.png" width="300" alt="" />
+<p class="caption">Expression patterns the top 100 DE genes by logFC.
+The same figure is available <a href="assets/top100_heat.pdf">here</a>
+as a pdf.</p>
 </div>
 </div>
 </div>
