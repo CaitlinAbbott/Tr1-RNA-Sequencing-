@@ -452,7 +452,7 @@ top_tables$CD49bvDP %>%
 
 #### DN Vs. LAG3
 
-```{r plot-volcano-dnvlag3, fig.cap = "Volcano Plot for DN Vs. LAG3. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+```{r plot-volcano-dnvlag3, fig.cap = "Volcano Plot for DN Vs. LAG3. The (up to) 10 most highly-ranked genes are labelled."}
 top_tables$DNvLAG3 %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -472,7 +472,7 @@ top_tables$DNvLAG3 %>%
 
 #### DN Vs. DP
 
-```{r plot-volcano-dnvdp, fig.cap = "Volcano Plot for DN Vs. DP. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+```{r plot-volcano-dnvdp, fig.cap = "Volcano Plot for DN Vs. DP. The (up to) 10 most highly-ranked genes are labelled."}
 top_tables$DNvDP %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -492,7 +492,7 @@ top_tables$DNvDP %>%
 
 #### DN Vs. CD49b
 
-```{r plot-volcano-dnvcd49, fig.cap = "Volcano Plot for DN Vs. CD49b The most up/down-regulated genes are labelled, with the blue line representing a spline through the data."}
+```{r plot-volcano-dnvcd49, fig.cap = "Volcano Plot for DN Vs. CD49b. The (up to) 10 most highly-ranked genes are labelled."}
 top_tables$DNvCD49b %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -512,7 +512,7 @@ top_tables$DNvCD49b %>%
 
 #### LAG3 Vs. CD49b
 
-```{r plot-volcano-lag3vcd49, fig.cap = "Volcano Plot for LAG3 Vs. CD49b. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+```{r plot-volcano-lag3vcd49, fig.cap = "Volcano Plot for LAG3 Vs. CD49b. The (up to) 10 most highly-ranked genes are labelled."}
 top_tables$LAG3vCD49b %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -532,7 +532,7 @@ top_tables$LAG3vCD49b %>%
 
 #### LAG3 Vs. DP
 
-```{r plot-volcano-lag3vdp, fig.cap = "Volcano Plot for LAG3 Vs. DP The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+```{r plot-volcano-lag3vdp, fig.cap = "Volcano Plot for LAG3 Vs. DP. The (up to) 10 most highly-ranked genes are labelled."}
 top_tables$LAG3vDP %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -552,7 +552,7 @@ top_tables$LAG3vDP %>%
 
 #### CD49b Vs. DP
 
-```{r plot-volcano-cd49vdp, fig.cap = "Volcano Plot for CD49b Vs. DP. The 10 most highly-ranked genes are labelled, with the blue line representing a spline through the data."}
+```{r plot-volcano-cd49vdp, fig.cap = "Volcano Plot for CD49b Vs. DP. The (up to) 10 most highly-ranked genes are labelled."}
 top_tables$CD49bvDP %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
