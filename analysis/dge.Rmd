@@ -62,7 +62,7 @@ dgeList <- counts %>%
 ```
 
 ```{r setup-annotations}
-ah <- AnnotationHub(localHub = TRUE)
+ah <- AnnotationHub()
 #Find which genome did we use
 # unique(ah$dataprovider)
 # subset(ah, dataprovider == "Ensembl") %>%  #In Ensembl databse
@@ -830,7 +830,7 @@ dev.off()
 ```
 
 
-![Changes in relative expression for the top 100 DE genes by logFC. The same figure is available [here](assets/top100_fogfc_heat.pdf) as a pdf.](assets/top100_logfc_heat.png){width=300px}
+![Changes in relative expression for the top 100 DE genes by logFC. The same figure is available [here](assets/top100_logfc_heat.pdf) as a pdf.](assets/top100_logfc_heat.png){width=300px}
 
 ## Data Export
 
