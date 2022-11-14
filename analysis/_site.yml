@@ -1,0 +1,18 @@
+name: "Tr1-RNA-Sequencing"
+output_dir: ../docs
+navbar:
+  title: "Tr1-RNA-Sequencing"
+  left:
+  - text: Home
+    href: index.html
+  - text: DGE Analysis
+    href: dge.html
+  - text: Enrichment Analysis
+    href: enrichment.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    code_folding: hide
+    theme: cosmo
+    highlight: textmate

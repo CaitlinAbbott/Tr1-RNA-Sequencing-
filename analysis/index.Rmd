@@ -1,0 +1,29 @@
+---
+title: "Home"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+# Outline
+
+Analysis of RNA-Sequencing data from Murine Type 1 Regulatory (Tr1) cells, with four cell subtypes: 
+
+1. *Lag3*^-^ *Cd49b*^-^ Double Negative (DN)
+2. *Lag3*^+^ *Cd49b*^+^ Double Positive (DP)
+3. *Lag3*^-^ *Cd49b*^+^ (CD49b)
+4. *Lag3*^+^ *Cd49b*^-^ (LAG3)
+
+All experimental work was performed by Dr Caitlin Abbott.
+Data processing and alignment was performed by Mark Armstrong (Bioinformatics Hub, University of Adelaide).
+All analysis was performed by Dr Caitlin Abbott with assistance from Dr Stephen Pederson (Black Ochre Data Laboratories, Telethon Kids Institute).
+
+# Data Processing
+
+- Quality assessment on sequencing reads was performed uing `FastQC v0.11.7` and the Bioconductor package `ngsReports`
+- Raw sequencing data was trimmed using `AdapterRemoval v2.2.1` to remove adapter sequences and low quality reads 
+- Alignment to GRCm38 was performed using the splice-aware aligner `STAR v2.5.3` with default settings
+- Alignments were summarised to counts using `featureCounts` from the Subread tool (v1.5.2), with annotations derived from Ensembl Version 96
