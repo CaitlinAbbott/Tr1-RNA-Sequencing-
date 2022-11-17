@@ -364,7 +364,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Tr1: Differential Gene Expression</h1>
 <h4 class="author">Stephen Pederson &amp; Caitlin Abbott</h4>
-<h4 class="date">14 November, 2022</h4>
+<h4 class="date">17 November, 2022</h4>
 
 </div>
 
@@ -393,7 +393,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-14
+<strong>Last updated:</strong> 2022-11-17
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -524,15 +524,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree7969b18f855665d504817816459739fbe2bc56a1targetblank7969b18a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree9abed75262d72a73776e0f44be4c71d9d40d19f7targetblank9abed75a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/7969b18f855665d504817816459739fbe2bc56a1" target="_blank">7969b18</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/9abed75262d72a73776e0f44be4c71d9d40d19f7" target="_blank">9abed75</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree7969b18f855665d504817816459739fbe2bc56a1targetblank7969b18a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree9abed75262d72a73776e0f44be4c71d9d40d19f7targetblank9abed75a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -542,7 +542,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/7969b18f855665d504817816459739fbe2bc56a1" target="_blank">7969b18</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/9abed75262d72a73776e0f44be4c71d9d40d19f7" target="_blank">9abed75</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -557,6 +557,7 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
 </code></pre>
@@ -602,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/9abed75262d72a73776e0f44be4c71d9d40d19f7/analysis/dge.Rmd" target="_blank">9abed75</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+<td>
+Increased font size &amp; labelled more genes
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/f2ee30ed28f0c3007704577393163e951327740c/docs/dge.html" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1057,6 +1092,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/dge.Rmd/plot-densities-1.png" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-densities-1.png" target="_blank">8745ba2</a>
@@ -1850,17 +1896,19 @@ Steve Pederson
     data = . %&gt;% 
       dplyr::filter(DE) %&gt;% 
       arrange(P.Value) %&gt;% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. LAG3&quot;) +
-  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;)) +
+  theme(text = element_text(size = 16))</code></pre>
 <div class="figure" style="text-align: center">
-<img src="figure/dge.Rmd/plot-volcano-dnvlag3-1.png" alt="Volcano Plot for DN Vs. LAG3. The (up to) 10 most highly-ranked genes are labelled." width="960" />
+<img src="figure/dge.Rmd/plot-volcano-dnvlag3-1.png" alt="Volcano Plot for DN Vs. LAG3. The (up to) 20 most highly-ranked genes are labelled." width="960" />
 <p class="caption">
-Volcano Plot for DN Vs. LAG3. The (up to) 10 most highly-ranked genes
+Volcano Plot for DN Vs. LAG3. The (up to) 20 most highly-ranked genes
 are labelled.
 </p>
 </div>
@@ -1923,17 +1971,19 @@ Steve Pederson
     data = . %&gt;% 
       dplyr::filter(DE) %&gt;% 
       arrange(P.Value) %&gt;% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. DP&quot;) +
-  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;)) +
+  theme(text = element_text(size = 16))</code></pre>
 <div class="figure" style="text-align: center">
-<img src="figure/dge.Rmd/plot-volcano-dnvdp-1.png" alt="Volcano Plot for DN Vs. DP. The (up to) 10 most highly-ranked genes are labelled." width="960" />
+<img src="figure/dge.Rmd/plot-volcano-dnvdp-1.png" alt="Volcano Plot for DN Vs. DP. The (up to) 20 most highly-ranked genes are labelled." width="960" />
 <p class="caption">
-Volcano Plot for DN Vs. DP. The (up to) 10 most highly-ranked genes are
+Volcano Plot for DN Vs. DP. The (up to) 20 most highly-ranked genes are
 labelled.
 </p>
 </div>
@@ -1996,17 +2046,19 @@ Steve Pederson
     data = . %&gt;% 
       dplyr::filter(DE) %&gt;% 
       arrange(P.Value) %&gt;% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;DN Vs. CD49b&quot;) +
-  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;)) +
+  theme(text = element_text(size = 16))</code></pre>
 <div class="figure" style="text-align: center">
-<img src="figure/dge.Rmd/plot-volcano-dnvcd49-1.png" alt="Volcano Plot for DN Vs. CD49b. The (up to) 10 most highly-ranked genes are labelled." width="960" />
+<img src="figure/dge.Rmd/plot-volcano-dnvcd49-1.png" alt="Volcano Plot for DN Vs. CD49b. The (up to) 20 most highly-ranked genes are labelled." width="960" />
 <p class="caption">
-Volcano Plot for DN Vs. CD49b. The (up to) 10 most highly-ranked genes
+Volcano Plot for DN Vs. CD49b. The (up to) 20 most highly-ranked genes
 are labelled.
 </p>
 </div>
@@ -2069,17 +2121,19 @@ Steve Pederson
     data = . %&gt;% 
       dplyr::filter(DE) %&gt;% 
       arrange(P.Value) %&gt;% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;LAG3 Vs. CD49b&quot;) +
-  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;)) +
+  theme(text = element_text(size = 16))</code></pre>
 <div class="figure" style="text-align: center">
-<img src="figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" alt="Volcano Plot for LAG3 Vs. CD49b. The (up to) 10 most highly-ranked genes are labelled." width="960" />
+<img src="figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" alt="Volcano Plot for LAG3 Vs. CD49b. The (up to) 20 most highly-ranked genes are labelled." width="960" />
 <p class="caption">
-Volcano Plot for LAG3 Vs. CD49b. The (up to) 10 most highly-ranked genes
+Volcano Plot for LAG3 Vs. CD49b. The (up to) 20 most highly-ranked genes
 are labelled.
 </p>
 </div>
@@ -2142,17 +2196,19 @@ Steve Pederson
     data = . %&gt;% 
       dplyr::filter(DE) %&gt;% 
       arrange(P.Value) %&gt;% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;LAG3 Vs. DP&quot;) +
-  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;)) +
+  theme(text = element_text(size = 16))</code></pre>
 <div class="figure" style="text-align: center">
-<img src="figure/dge.Rmd/plot-volcano-lag3vdp-1.png" alt="Volcano Plot for LAG3 Vs. DP. The (up to) 10 most highly-ranked genes are labelled." width="960" />
+<img src="figure/dge.Rmd/plot-volcano-lag3vdp-1.png" alt="Volcano Plot for LAG3 Vs. DP. The (up to) 20 most highly-ranked genes are labelled." width="960" />
 <p class="caption">
-Volcano Plot for LAG3 Vs. DP. The (up to) 10 most highly-ranked genes
+Volcano Plot for LAG3 Vs. DP. The (up to) 20 most highly-ranked genes
 are labelled.
 </p>
 </div>
@@ -2215,17 +2271,19 @@ Steve Pederson
     data = . %&gt;% 
       dplyr::filter(DE) %&gt;% 
       arrange(P.Value) %&gt;% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
   ) +
   ggtitle(&quot;CD49b Vs. DP&quot;) +
-  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;))</code></pre>
+  scale_colour_manual(values = c(&quot;grey30&quot;, &quot;red&quot;)) +
+  theme(text = element_text(size = 16))</code></pre>
 <div class="figure" style="text-align: center">
-<img src="figure/dge.Rmd/plot-volcano-cd49vdp-1.png" alt="Volcano Plot for CD49b Vs. DP. The (up to) 10 most highly-ranked genes are labelled." width="960" />
+<img src="figure/dge.Rmd/plot-volcano-cd49vdp-1.png" alt="Volcano Plot for CD49b Vs. DP. The (up to) 20 most highly-ranked genes are labelled." width="960" />
 <p class="caption">
-Volcano Plot for CD49b Vs. DP. The (up to) 10 most highly-ranked genes
+Volcano Plot for CD49b Vs. DP. The (up to) 20 most highly-ranked genes
 are labelled.
 </p>
 </div>
