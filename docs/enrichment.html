@@ -37,6 +37,12 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-17.0.0/react.min.js"></script>
+<script src="site_libs/react-17.0.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.3.0/reactable.js"></script>
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -364,7 +370,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Tr1: Enrichment Analysis</h1>
 <h4 class="author">Stephen Pederson &amp; Caitlin Abbott</h4>
-<h4 class="date">14 November, 2022</h4>
+<h4 class="date">18 November, 2022</h4>
 
 </div>
 
@@ -372,7 +378,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -383,8 +389,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -393,13 +399,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-14
+<strong>Last updated:</strong> 2022-11-18
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Tr1-RNA-Sequencing-/</code> <span
@@ -422,18 +428,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -524,15 +533,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree7969b18f855665d504817816459739fbe2bc56a1targetblank7969b18a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree3a59bc588052927680289ec0a029cb568d1f8d03targetblank3a59bc5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/7969b18f855665d504817816459739fbe2bc56a1" target="_blank">7969b18</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/3a59bc588052927680289ec0a029cb568d1f8d03" target="_blank">3a59bc5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree7969b18f855665d504817816459739fbe2bc56a1targetblank7969b18a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree3a59bc588052927680289ec0a029cb568d1f8d03targetblank3a59bc5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -542,7 +551,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/7969b18f855665d504817816459739fbe2bc56a1" target="_blank">7969b18</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/3a59bc588052927680289ec0a029cb568d1f8d03" target="_blank">3a59bc5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -557,7 +566,11 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   analysis/enrichment.Rmd
 
 </code></pre>
 <p>
@@ -603,6 +616,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/3a59bc588052927680289ec0a029cb568d1f8d03/docs/enrichment.html" target="_blank">3a59bc5</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/36a1cb886f7af393e21a64260818552ac4cc0d36/analysis/enrichment.Rmd" target="_blank">36a1cb8</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-18
+</td>
+<td>
+Added enrichment tables
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/enrichment.html" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/68c392fc4a27599c299ff65e989e6136c26b84aa/analysis/enrichment.Rmd" target="_blank">68c392f</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+<td>
+Added down &amp; up genes separately
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/f2ee30ed28f0c3007704577393163e951327740c/docs/enrichment.html" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -690,7 +788,14 @@ library(RColorBrewer)
 library(pheatmap)
 library(magrittr)
 library(clusterProfiler)
-library(org.Mm.eg.db)</code></pre>
+library(org.Mm.eg.db)
+library(reactable)
+library(htmltools)
+library(glue)
+library(scales)
+with_tooltip &lt;- function(value, width = 30) {
+  tags$span(title = value, str_trunc(value, width))
+}</code></pre>
 <pre class="r"><code>top_tables &lt;- read_rds(here::here(&quot;output&quot;, &quot;top_tables.rds&quot;))
 dgeFilt &lt;- read_rds(here::here(&quot;output&quot;, &quot;dgeFilt.rds&quot;))</code></pre>
 <pre class="r"><code>universe &lt;- dgeFilt$genes$entrezid %&gt;%
@@ -698,6 +803,8 @@ dgeFilt &lt;- read_rds(here::here(&quot;output&quot;, &quot;dgeFilt.rds&quot;))<
   extract(!is.na(.)) %&gt;% #keep non NA gene
   unique() %&gt;%
   as.character()</code></pre>
+<div id="enrichment-results" class="section level2 tabset">
+<h2 class="tabset">Enrichment Results</h2>
 <pre class="r"><code>ego_results &lt;- top_tables %&gt;% 
   lapply(
     function(x) {
@@ -716,14 +823,12 @@ dgeFilt &lt;- read_rds(here::here(&quot;output&quot;, &quot;dgeFilt.rds&quot;))<
       )
     }
   )</code></pre>
-<div id="enrichment-results" class="section level2 tabset">
-<h2 class="tabset">Enrichment Results</h2>
 <p>Enrichment testing was performed using all three available Gene
 Ontologies and the function <code>enrichGO()</code> from the package
 <code>clusterProfiler</code>. Ontologies were only considered to be
 enriched amongst the differentially expressed genes if a
 Bonferroni-adjusted p-value &lt; 0.05 was returned during enrichment
-testing.</p>
+testing, with no regard to the sign of fold change.</p>
 <div id="dn-vs.-lag3" class="section level3">
 <h3>DN Vs. Lag3<sup>+</sup></h3>
 <pre class="r"><code>dotplot(ego_results$DNvLAG3) +
@@ -755,6 +860,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/enrichment.Rmd/dotplot-dn-lag3-1.png" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/61ec31fdbfcf7d35b508a533f329f98933a65299/docs/figure/enrichment.Rmd/dotplot-dn-lag3-1.png" target="_blank">61ec31f</a>
@@ -804,6 +920,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/enrichment.Rmd/dotplot-dn-dp-1.png" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/61ec31fdbfcf7d35b508a533f329f98933a65299/docs/figure/enrichment.Rmd/dotplot-dn-dp-1.png" target="_blank">61ec31f</a>
 </td>
 <td>
@@ -849,6 +976,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/enrichment.Rmd/dotplot-dn-cd49-1.png" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/61ec31fdbfcf7d35b508a533f329f98933a65299/docs/figure/enrichment.Rmd/dotplot-dn-cd49-1.png" target="_blank">61ec31f</a>
@@ -902,6 +1040,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/enrichment.Rmd/dotplot-lag3-cd49-1.png" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/61ec31fdbfcf7d35b508a533f329f98933a65299/docs/figure/enrichment.Rmd/dotplot-lag3-cd49-1.png" target="_blank">61ec31f</a>
 </td>
 <td>
@@ -947,6 +1096,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/enrichment.Rmd/dotplot-lag3-dp-1.png" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/61ec31fdbfcf7d35b508a533f329f98933a65299/docs/figure/enrichment.Rmd/dotplot-lag3-dp-1.png" target="_blank">61ec31f</a>
@@ -996,6 +1156,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/enrichment.Rmd/dotplot-cd49-dp-1.png" target="_blank">f2ee30e</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/61ec31fdbfcf7d35b508a533f329f98933a65299/docs/figure/enrichment.Rmd/dotplot-cd49-dp-1.png" target="_blank">61ec31f</a>
 </td>
 <td>
@@ -1007,6 +1178,912 @@ Steve Pederson
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
+<div id="enrichment-tables" class="section level2 tabset">
+<h2 class="tabset">Enrichment Tables</h2>
+<pre class="r"><code>htmltools::tagList(
+  names(ego_results) %&gt;% 
+    lapply(
+      function(x) {
+        df &lt;- ego_results[[x]] %&gt;% 
+          as_tibble() %&gt;% 
+          dplyr::filter(p.adjust &lt; 0.05) %&gt;% 
+          mutate(
+            geneID = str_replace_all(geneID, &quot;\\/&quot;, &quot;; &quot;),
+            `% DE` = vapply(GeneRatio, function(x) eval(parse(text = x)), numeric(1)),
+            `% BG` = vapply(BgRatio, function(x) eval(parse(text = x)), numeric(1))
+          ) %&gt;% 
+          dplyr::select(ONTOLOGY, ID, Description, Count, starts_with(&quot;%&quot;), p.adjust, geneID) %&gt;% 
+          arrange(p.adjust) %&gt;% 
+          distinct(ONTOLOGY, geneID, .keep_all = TRUE) 
+        
+        if (nrow(df)) {
+          cp &lt;- glue(
+            &quot;All {nrow(df)} ontologies considered enriched in the set of &quot;,
+            length(unique(unlist(dplyr::filter(top_tables[[x]], DE)$entrezid))),
+            &quot; DE genes mapped to EntrezIDs from the comparison {x}. Enrichment &quot;,
+            &quot;testing was performed using Fisher&#39;s Exact Test compared to the set of &quot;,
+            comma(length(unique(universe))), 
+            &quot; unique EntrezIDs mapped to genes considered as detectable. &quot;,
+            &quot;The percentage of nonDE genes mapped to the ontology are also given. &quot;,
+            &quot;P-values are Bonferroni adjusted and all pathways are considered enriched &quot;,
+            &quot;using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your &quot;, 
+            &quot;mouse over the final column. &quot;,
+            &quot;Where the identical genes map to multiple terms within each ontology, only &quot;, 
+            &quot;the term with the lowest p-value (i.e. strongest enrichment) is shown. &quot;,
+            &quot;As a result, some of the pathways seen in the above dotplots may not be &quot;,
+            &quot;presented in these tables.&quot;
+          )
+          htmltools::div(
+            htmltools::div(
+              id = x, 
+              class=&quot;section level3&quot;,
+              htmltools::h3(class = &quot;tabset&quot;, x),
+              htmltools::tags$em(cp),
+              df %&gt;% 
+                reactable(
+                  filterable = TRUE,
+                  columns = list(
+                    ONTOLOGY = colDef(name = &quot;Ontology&quot;, maxWidth = 100),
+                    ID = colDef(name = &quot;GO ID&quot;, maxWidth = 125),
+                    Description = colDef(maxWidth = 250),
+                    Count = colDef(name = &quot;N&lt;sub&gt;DE&lt;/sub&gt;&quot;, html = TRUE, maxWidth = 80),
+                    `% DE` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    `% BG` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    p.adjust = colDef(
+                      name = &quot;p&lt;sub&gt;adj&lt;/sub&gt;&quot;, html = TRUE, maxWidth = 100,
+                      cell = function(value) {
+                        fm &lt;- ifelse(value &lt; 0.001, &quot;%.2e&quot;, &quot;%.3f&quot;)
+                        sprintf(fm, value)
+                      }
+                    ),
+                    geneID = colDef(
+                      name = &quot;DE Genes&quot;,
+                      cell = function(value) with_tooltip(value, width = 100)
+                    )
+                  )
+                )
+            )
+          )
+        } else {
+          cat(glue(&quot;No enrichment was found for {x}\n\n&quot;))
+        }
+      }
+    )
+)</code></pre>
+<div>
+<div id="DNvLAG3" class="section level3">
+<h3 class="tabset">DNvLAG3</h3>
+<em>All 58 ontologies considered enriched in the set of 73 DE genes mapped to EntrezIDs from the comparison DNvLAG3. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-9792121a243fec82197d" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9792121a243fec82197d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["CC","BP","CC","BP","CC","MF","BP","CC","MF","BP","BP","CC","BP","BP","BP","BP","BP","BP","MF","MF","CC","BP","BP","BP","BP","MF","CC","BP","MF","BP","BP","BP","BP","CC","CC","BP","BP","BP","BP","BP","BP","CC","BP","BP","BP","BP","BP","BP","BP","BP","CC","BP","BP","BP","BP","MF","BP","BP"],"ID":["GO:0005615","GO:0006954","GO:0009986","GO:0034341","GO:0009897","GO:0005125","GO:0022407","GO:0098552","GO:0008009","GO:0045087","GO:0009617","GO:0098797","GO:0002694","GO:0051249","GO:0098609","GO:0002250","GO:0050863","GO:0032496","GO:0023026","GO:0005126","GO:0043235","GO:0071347","GO:0033993","GO:0050778","GO:0071222","GO:0038023","GO:0042611","GO:0042110","GO:0004888","GO:0060326","GO:1903037","GO:0070098","GO:0002764","GO:0098802","GO:0099634","GO:0002449","GO:0022409","GO:0002443","GO:0030595","GO:0046651","GO:0030593","GO:0099146","GO:0019886","GO:0050870","GO:0001817","GO:0051251","GO:1903131","GO:0071396","GO:0050866","GO:0034110","GO:0005771","GO:0070372","GO:0032722","GO:0002521","GO:0043408","GO:0003823","GO:0030098","GO:0034612"],"Description":["extracellular space","inflammatory response","cell surface","response to interferon-gamma","external side of plasma membrane","cytokine activity","regulation of cell-cell adhesion","side of membrane","chemokine activity","innate immune response","response to bacterium","plasma membrane protein complex","regulation of leukocyte activation","regulation of lymphocyte activation","cell-cell adhesion","adaptive immune response","regulation of T cell activation","response to lipopolysaccharide","MHC class II protein complex binding","cytokine receptor binding","receptor complex","cellular response to interleukin-1","response to lipid","positive regulation of immune response","cellular response to lipopolysaccharide","signaling receptor activity","MHC protein complex","T cell activation","transmembrane signaling receptor activity","cell chemotaxis","regulation of leukocyte cell-cell adhesion","chemokine-mediated signaling pathway","immune response-regulating signaling pathway","plasma membrane signaling receptor complex","postsynaptic specialization membrane","lymphocyte mediated immunity","positive regulation of cell-cell adhesion","leukocyte mediated immunity","leukocyte chemotaxis","lymphocyte proliferation","neutrophil chemotaxis","intrinsic component of postsynaptic density membrane","antigen processing and presentation of exogenous peptide antigen via MHC class II","positive regulation of T cell activation","regulation of cytokine production","positive regulation of lymphocyte activation","mononuclear cell differentiation","cellular response to lipid","negative regulation of cell activation","regulation of homotypic cell-cell adhesion","multivesicular body","regulation of ERK1 and ERK2 cascade","positive regulation of chemokine production","leukocyte differentiation","regulation of MAPK cascade","antigen binding","lymphocyte differentiation","response to tumor necrosis factor"],"Count":[19,18,16,10,12,8,15,14,5,17,15,11,16,15,16,14,13,11,4,9,9,7,15,14,9,11,4,14,9,9,11,5,11,6,4,10,10,11,8,10,6,3,4,9,14,10,12,11,8,4,4,8,5,13,12,4,11,7],"% DE":[0.271428571428571,0.257142857142857,0.228571428571429,0.142857142857143,0.171428571428571,0.114285714285714,0.214285714285714,0.2,0.0714285714285714,0.242857142857143,0.214285714285714,0.157142857142857,0.228571428571429,0.214285714285714,0.228571428571429,0.2,0.185714285714286,0.157142857142857,0.0571428571428571,0.128571428571429,0.128571428571429,0.1,0.214285714285714,0.2,0.128571428571429,0.157142857142857,0.0571428571428571,0.2,0.128571428571429,0.128571428571429,0.157142857142857,0.0714285714285714,0.157142857142857,0.0857142857142857,0.0571428571428571,0.142857142857143,0.142857142857143,0.157142857142857,0.114285714285714,0.142857142857143,0.0857142857142857,0.0428571428571429,0.0571428571428571,0.128571428571429,0.2,0.142857142857143,0.171428571428571,0.157142857142857,0.114285714285714,0.0571428571428571,0.0571428571428571,0.114285714285714,0.0714285714285714,0.185714285714286,0.171428571428571,0.0571428571428571,0.157142857142857,0.1],"% BG":[0.0443552536791191,0.0422782716559851,0.0403416692394772,0.0105437254496589,0.0224349078933827,0.00720100187852223,0.0331817242092206,0.0356076978491304,0.00198288457524525,0.0491006822410585,0.0372131486458549,0.0221261706287949,0.0431052305147819,0.0377299979326029,0.0440355592309283,0.0326648749224726,0.0281166011990903,0.0188133140376266,0.0010436234606554,0.0142976414109789,0.0155397756509211,0.00578871201157742,0.0418647922265867,0.0369030390738061,0.0140583005995452,0.0299519933208099,0.00216116085211485,0.0434153400868307,0.021081193905239,0.0166425470332851,0.0270829026255944,0.0032044655778375,0.0274963820549928,0.00874755582998868,0.00267572295976124,0.0223278891875129,0.0224312590448625,0.0281166011990903,0.0132313417407484,0.0227413686169113,0.00609882158362621,0.00113203663682206,0.00175728757494315,0.018709944180277,0.0497209013851561,0.025118875335952,0.0372131486458549,0.0311143270622287,0.0150919991730411,0.00217076700434153,0.00391067201811259,0.0161256977465371,0.00465164358073186,0.0467231755220178,0.0402108745089932,0.0039657691504905,0.034112052925367,0.0124043828819516],"p.adjust":[1.76111644408164e-08,7.28659379928864e-07,2.07568167555941e-06,4.71882362767032e-06,6.91069199466836e-06,7.23132026599305e-06,1.20361253336103e-05,2.18045691206185e-05,4.42708811221491e-05,5.49489785170301e-05,5.62871373628856e-05,5.64155905807701e-05,5.75738619740574e-05,6.76270899928866e-05,7.76294946369646e-05,8.11109933458082e-05,0.000108268245082895,0.000118059261092534,0.000121516087446339,0.000136464434261689,0.000205162681979335,0.000247961150805412,0.000265854516044161,0.000368778459407883,0.000958810218993524,0.00147820047767021,0.00229079451140713,0.00262753792000345,0.00336959589474246,0.00396060045128697,0.00453839503471899,0.00466890030006463,0.00525795929122286,0.00534114125137852,0.00556877375676987,0.0057058154008045,0.00594740327835428,0.00652516922181335,0.00663334022649948,0.00672639037582566,0.00712522277970514,0.00963660105014905,0.010326266242752,0.0103946389099099,0.0128279634567476,0.0162629688757805,0.0164846136909083,0.0172011044656801,0.017629812700009,0.0254061746123232,0.0257614782116361,0.028645688897962,0.0310389056182763,0.0326261871527293,0.0359297439046093,0.0366044007292105,0.0407696904994129,0.0441144841079052],"geneID":["Fam20a; Areg; Lgals7; Cst7; Ccl5; Cd74; Cd40; Cxcl2; Serpinf1; Gpld1; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Chil5; Ccl8; Klk1b11; Ccl7","P2rx7; Acod1; Cst7; Havcr2; Ccl5; Cd40; Lyn; Cxcl2; Serpinf1; Il1b; Il1rn; Cd14; Chil5; Pld4; Ccl8; Ifngr2; Ccr4; Ccl7","Areg; P2rx7; Lag3; Plaur; Havcr2; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Ocln; Cd14; Cd79a; Ccr4","Acod1; Ccl5; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cxcl16; Ccl8; Ccl7","P2rx7; Lag3; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4","Areg; Ccl5; Cxcl2; Il1b; Il1rn; Cxcl16; Ccl8; Ccl7","Tespa1; Lgals7; Lag3; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; Sh2b3","P2rx7; Lag3; Snx9; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd14; Cd79a; Ccr4","Ccl5; Cxcl2; Cxcl16; Ccl8; Ccl7","Acod1; Lag3; Havcr2; Ccl5; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; Klrg1; H2-Eb1; Slpi; Cd14; Cxcl16; Pld4; Ccl8; Ccl7","Fam20a; P2rx7; Acod1; Havcr2; Bnip3; Ccl5; Cd79b; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16; Ociad2; Tnip3","Trat1; Cacna1s; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd79a; Cnih2","Tespa1; Lgals7; Cst7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3","Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3","Tespa1; Lgals7; Lag3; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; Dlg2; Sh2b3","P2rx7; Lag3; Trat1; Havcr2; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b; Cd79a","Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3","P2rx7; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16; Tnip3","H2-Ab1; Cd74; H2-Aa; H2-Eb1","Ccl5; Lyn; Cxcl2; Il1b; Il1rn; Cxcl16; Sh2b3; Ccl8; Ccl7","Trat1; Cd79b; Cd74; Cd40; Lyn; Gpr160; Cd14; Cd79a; Cnih2","Acod1; Ccl5; Cd40; Il1b; Il1rn; Ccl8; Ccl7","Id3; Areg; P2rx7; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Gpld1; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Tnip3","Tespa1; P2rx7; Acod1; Lag3; Trat1; Havcr2; Cd79b; H2-Ab1; Cd74; Cd40; Lyn; Gpld1; Il1b; Cd79a","Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Il1b; Cd14; Cxcl16; Tnip3","P2rx7; Lag3; Plaur; Cd79b; Cd74; Cd40; H2-Eb1; Gpr160; Cd79a; Ifngr2; Ccr4","H2-Ab1; Cd74; H2-Aa; H2-Eb1","Tespa1; P2rx7; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3","P2rx7; Lag3; Cd79b; Cd74; H2-Eb1; Gpr160; Cd79a; Ifngr2; Ccr4","Ccl5; Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccr4; Ccl7","Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b","Ccl5; Cxcl2; Sh2b3; Ccl8; Ccl7","Tespa1; Acod1; Trat1; Havcr2; Cd79b; Cd40; Lyn; Gpld1; Cd14; Cd79a; Tnip3","Trat1; Cd79b; Cd40; Lyn; Cd79a; Cnih2","Rapsn; Slc16a3; Dlg2; Cnih2","P2rx7; Lag3; Havcr2; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Gzmm; Il1b","Tespa1; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b","P2rx7; Lag3; Havcr2; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b","Ccl5; Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccl7","P2rx7; Lgals7; Havcr2; Ccl5; Cd74; H2-Aa; Cd40; Lyn; Il1b; Cd79a","Ccl5; Cd74; Cxcl2; Il1b; Ccl8; Ccl7","Slc16a3; Dlg2; Cnih2","H2-Ab1; Cd74; H2-Aa; H2-Eb1","Tespa1; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b","P2rx7; Lgals7; Acod1; Lag3; Havcr2; Ccl5; Cd83; Cd74; Cd40; Lyn; Il1b; Cd14; Chil5; Pld4","Tespa1; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b","Tespa1; Lag3; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a","Id3; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Gpld1; Il1b; Cd14; Cxcl16; Tnip3","Lgals7; Cst7; Lag3; Havcr2; Cd74; H2-Aa; Lyn; Sh2b3","Plaur; Ccl5; Lyn; Sh2b3","Cst7; H2-Ab1; Cd74; Cd79a","Havcr2; Atf3; Ccl5; Cd74; Lyn; Il1b; Ccl8; Ccl7","Havcr2; Ccl5; Cd74; Il1b; Chil5","Tespa1; Lag3; Ccl5; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a","P2rx7; Havcr2; Atf3; Ccl5; Cd74; Cd40; Lyn; Il1b; Il1rn; Sh2b3; Ccl8; Ccl7","H2-Ab1; H2-Aa; Cd40; H2-Eb1","Tespa1; Lag3; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Il1b; Sh2b3; Cd79a","Acod1; Ccl5; Cd40; Cd14; Cxcl16; Ccl8; Ccl7"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["1.76e-08","7.29e-07","2.08e-06","4.72e-06","6.91e-06","7.23e-06","1.20e-05","2.18e-05","4.43e-05","5.49e-05","5.63e-05","5.64e-05","5.76e-05","6.76e-05","7.76e-05","8.11e-05","1.08e-04","1.18e-04","1.22e-04","1.36e-04","2.05e-04","2.48e-04","2.66e-04","3.69e-04","9.59e-04","0.001","0.002","0.003","0.003","0.004","0.005","0.005","0.005","0.005","0.006","0.006","0.006","0.007","0.007","0.007","0.007","0.010","0.010","0.010","0.013","0.016","0.016","0.017","0.018","0.025","0.026","0.029","0.031","0.033","0.036","0.037","0.041","0.044"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Fam20a; Areg; Lgals7; Cst7; Ccl5; Cd74; Cd40; Cxcl2; Serpinf1; Gpld1; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Chil5; Ccl8; Klk1b11; Ccl7"},"children":["Fam20a; Areg; Lgals7; Cst7; Ccl5; Cd74; Cd40; Cxcl2; Serpinf1; Gpld1; Il1b; Il1rn; Slpi; Cd14; Cx..."]},{"name":"span","attribs":{"title":"P2rx7; Acod1; Cst7; Havcr2; Ccl5; Cd40; Lyn; Cxcl2; Serpinf1; Il1b; Il1rn; Cd14; Chil5; Pld4; Ccl8; Ifngr2; Ccr4; Ccl7"},"children":["P2rx7; Acod1; Cst7; Havcr2; Ccl5; Cd40; Lyn; Cxcl2; Serpinf1; Il1b; Il1rn; Cd14; Chil5; Pld4; Ccl..."]},{"name":"span","attribs":{"title":"Areg; P2rx7; Lag3; Plaur; Havcr2; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Ocln; Cd14; Cd79a; Ccr4"},"children":["Areg; P2rx7; Lag3; Plaur; Havcr2; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Ocln; Cd14; Cd7..."]},{"name":"span","attribs":{"title":"Acod1; Ccl5; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cxcl16; Ccl8; Ccl7"},"children":["Acod1; Ccl5; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4"},"children":["P2rx7; Lag3; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4"]},{"name":"span","attribs":{"title":"Areg; Ccl5; Cxcl2; Il1b; Il1rn; Cxcl16; Ccl8; Ccl7"},"children":["Areg; Ccl5; Cxcl2; Il1b; Il1rn; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Tespa1; Lgals7; Lag3; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; Sh2b3"},"children":["Tespa1; Lgals7; Lag3; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; S..."]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Snx9; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd14; Cd79a; Ccr4"},"children":["P2rx7; Lag3; Snx9; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd14; Cd79a; Ccr4"]},{"name":"span","attribs":{"title":"Ccl5; Cxcl2; Cxcl16; Ccl8; Ccl7"},"children":["Ccl5; Cxcl2; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Acod1; Lag3; Havcr2; Ccl5; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; Klrg1; H2-Eb1; Slpi; Cd14; Cxcl16; Pld4; Ccl8; Ccl7"},"children":["Acod1; Lag3; Havcr2; Ccl5; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; Klrg1; H2-Eb1; Slpi; Cd14; Cxcl16; Pld..."]},{"name":"span","attribs":{"title":"Fam20a; P2rx7; Acod1; Havcr2; Bnip3; Ccl5; Cd79b; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16; Ociad2; Tnip3"},"children":["Fam20a; P2rx7; Acod1; Havcr2; Bnip3; Ccl5; Cd79b; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16; Ociad2; T..."]},{"name":"span","attribs":{"title":"Trat1; Cacna1s; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd79a; Cnih2"},"children":["Trat1; Cacna1s; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd79a; Cnih2"]},{"name":"span","attribs":{"title":"Tespa1; Lgals7; Cst7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3"},"children":["Tespa1; Lgals7; Cst7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1..."]},{"name":"span","attribs":{"title":"Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3"},"children":["Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3"]},{"name":"span","attribs":{"title":"Tespa1; Lgals7; Lag3; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; Dlg2; Sh2b3"},"children":["Tespa1; Lgals7; Lag3; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; D..."]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Trat1; Havcr2; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b; Cd79a"},"children":["P2rx7; Lag3; Trat1; Havcr2; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b; Cd79a"]},{"name":"span","attribs":{"title":"Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"},"children":["Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"]},{"name":"span","attribs":{"title":"P2rx7; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16; Tnip3"},"children":["P2rx7; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16; Tnip3"]},{"name":"span","attribs":{"title":"H2-Ab1; Cd74; H2-Aa; H2-Eb1"},"children":["H2-Ab1; Cd74; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"Ccl5; Lyn; Cxcl2; Il1b; Il1rn; Cxcl16; Sh2b3; Ccl8; Ccl7"},"children":["Ccl5; Lyn; Cxcl2; Il1b; Il1rn; Cxcl16; Sh2b3; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Trat1; Cd79b; Cd74; Cd40; Lyn; Gpr160; Cd14; Cd79a; Cnih2"},"children":["Trat1; Cd79b; Cd74; Cd40; Lyn; Gpr160; Cd14; Cd79a; Cnih2"]},{"name":"span","attribs":{"title":"Acod1; Ccl5; Cd40; Il1b; Il1rn; Ccl8; Ccl7"},"children":["Acod1; Ccl5; Cd40; Il1b; Il1rn; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Id3; Areg; P2rx7; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Gpld1; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Tnip3"},"children":["Id3; Areg; P2rx7; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Gpld1; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Tnip3"]},{"name":"span","attribs":{"title":"Tespa1; P2rx7; Acod1; Lag3; Trat1; Havcr2; Cd79b; H2-Ab1; Cd74; Cd40; Lyn; Gpld1; Il1b; Cd79a"},"children":["Tespa1; P2rx7; Acod1; Lag3; Trat1; Havcr2; Cd79b; H2-Ab1; Cd74; Cd40; Lyn; Gpld1; Il1b; Cd79a"]},{"name":"span","attribs":{"title":"Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Il1b; Cd14; Cxcl16; Tnip3"},"children":["Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Il1b; Cd14; Cxcl16; Tnip3"]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Plaur; Cd79b; Cd74; Cd40; H2-Eb1; Gpr160; Cd79a; Ifngr2; Ccr4"},"children":["P2rx7; Lag3; Plaur; Cd79b; Cd74; Cd40; H2-Eb1; Gpr160; Cd79a; Ifngr2; Ccr4"]},{"name":"span","attribs":{"title":"H2-Ab1; Cd74; H2-Aa; H2-Eb1"},"children":["H2-Ab1; Cd74; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"Tespa1; P2rx7; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"},"children":["Tespa1; P2rx7; Lgals7; Lag3; Havcr2; Ccl5; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Cd79b; Cd74; H2-Eb1; Gpr160; Cd79a; Ifngr2; Ccr4"},"children":["P2rx7; Lag3; Cd79b; Cd74; H2-Eb1; Gpr160; Cd79a; Ifngr2; Ccr4"]},{"name":"span","attribs":{"title":"Ccl5; Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccr4; Ccl7"},"children":["Ccl5; Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccr4; Ccl7"]},{"name":"span","attribs":{"title":"Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"},"children":["Tespa1; Lgals7; Lag3; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"Ccl5; Cxcl2; Sh2b3; Ccl8; Ccl7"},"children":["Ccl5; Cxcl2; Sh2b3; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Tespa1; Acod1; Trat1; Havcr2; Cd79b; Cd40; Lyn; Gpld1; Cd14; Cd79a; Tnip3"},"children":["Tespa1; Acod1; Trat1; Havcr2; Cd79b; Cd40; Lyn; Gpld1; Cd14; Cd79a; Tnip3"]},{"name":"span","attribs":{"title":"Trat1; Cd79b; Cd40; Lyn; Cd79a; Cnih2"},"children":["Trat1; Cd79b; Cd40; Lyn; Cd79a; Cnih2"]},{"name":"span","attribs":{"title":"Rapsn; Slc16a3; Dlg2; Cnih2"},"children":["Rapsn; Slc16a3; Dlg2; Cnih2"]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Havcr2; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Gzmm; Il1b"},"children":["P2rx7; Lag3; Havcr2; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Gzmm; Il1b"]},{"name":"span","attribs":{"title":"Tespa1; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"},"children":["Tespa1; Plaur; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Havcr2; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b"},"children":["P2rx7; Lag3; Havcr2; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b"]},{"name":"span","attribs":{"title":"Ccl5; Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccl7"},"children":["Ccl5; Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"P2rx7; Lgals7; Havcr2; Ccl5; Cd74; H2-Aa; Cd40; Lyn; Il1b; Cd79a"},"children":["P2rx7; Lgals7; Havcr2; Ccl5; Cd74; H2-Aa; Cd40; Lyn; Il1b; Cd79a"]},{"name":"span","attribs":{"title":"Ccl5; Cd74; Cxcl2; Il1b; Ccl8; Ccl7"},"children":["Ccl5; Cd74; Cxcl2; Il1b; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Slc16a3; Dlg2; Cnih2"},"children":["Slc16a3; Dlg2; Cnih2"]},{"name":"span","attribs":{"title":"H2-Ab1; Cd74; H2-Aa; H2-Eb1"},"children":["H2-Ab1; Cd74; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"Tespa1; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"},"children":["Tespa1; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"P2rx7; Lgals7; Acod1; Lag3; Havcr2; Ccl5; Cd83; Cd74; Cd40; Lyn; Il1b; Cd14; Chil5; Pld4"},"children":["P2rx7; Lgals7; Acod1; Lag3; Havcr2; Ccl5; Cd83; Cd74; Cd40; Lyn; Il1b; Cd14; Chil5; Pld4"]},{"name":"span","attribs":{"title":"Tespa1; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b"},"children":["Tespa1; Havcr2; Ccl5; Cd83; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"Tespa1; Lag3; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a"},"children":["Tespa1; Lag3; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a"]},{"name":"span","attribs":{"title":"Id3; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Gpld1; Il1b; Cd14; Cxcl16; Tnip3"},"children":["Id3; Acod1; Havcr2; Ccl5; Lyn; Cxcl2; Gpld1; Il1b; Cd14; Cxcl16; Tnip3"]},{"name":"span","attribs":{"title":"Lgals7; Cst7; Lag3; Havcr2; Cd74; H2-Aa; Lyn; Sh2b3"},"children":["Lgals7; Cst7; Lag3; Havcr2; Cd74; H2-Aa; Lyn; Sh2b3"]},{"name":"span","attribs":{"title":"Plaur; Ccl5; Lyn; Sh2b3"},"children":["Plaur; Ccl5; Lyn; Sh2b3"]},{"name":"span","attribs":{"title":"Cst7; H2-Ab1; Cd74; Cd79a"},"children":["Cst7; H2-Ab1; Cd74; Cd79a"]},{"name":"span","attribs":{"title":"Havcr2; Atf3; Ccl5; Cd74; Lyn; Il1b; Ccl8; Ccl7"},"children":["Havcr2; Atf3; Ccl5; Cd74; Lyn; Il1b; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Havcr2; Ccl5; Cd74; Il1b; Chil5"},"children":["Havcr2; Ccl5; Cd74; Il1b; Chil5"]},{"name":"span","attribs":{"title":"Tespa1; Lag3; Ccl5; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a"},"children":["Tespa1; Lag3; Ccl5; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a"]},{"name":"span","attribs":{"title":"P2rx7; Havcr2; Atf3; Ccl5; Cd74; Cd40; Lyn; Il1b; Il1rn; Sh2b3; Ccl8; Ccl7"},"children":["P2rx7; Havcr2; Atf3; Ccl5; Cd74; Cd40; Lyn; Il1b; Il1rn; Sh2b3; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"H2-Ab1; H2-Aa; Cd40; H2-Eb1"},"children":["H2-Ab1; H2-Aa; Cd40; H2-Eb1"]},{"name":"span","attribs":{"title":"Tespa1; Lag3; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Il1b; Sh2b3; Cd79a"},"children":["Tespa1; Lag3; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Il1b; Sh2b3; Cd79a"]},{"name":"span","attribs":{"title":"Acod1; Ccl5; Cd40; Cd14; Cxcl16; Ccl8; Ccl7"},"children":["Acod1; Ccl5; Cd40; Cd14; Cxcl16; Ccl8; Ccl7"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"d1ac5cde848c7bde4fa55dbcdbc0627b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="DNvDP" class="section level3">
+<h3 class="tabset">DNvDP</h3>
+<em>All 4 ontologies considered enriched in the set of 53 DE genes mapped to EntrezIDs from the comparison DNvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-6974f81ac9bb9e59de3c" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6974f81ac9bb9e59de3c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["MF","CC","MF","CC"],"ID":["GO:0038023","GO:0009986","GO:0004888","GO:0009897"],"Description":["signaling receptor activity","cell surface","transmembrane signaling receptor activity","external side of plasma membrane"],"Count":[10,10,7,7],"% DE":[0.2,0.196078431372549,0.14,0.137254901960784],"% BG":[0.0299519933208099,0.0403416692394772,0.021081193905239,0.0224349078933827],"p.adjust":[0.000275675816921893,0.00425173339368003,0.0120479177318767,0.0187133318529649],"geneID":["Cxcr5; Il12rb2; Tnfrsf9; Klrd1; Gpr15; Cd7; Lag3; Gpr160; Plaur; Itga2","Cxcr5; Il12rb2; Havcr2; Sell; Tnfrsf9; Klrd1; Lag3; Ocln; Plaur; Itga2","Cxcr5; Il12rb2; Klrd1; Gpr15; Lag3; Gpr160; Itga2","Cxcr5; Il12rb2; Sell; Tnfrsf9; Klrd1; Lag3; Itga2"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["2.76e-04","0.004","0.012","0.019"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Cxcr5; Il12rb2; Tnfrsf9; Klrd1; Gpr15; Cd7; Lag3; Gpr160; Plaur; Itga2"},"children":["Cxcr5; Il12rb2; Tnfrsf9; Klrd1; Gpr15; Cd7; Lag3; Gpr160; Plaur; Itga2"]},{"name":"span","attribs":{"title":"Cxcr5; Il12rb2; Havcr2; Sell; Tnfrsf9; Klrd1; Lag3; Ocln; Plaur; Itga2"},"children":["Cxcr5; Il12rb2; Havcr2; Sell; Tnfrsf9; Klrd1; Lag3; Ocln; Plaur; Itga2"]},{"name":"span","attribs":{"title":"Cxcr5; Il12rb2; Klrd1; Gpr15; Lag3; Gpr160; Itga2"},"children":["Cxcr5; Il12rb2; Klrd1; Gpr15; Lag3; Gpr160; Itga2"]},{"name":"span","attribs":{"title":"Cxcr5; Il12rb2; Sell; Tnfrsf9; Klrd1; Lag3; Itga2"},"children":["Cxcr5; Il12rb2; Sell; Tnfrsf9; Klrd1; Lag3; Itga2"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"686dd08aabcdbe8fef8c44ec1ba6b8e6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="DNvCD49b" class="section level3">
+<h3 class="tabset">DNvCD49b</h3>
+<em>All 11 ontologies considered enriched in the set of 16 DE genes mapped to EntrezIDs from the comparison DNvCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-0a6d22f440e562ee4442" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0a6d22f440e562ee4442">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["BP","BP","CC","BP","BP","MF","MF","BP","BP","CC","BP"],"ID":["GO:0050900","GO:0002523","GO:0009897","GO:1903034","GO:0030193","GO:0035325","GO:0043177","GO:1903036","GO:0019932","GO:0005615","GO:0048708"],"Description":["leukocyte migration","leukocyte migration involved in inflammatory response","external side of plasma membrane","regulation of response to wounding","regulation of blood coagulation","Toll-like receptor binding","organic acid binding","positive regulation of response to wounding","second-messenger-mediated signaling","extracellular space","astrocyte differentiation"],"Count":[6,3,5,4,3,2,3,3,4,5,3],"% DE":[0.428571428571429,0.214285714285714,0.333333333333333,0.285714285714286,0.214285714285714,0.133333333333333,0.2,0.214285714285714,0.285714285714286,0.333333333333333,0.214285714285714],"% BG":[0.0227413686169113,0.00124043828819516,0.0224349078933827,0.00775273930121976,0.00248087657639032,0.00114798580672094,0.00678355249426007,0.00361794500723589,0.01281786231135,0.0443552536791191,0.00444490386603266],"p.adjust":[0.000278276750715902,0.000439888014315787,0.000841417227680878,0.00262631977238746,0.00400572031385213,0.0112310503253595,0.0115114224006233,0.0128321674764484,0.0194613374443411,0.0215795904553554,0.024031059715587],"geneID":["S100a8; Cd24a; Cxcr5; S100a9; Gpr15; Cd9","S100a8; Cd24a; S100a9","Cd24a; Cxcr5; Cd9; Cd36; Cd8a","Cd24a; S100a9; Cd9; Cd36","S100a9; Cd9; Cd36","S100a8; Cd36","S100a8; Id3; Cd36","Cd24a; S100a9; Cd36","Cd24a; Cxcr5; Cd36; Cd8a","S100a8; Igfbp7; S100a9; Cd9; Ggt1","S100a8; Eomes; S100a9"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["2.78e-04","4.40e-04","8.41e-04","0.003","0.004","0.011","0.012","0.013","0.019","0.022","0.024"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"S100a8; Cd24a; Cxcr5; S100a9; Gpr15; Cd9"},"children":["S100a8; Cd24a; Cxcr5; S100a9; Gpr15; Cd9"]},{"name":"span","attribs":{"title":"S100a8; Cd24a; S100a9"},"children":["S100a8; Cd24a; S100a9"]},{"name":"span","attribs":{"title":"Cd24a; Cxcr5; Cd9; Cd36; Cd8a"},"children":["Cd24a; Cxcr5; Cd9; Cd36; Cd8a"]},{"name":"span","attribs":{"title":"Cd24a; S100a9; Cd9; Cd36"},"children":["Cd24a; S100a9; Cd9; Cd36"]},{"name":"span","attribs":{"title":"S100a9; Cd9; Cd36"},"children":["S100a9; Cd9; Cd36"]},{"name":"span","attribs":{"title":"S100a8; Cd36"},"children":["S100a8; Cd36"]},{"name":"span","attribs":{"title":"S100a8; Id3; Cd36"},"children":["S100a8; Id3; Cd36"]},{"name":"span","attribs":{"title":"Cd24a; S100a9; Cd36"},"children":["Cd24a; S100a9; Cd36"]},{"name":"span","attribs":{"title":"Cd24a; Cxcr5; Cd36; Cd8a"},"children":["Cd24a; Cxcr5; Cd36; Cd8a"]},{"name":"span","attribs":{"title":"S100a8; Igfbp7; S100a9; Cd9; Ggt1"},"children":["S100a8; Igfbp7; S100a9; Cd9; Ggt1"]},{"name":"span","attribs":{"title":"S100a8; Eomes; S100a9"},"children":["S100a8; Eomes; S100a9"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"79934eb47877f4ce7ef6e7ad6fd6e224"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="LAG3vCD49b" class="section level3">
+<h3 class="tabset">LAG3vCD49b</h3>
+<em>All 47 ontologies considered enriched in the set of 151 DE genes mapped to EntrezIDs from the comparison LAG3vCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-937dc4029594cb19c8de" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-937dc4029594cb19c8de">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["CC","CC","CC","BP","CC","BP","MF","BP","MF","CC","MF","BP","CC","MF","BP","BP","CC","BP","BP","MF","MF","MF","BP","BP","BP","CC","BP","BP","BP","MF","BP","BP","BP","BP","BP","MF","BP","BP","MF","BP","BP","MF","BP","CC","BP","BP","BP"],"ID":["GO:0005615","GO:0009986","GO:0009897","GO:0098609","GO:0098552","GO:0006935","GO:0038023","GO:0050900","GO:0004888","GO:0031226","GO:0030545","GO:0006954","GO:0043235","GO:0019955","GO:0030155","GO:0030595","GO:0005887","GO:0060326","GO:0022408","GO:0050839","GO:0048018","GO:0005125","GO:0031295","GO:0050866","GO:0050865","GO:0031225","GO:0032103","GO:0002252","GO:0002449","GO:0004866","GO:0002418","GO:0007159","GO:0022407","GO:0050731","GO:0048247","GO:0001968","GO:0050730","GO:0018108","GO:0140375","GO:0007186","GO:0072676","GO:0004896","GO:0071621","GO:0045177","GO:0002443","GO:0002694","GO:0034109"],"Description":["extracellular space","cell surface","external side of plasma membrane","cell-cell adhesion","side of membrane","chemotaxis","signaling receptor activity","leukocyte migration","transmembrane signaling receptor activity","intrinsic component of plasma membrane","signaling receptor regulator activity","inflammatory response","receptor complex","cytokine binding","regulation of cell adhesion","leukocyte chemotaxis","integral component of plasma membrane","cell chemotaxis","negative regulation of cell-cell adhesion","cell adhesion molecule binding","receptor ligand activity","cytokine activity","T cell costimulation","negative regulation of cell activation","regulation of cell activation","anchored component of membrane","positive regulation of response to external stimulus","immune effector process","lymphocyte mediated immunity","endopeptidase inhibitor activity","immune response to tumor cell","leukocyte cell-cell adhesion","regulation of cell-cell adhesion","positive regulation of peptidyl-tyrosine phosphorylation","lymphocyte chemotaxis","fibronectin binding","regulation of peptidyl-tyrosine phosphorylation","peptidyl-tyrosine phosphorylation","immune receptor activity","G protein-coupled receptor signaling pathway","lymphocyte migration","cytokine receptor activity","granulocyte chemotaxis","apical part of cell","leukocyte mediated immunity","regulation of leukocyte activation","homotypic cell-cell adhesion"],"Count":[34,28,21,27,23,20,20,18,16,21,12,22,12,9,23,12,18,13,12,10,10,8,6,12,21,7,16,20,14,7,5,16,17,9,6,4,11,12,7,14,8,6,8,11,15,19,6],"% DE":[0.22972972972973,0.189189189189189,0.141891891891892,0.186206896551724,0.155405405405405,0.137931034482759,0.136054421768707,0.124137931034483,0.108843537414966,0.141891891891892,0.0816326530612245,0.151724137931034,0.0810810810810811,0.0612244897959184,0.158620689655172,0.0827586206896552,0.121621621621622,0.0896551724137931,0.0827586206896552,0.0680272108843537,0.0680272108843537,0.054421768707483,0.0413793103448276,0.0827586206896552,0.144827586206897,0.0472972972972973,0.110344827586207,0.137931034482759,0.096551724137931,0.0476190476190476,0.0344827586206897,0.110344827586207,0.117241379310345,0.0620689655172414,0.0413793103448276,0.0272108843537415,0.0758620689655172,0.0827586206896552,0.0476190476190476,0.096551724137931,0.0551724137931034,0.0408163265306122,0.0551724137931034,0.0743243243243243,0.103448275862069,0.131034482758621,0.0413793103448276],"% BG":[0.0443552536791191,0.0403416692394772,0.0224349078933827,0.0440355592309283,0.0356076978491304,0.0253256150506512,0.0299519933208099,0.0227413686169113,0.021081193905239,0.0397241947103015,0.0136714673345857,0.0422782716559851,0.0155397756509211,0.00782717595491547,0.0478602439528633,0.0132313417407484,0.0359164351137182,0.0166425470332851,0.0142650403142444,0.011792945105406,0.0118973074514715,0.00720100187852223,0.00258424643373992,0.0150919991730411,0.0450692578044242,0.00596892044869816,0.0279098614843912,0.0423816415133347,0.0223278891875129,0.00615737841786683,0.00186065743229274,0.0294604093446351,0.0331817242092206,0.00909654744676452,0.0033078354351871,0.00146107284491755,0.0144717800289436,0.0174695058920819,0.00678355249426007,0.0241885466198057,0.00744262972917097,0.0050093926111459,0.00754599958652057,0.0195533600905629,0.0281166011990903,0.0431052305147819,0.00382468472193508],"p.adjust":[2.01989438235949e-13,1.16954383987137e-09,2.72420162257975e-09,3.63683157273963e-07,4.77675511895444e-07,1.50339446188765e-06,5.07512073877843e-06,1.13076758244551e-05,2.74653223620538e-05,7.97840732977469e-05,0.000273133890871052,0.000432167083926476,0.00068395280486046,0.000742862388796892,0.00091353519903298,0.00114796937256278,0.00125025991838925,0.00211069032848034,0.00259170437139482,0.00325369587824549,0.00352027766535007,0.00365388058059413,0.00376920473546152,0.00472960386749683,0.00515840579654983,0.00582665725186013,0.0070066320744545,0.007656876577566,0.0109060512992934,0.0115307005867433,0.0136111558241982,0.014073672997922,0.0153656177228267,0.016379643468457,0.017688971821199,0.0179465325570949,0.020047331774273,0.021749883327067,0.0217932846877446,0.0274685599860625,0.0294408544345219,0.0322746436763336,0.0326498987175927,0.0334789865261585,0.0349037117828918,0.036819428843556,0.0426653063188146],"geneID":["Lgals7; Igfbp7; Areg; Cst7; Angptl2; Serpinf1; Fam20a; Twsg1; Gcg; Ccl3; Ccl5; Sorl1; Cd9; Nrn1; Il10; Cpm; Ccl4; S100a8; Prf1; Cd109; Serpine2; Pla1a; Klk1b9; Ggt1; Bmp7; Tnfsf14; Cxcl16; S100a9; Ccr3; Car4; Ear2; Klk1b11; Cd40; Cd74","P2rx7; Areg; Lilrb4b; Lag3; Itgb3; Lilrb4a; Sorl1; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Epcam; Itga3; Cd36; Sell; Cd80; Ocln; Cd8a; Ccr3; Car4; Klrk1; Ptprk; Cd40; Ephb6; Cd74","P2rx7; Lag3; Itgb3; Lilrb4a; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Ccr3; Car4; Klrk1; Cd40; Cd74","Lgals7; Perp; Lilrb4b; Tespa1; Lag3; Twsg1; Itgb3; Dsp; Ccl5; Lilrb4a; Cd9; Itga2; Dlg2; Il10; S100a8; Serpine2; Cd24a; Epcam; Bmp7; Pkp4; Itga3; Tnfsf14; Sell; Cd80; S100a9; Ephb6; Cd74","P2rx7; Lag3; Itgb3; Lilrb4a; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Pkp4; Itga3; Cd36; Sell; Cd80; Cd8a; Ccr3; Car4; S100a6; Klrk1; Cd40; Cd74","Oxsr1; Itgb3; Ccl3; Ccl5; Itga2; Ccl4; S100a8; Ccr4; Ptch1; Egr2; Cxcr5; Bmp7; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Ear2; Ephb6; Cd74","P2rx7; Lag3; Sorl1; Itga2; Ccr4; Il1r2; Ptch1; Gpr15; Cxcr5; Ddr1; Cd36; Cd80; Vipr1; Ccr3; Klrk1; Ifngr2; Reck; Cd40; Ephb6; Cd74","Oxsr1; Itgb3; Ccl3; Ccl5; Cd9; Itga2; Ccl4; S100a8; Cd24a; Gpr15; Cxcr5; Itga3; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74","P2rx7; Lag3; Sorl1; Itga2; Ccr4; Il1r2; Ptch1; Gpr15; Cxcr5; Ddr1; Vipr1; Ccr3; Klrk1; Ifngr2; Ephb6; Cd74","P2rx7; Perp; Itgb3; Cd9; Itga2; Nrn1; Dlg2; Ptch1; Cd24a; Slc39a14; Ggt1; Ddr1; Itga3; Clcn5; Hs3st3b1; Sell; Car4; Ifngr2; Cd40; Ephb6; Cd74","Areg; Lilrb4b; Gcg; Ccl3; Ccl5; Lilrb4a; Il10; Ccl4; Insl6; Bmp7; Tnfsf14; Cxcl16","P2rx7; Cst7; Lilrb4b; Serpinf1; Ccl3; Ccl5; Lilrb4a; Itga2; Il10; Nkg7; Ccl4; S100a8; Ccr4; Il1r2; Dnase1l3; Cd24a; Ggt1; S100a9; Ccr3; Ifngr2; Cd40; Ephb6","Trat1; Itgb3; Itga2; Nrn1; Ddr1; Itga3; Cd36; Cd8a; Vipr1; Cd40; Ephb6; Cd74","Twsg1; Itgb3; Ccr4; Il1r2; Cd109; Cxcr5; Cd36; Ccr3; Cd74","Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Itgb3; Ccl5; Lilrb4a; Cd9; Itga2; Il10; Cass4; Serpine2; Cd24a; Epcam; Bmp7; Ddr1; Itga3; Cd36; Tnfsf14; Cd80; Ephb6; Cd74","Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Cxcr5; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74","P2rx7; Perp; Itgb3; Cd9; Itga2; Nrn1; Ptch1; Slc39a14; Ggt1; Ddr1; Itga3; Clcn5; Hs3st3b1; Sell; Ifngr2; Cd40; Ephb6; Cd74","Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Ccr4; Cxcr5; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74","Lgals7; Lilrb4b; Lag3; Twsg1; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Epcam; Cd80; Cd74","Itgb3; Dsp; Lilrb4a; Cd9; Itga2; Cd226; Epcam; Pkp4; Itga3; Sell","Areg; Gcg; Ccl3; Ccl5; Il10; Ccl4; Insl6; Bmp7; Tnfsf14; Cxcl16","Areg; Ccl3; Ccl5; Il10; Ccl4; Bmp7; Tnfsf14; Cxcl16","Lilrb4b; Lilrb4a; Cd24a; Tnfsf14; Cd80; Ephb6","Lgals7; Cst7; Lilrb4b; Lag3; Twsg1; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Cd80; Cd74","Lgals7; Cst7; Lilrb4b; Tespa1; Tox; Lag3; Twsg1; Ccl5; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Cd226; Tnfsf14; Cgas; Cd80; Klrk1; Cd40; Ephb6; Cd74","Nrn1; Dlg2; Cpm; Cd109; Cd24a; Car4; Reck","Oxsr1; Lag3; Ccl3; Ccl5; Itga2; Nkg7; S100a8; Ccr4; Cd24a; Cd226; Tnfsf14; Cgas; Sell; S100a9; Klrk1; Cd74","P2rx7; Lilrb4b; Lag3; Lilrb4a; Eomes; Il10; Nkg7; Prf1; Dnase1l3; Cd24a; Cd226; Gzmm; Cd36; Cgas; Cd8a; Klrk1; Zpbp2; Cd40; Ephb6; Cd74","P2rx7; Lilrb4b; Lag3; Lilrb4a; Nkg7; Prf1; Cd24a; Cd226; Gzmm; Cd8a; Klrk1; Cd40; Ephb6; Cd74","Cst7; Serpinf1; Cd109; Serpine2; Tnfsf14; Arrb1; Reck","Nkg7; Prf1; Cd24a; Cd226; Klrk1","Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Ccl5; Lilrb4a; S100a8; Cd24a; Bmp7; Tnfsf14; Sell; Cd80; S100a9; Ephb6; Cd74","Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Ccl5; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Epcam; Bmp7; Tnfsf14; Cd80; Ephb6; Cd74","Areg; Itgb3; Ccl5; Cass4; Cd24a; Cd36; Cd80; Cd40; Cd74","Oxsr1; Ccl3; Ccl5; Ccl4; Tnfsf14; Cxcl16","Lilrb4b; Itgb3; Lilrb4a; Itga3","Areg; Lilrb4b; Itgb3; Ccl5; Lilrb4a; Cass4; Cd24a; Cd36; Cd80; Cd40; Cd74","Areg; Lilrb4b; Itgb3; Ccl5; Lilrb4a; Cass4; Cd24a; Ddr1; Cd36; Cd80; Cd40; Cd74","Ccr4; Il1r2; Cxcr5; Ccr3; Klrk1; Ifngr2; Cd74","Areg; Gcg; Itgb3; Ccl3; Ccl5; Sorl1; Dgkg; Ccl4; Gpr15; Slc39a14; Cxcr5; Vipr1; Ccr3; Arrb1","Oxsr1; Itgb3; Ccl3; Ccl5; Ccl4; Gpr15; Tnfsf14; Cxcl16","Ccr4; Il1r2; Cxcr5; Ccr3; Ifngr2; Cd74","Ccl3; Ccl5; Ccl4; S100a8; Sell; S100a9; Ccr3; Cd74","Itgb3; Cd9; Ptch1; Slc39a14; Klk1b9; Epcam; Clcn5; Cd36; Ocln; Car4; Klk1b11","P2rx7; Lilrb4b; Lag3; Lilrb4a; Nkg7; Prf1; Dnase1l3; Cd24a; Cd226; Gzmm; Cd8a; Klrk1; Cd40; Ephb6; Cd74","Lgals7; Cst7; Lilrb4b; Tespa1; Tox; Lag3; Twsg1; Ccl5; Lilrb4a; Il10; Cd24a; Cd226; Tnfsf14; Cgas; Cd80; Klrk1; Cd40; Ephb6; Cd74","Itgb3; Dsp; Ccl5; Cd9; Serpine2; Cd24a"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["2.02e-13","1.17e-09","2.72e-09","3.64e-07","4.78e-07","1.50e-06","5.08e-06","1.13e-05","2.75e-05","7.98e-05","2.73e-04","4.32e-04","6.84e-04","7.43e-04","9.14e-04","0.001","0.001","0.002","0.003","0.003","0.004","0.004","0.004","0.005","0.005","0.006","0.007","0.008","0.011","0.012","0.014","0.014","0.015","0.016","0.018","0.018","0.020","0.022","0.022","0.027","0.029","0.032","0.033","0.033","0.035","0.037","0.043"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Lgals7; Igfbp7; Areg; Cst7; Angptl2; Serpinf1; Fam20a; Twsg1; Gcg; Ccl3; Ccl5; Sorl1; Cd9; Nrn1; Il10; Cpm; Ccl4; S100a8; Prf1; Cd109; Serpine2; Pla1a; Klk1b9; Ggt1; Bmp7; Tnfsf14; Cxcl16; S100a9; Ccr3; Car4; Ear2; Klk1b11; Cd40; Cd74"},"children":["Lgals7; Igfbp7; Areg; Cst7; Angptl2; Serpinf1; Fam20a; Twsg1; Gcg; Ccl3; Ccl5; Sorl1; Cd9; Nrn1; ..."]},{"name":"span","attribs":{"title":"P2rx7; Areg; Lilrb4b; Lag3; Itgb3; Lilrb4a; Sorl1; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Epcam; Itga3; Cd36; Sell; Cd80; Ocln; Cd8a; Ccr3; Car4; Klrk1; Ptprk; Cd40; Ephb6; Cd74"},"children":["P2rx7; Areg; Lilrb4b; Lag3; Itgb3; Lilrb4a; Sorl1; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr..."]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Itgb3; Lilrb4a; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Ccr3; Car4; Klrk1; Cd40; Cd74"},"children":["P2rx7; Lag3; Itgb3; Lilrb4a; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Itga3; Cd36; Sell; ..."]},{"name":"span","attribs":{"title":"Lgals7; Perp; Lilrb4b; Tespa1; Lag3; Twsg1; Itgb3; Dsp; Ccl5; Lilrb4a; Cd9; Itga2; Dlg2; Il10; S100a8; Serpine2; Cd24a; Epcam; Bmp7; Pkp4; Itga3; Tnfsf14; Sell; Cd80; S100a9; Ephb6; Cd74"},"children":["Lgals7; Perp; Lilrb4b; Tespa1; Lag3; Twsg1; Itgb3; Dsp; Ccl5; Lilrb4a; Cd9; Itga2; Dlg2; Il10; S1..."]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Itgb3; Lilrb4a; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Pkp4; Itga3; Cd36; Sell; Cd80; Cd8a; Ccr3; Car4; S100a6; Klrk1; Cd40; Cd74"},"children":["P2rx7; Lag3; Itgb3; Lilrb4a; Cd9; Itga2; Ccr4; Serpine2; Cd24a; Cd226; Cxcr5; Pkp4; Itga3; Cd36; ..."]},{"name":"span","attribs":{"title":"Oxsr1; Itgb3; Ccl3; Ccl5; Itga2; Ccl4; S100a8; Ccr4; Ptch1; Egr2; Cxcr5; Bmp7; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Ear2; Ephb6; Cd74"},"children":["Oxsr1; Itgb3; Ccl3; Ccl5; Itga2; Ccl4; S100a8; Ccr4; Ptch1; Egr2; Cxcr5; Bmp7; Tnfsf14; Cxcl16; S..."]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Sorl1; Itga2; Ccr4; Il1r2; Ptch1; Gpr15; Cxcr5; Ddr1; Cd36; Cd80; Vipr1; Ccr3; Klrk1; Ifngr2; Reck; Cd40; Ephb6; Cd74"},"children":["P2rx7; Lag3; Sorl1; Itga2; Ccr4; Il1r2; Ptch1; Gpr15; Cxcr5; Ddr1; Cd36; Cd80; Vipr1; Ccr3; Klrk1..."]},{"name":"span","attribs":{"title":"Oxsr1; Itgb3; Ccl3; Ccl5; Cd9; Itga2; Ccl4; S100a8; Cd24a; Gpr15; Cxcr5; Itga3; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74"},"children":["Oxsr1; Itgb3; Ccl3; Ccl5; Cd9; Itga2; Ccl4; S100a8; Cd24a; Gpr15; Cxcr5; Itga3; Tnfsf14; Cxcl16; ..."]},{"name":"span","attribs":{"title":"P2rx7; Lag3; Sorl1; Itga2; Ccr4; Il1r2; Ptch1; Gpr15; Cxcr5; Ddr1; Vipr1; Ccr3; Klrk1; Ifngr2; Ephb6; Cd74"},"children":["P2rx7; Lag3; Sorl1; Itga2; Ccr4; Il1r2; Ptch1; Gpr15; Cxcr5; Ddr1; Vipr1; Ccr3; Klrk1; Ifngr2; Ep..."]},{"name":"span","attribs":{"title":"P2rx7; Perp; Itgb3; Cd9; Itga2; Nrn1; Dlg2; Ptch1; Cd24a; Slc39a14; Ggt1; Ddr1; Itga3; Clcn5; Hs3st3b1; Sell; Car4; Ifngr2; Cd40; Ephb6; Cd74"},"children":["P2rx7; Perp; Itgb3; Cd9; Itga2; Nrn1; Dlg2; Ptch1; Cd24a; Slc39a14; Ggt1; Ddr1; Itga3; Clcn5; Hs3..."]},{"name":"span","attribs":{"title":"Areg; Lilrb4b; Gcg; Ccl3; Ccl5; Lilrb4a; Il10; Ccl4; Insl6; Bmp7; Tnfsf14; Cxcl16"},"children":["Areg; Lilrb4b; Gcg; Ccl3; Ccl5; Lilrb4a; Il10; Ccl4; Insl6; Bmp7; Tnfsf14; Cxcl16"]},{"name":"span","attribs":{"title":"P2rx7; Cst7; Lilrb4b; Serpinf1; Ccl3; Ccl5; Lilrb4a; Itga2; Il10; Nkg7; Ccl4; S100a8; Ccr4; Il1r2; Dnase1l3; Cd24a; Ggt1; S100a9; Ccr3; Ifngr2; Cd40; Ephb6"},"children":["P2rx7; Cst7; Lilrb4b; Serpinf1; Ccl3; Ccl5; Lilrb4a; Itga2; Il10; Nkg7; Ccl4; S100a8; Ccr4; Il1r2..."]},{"name":"span","attribs":{"title":"Trat1; Itgb3; Itga2; Nrn1; Ddr1; Itga3; Cd36; Cd8a; Vipr1; Cd40; Ephb6; Cd74"},"children":["Trat1; Itgb3; Itga2; Nrn1; Ddr1; Itga3; Cd36; Cd8a; Vipr1; Cd40; Ephb6; Cd74"]},{"name":"span","attribs":{"title":"Twsg1; Itgb3; Ccr4; Il1r2; Cd109; Cxcr5; Cd36; Ccr3; Cd74"},"children":["Twsg1; Itgb3; Ccr4; Il1r2; Cd109; Cxcr5; Cd36; Ccr3; Cd74"]},{"name":"span","attribs":{"title":"Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Itgb3; Ccl5; Lilrb4a; Cd9; Itga2; Il10; Cass4; Serpine2; Cd24a; Epcam; Bmp7; Ddr1; Itga3; Cd36; Tnfsf14; Cd80; Ephb6; Cd74"},"children":["Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Itgb3; Ccl5; Lilrb4a; Cd9; Itga2; Il10; Cass4; Serpine2; Cd..."]},{"name":"span","attribs":{"title":"Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Cxcr5; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74"},"children":["Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Cxcr5; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74"]},{"name":"span","attribs":{"title":"P2rx7; Perp; Itgb3; Cd9; Itga2; Nrn1; Ptch1; Slc39a14; Ggt1; Ddr1; Itga3; Clcn5; Hs3st3b1; Sell; Ifngr2; Cd40; Ephb6; Cd74"},"children":["P2rx7; Perp; Itgb3; Cd9; Itga2; Nrn1; Ptch1; Slc39a14; Ggt1; Ddr1; Itga3; Clcn5; Hs3st3b1; Sell; ..."]},{"name":"span","attribs":{"title":"Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Ccr4; Cxcr5; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74"},"children":["Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Ccr4; Cxcr5; Tnfsf14; Cxcl16; Sell; S100a9; Ccr3; Cd74"]},{"name":"span","attribs":{"title":"Lgals7; Lilrb4b; Lag3; Twsg1; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Epcam; Cd80; Cd74"},"children":["Lgals7; Lilrb4b; Lag3; Twsg1; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Epcam; Cd80; Cd74"]},{"name":"span","attribs":{"title":"Itgb3; Dsp; Lilrb4a; Cd9; Itga2; Cd226; Epcam; Pkp4; Itga3; Sell"},"children":["Itgb3; Dsp; Lilrb4a; Cd9; Itga2; Cd226; Epcam; Pkp4; Itga3; Sell"]},{"name":"span","attribs":{"title":"Areg; Gcg; Ccl3; Ccl5; Il10; Ccl4; Insl6; Bmp7; Tnfsf14; Cxcl16"},"children":["Areg; Gcg; Ccl3; Ccl5; Il10; Ccl4; Insl6; Bmp7; Tnfsf14; Cxcl16"]},{"name":"span","attribs":{"title":"Areg; Ccl3; Ccl5; Il10; Ccl4; Bmp7; Tnfsf14; Cxcl16"},"children":["Areg; Ccl3; Ccl5; Il10; Ccl4; Bmp7; Tnfsf14; Cxcl16"]},{"name":"span","attribs":{"title":"Lilrb4b; Lilrb4a; Cd24a; Tnfsf14; Cd80; Ephb6"},"children":["Lilrb4b; Lilrb4a; Cd24a; Tnfsf14; Cd80; Ephb6"]},{"name":"span","attribs":{"title":"Lgals7; Cst7; Lilrb4b; Lag3; Twsg1; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Cd80; Cd74"},"children":["Lgals7; Cst7; Lilrb4b; Lag3; Twsg1; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Cd80; Cd74"]},{"name":"span","attribs":{"title":"Lgals7; Cst7; Lilrb4b; Tespa1; Tox; Lag3; Twsg1; Ccl5; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Cd226; Tnfsf14; Cgas; Cd80; Klrk1; Cd40; Ephb6; Cd74"},"children":["Lgals7; Cst7; Lilrb4b; Tespa1; Tox; Lag3; Twsg1; Ccl5; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Cd226..."]},{"name":"span","attribs":{"title":"Nrn1; Dlg2; Cpm; Cd109; Cd24a; Car4; Reck"},"children":["Nrn1; Dlg2; Cpm; Cd109; Cd24a; Car4; Reck"]},{"name":"span","attribs":{"title":"Oxsr1; Lag3; Ccl3; Ccl5; Itga2; Nkg7; S100a8; Ccr4; Cd24a; Cd226; Tnfsf14; Cgas; Sell; S100a9; Klrk1; Cd74"},"children":["Oxsr1; Lag3; Ccl3; Ccl5; Itga2; Nkg7; S100a8; Ccr4; Cd24a; Cd226; Tnfsf14; Cgas; Sell; S100a9; Kl..."]},{"name":"span","attribs":{"title":"P2rx7; Lilrb4b; Lag3; Lilrb4a; Eomes; Il10; Nkg7; Prf1; Dnase1l3; Cd24a; Cd226; Gzmm; Cd36; Cgas; Cd8a; Klrk1; Zpbp2; Cd40; Ephb6; Cd74"},"children":["P2rx7; Lilrb4b; Lag3; Lilrb4a; Eomes; Il10; Nkg7; Prf1; Dnase1l3; Cd24a; Cd226; Gzmm; Cd36; Cgas;..."]},{"name":"span","attribs":{"title":"P2rx7; Lilrb4b; Lag3; Lilrb4a; Nkg7; Prf1; Cd24a; Cd226; Gzmm; Cd8a; Klrk1; Cd40; Ephb6; Cd74"},"children":["P2rx7; Lilrb4b; Lag3; Lilrb4a; Nkg7; Prf1; Cd24a; Cd226; Gzmm; Cd8a; Klrk1; Cd40; Ephb6; Cd74"]},{"name":"span","attribs":{"title":"Cst7; Serpinf1; Cd109; Serpine2; Tnfsf14; Arrb1; Reck"},"children":["Cst7; Serpinf1; Cd109; Serpine2; Tnfsf14; Arrb1; Reck"]},{"name":"span","attribs":{"title":"Nkg7; Prf1; Cd24a; Cd226; Klrk1"},"children":["Nkg7; Prf1; Cd24a; Cd226; Klrk1"]},{"name":"span","attribs":{"title":"Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Ccl5; Lilrb4a; S100a8; Cd24a; Bmp7; Tnfsf14; Sell; Cd80; S100a9; Ephb6; Cd74"},"children":["Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Ccl5; Lilrb4a; S100a8; Cd24a; Bmp7; Tnfsf14; Sell; Cd80; S1..."]},{"name":"span","attribs":{"title":"Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Ccl5; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Epcam; Bmp7; Tnfsf14; Cd80; Ephb6; Cd74"},"children":["Lgals7; Lilrb4b; Tespa1; Lag3; Twsg1; Ccl5; Lilrb4a; Cd9; Il10; Serpine2; Cd24a; Epcam; Bmp7; Tnf..."]},{"name":"span","attribs":{"title":"Areg; Itgb3; Ccl5; Cass4; Cd24a; Cd36; Cd80; Cd40; Cd74"},"children":["Areg; Itgb3; Ccl5; Cass4; Cd24a; Cd36; Cd80; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Oxsr1; Ccl3; Ccl5; Ccl4; Tnfsf14; Cxcl16"},"children":["Oxsr1; Ccl3; Ccl5; Ccl4; Tnfsf14; Cxcl16"]},{"name":"span","attribs":{"title":"Lilrb4b; Itgb3; Lilrb4a; Itga3"},"children":["Lilrb4b; Itgb3; Lilrb4a; Itga3"]},{"name":"span","attribs":{"title":"Areg; Lilrb4b; Itgb3; Ccl5; Lilrb4a; Cass4; Cd24a; Cd36; Cd80; Cd40; Cd74"},"children":["Areg; Lilrb4b; Itgb3; Ccl5; Lilrb4a; Cass4; Cd24a; Cd36; Cd80; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Areg; Lilrb4b; Itgb3; Ccl5; Lilrb4a; Cass4; Cd24a; Ddr1; Cd36; Cd80; Cd40; Cd74"},"children":["Areg; Lilrb4b; Itgb3; Ccl5; Lilrb4a; Cass4; Cd24a; Ddr1; Cd36; Cd80; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Ccr4; Il1r2; Cxcr5; Ccr3; Klrk1; Ifngr2; Cd74"},"children":["Ccr4; Il1r2; Cxcr5; Ccr3; Klrk1; Ifngr2; Cd74"]},{"name":"span","attribs":{"title":"Areg; Gcg; Itgb3; Ccl3; Ccl5; Sorl1; Dgkg; Ccl4; Gpr15; Slc39a14; Cxcr5; Vipr1; Ccr3; Arrb1"},"children":["Areg; Gcg; Itgb3; Ccl3; Ccl5; Sorl1; Dgkg; Ccl4; Gpr15; Slc39a14; Cxcr5; Vipr1; Ccr3; Arrb1"]},{"name":"span","attribs":{"title":"Oxsr1; Itgb3; Ccl3; Ccl5; Ccl4; Gpr15; Tnfsf14; Cxcl16"},"children":["Oxsr1; Itgb3; Ccl3; Ccl5; Ccl4; Gpr15; Tnfsf14; Cxcl16"]},{"name":"span","attribs":{"title":"Ccr4; Il1r2; Cxcr5; Ccr3; Ifngr2; Cd74"},"children":["Ccr4; Il1r2; Cxcr5; Ccr3; Ifngr2; Cd74"]},{"name":"span","attribs":{"title":"Ccl3; Ccl5; Ccl4; S100a8; Sell; S100a9; Ccr3; Cd74"},"children":["Ccl3; Ccl5; Ccl4; S100a8; Sell; S100a9; Ccr3; Cd74"]},{"name":"span","attribs":{"title":"Itgb3; Cd9; Ptch1; Slc39a14; Klk1b9; Epcam; Clcn5; Cd36; Ocln; Car4; Klk1b11"},"children":["Itgb3; Cd9; Ptch1; Slc39a14; Klk1b9; Epcam; Clcn5; Cd36; Ocln; Car4; Klk1b11"]},{"name":"span","attribs":{"title":"P2rx7; Lilrb4b; Lag3; Lilrb4a; Nkg7; Prf1; Dnase1l3; Cd24a; Cd226; Gzmm; Cd8a; Klrk1; Cd40; Ephb6; Cd74"},"children":["P2rx7; Lilrb4b; Lag3; Lilrb4a; Nkg7; Prf1; Dnase1l3; Cd24a; Cd226; Gzmm; Cd8a; Klrk1; Cd40; Ephb6..."]},{"name":"span","attribs":{"title":"Lgals7; Cst7; Lilrb4b; Tespa1; Tox; Lag3; Twsg1; Ccl5; Lilrb4a; Il10; Cd24a; Cd226; Tnfsf14; Cgas; Cd80; Klrk1; Cd40; Ephb6; Cd74"},"children":["Lgals7; Cst7; Lilrb4b; Tespa1; Tox; Lag3; Twsg1; Ccl5; Lilrb4a; Il10; Cd24a; Cd226; Tnfsf14; Cgas..."]},{"name":"span","attribs":{"title":"Itgb3; Dsp; Ccl5; Cd9; Serpine2; Cd24a"},"children":["Itgb3; Dsp; Ccl5; Cd9; Serpine2; Cd24a"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"f703091f74d3e29c734ad032a5936686"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="CD49bvDP" class="section level3">
+<h3 class="tabset">CD49bvDP</h3>
+<em>All 3 ontologies considered enriched in the set of 33 DE genes mapped to EntrezIDs from the comparison CD49bvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-322e5019c2fc6e0659b4" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-322e5019c2fc6e0659b4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["CC","CC","MF"],"ID":["GO:0005615","GO:0001533","GO:0016209"],"Description":["extracellular space","cornified envelope","antioxidant activity"],"Count":[9,3,4],"% DE":[0.28125,0.09375,0.129032258064516],"% BG":[0.0443552536791191,0.00133786147988062,0.00469630557294928],"p.adjust":[0.000806444255853631,0.00106167199022116,0.00209407369568616],"geneID":["Fam20a; Igfbp7; Lgals7; Areg; S100a8; Cst7; Csf1; S100a9; Pla1a","Lgals7; Dsp; S100a9","S100a8; Prxl2a; S100a9; Gstt3"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["8.06e-04","0.001","0.002"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Fam20a; Igfbp7; Lgals7; Areg; S100a8; Cst7; Csf1; S100a9; Pla1a"},"children":["Fam20a; Igfbp7; Lgals7; Areg; S100a8; Cst7; Csf1; S100a9; Pla1a"]},{"name":"span","attribs":{"title":"Lgals7; Dsp; S100a9"},"children":["Lgals7; Dsp; S100a9"]},{"name":"span","attribs":{"title":"S100a8; Prxl2a; S100a9; Gstt3"},"children":["S100a8; Prxl2a; S100a9; Gstt3"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"be80107e010fbf1aa1a6bb5a6add9d49"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="LAG3vDP" class="section level3">
+<h3 class="tabset">LAG3vDP</h3>
+<em>All 3 ontologies considered enriched in the set of 33 DE genes mapped to EntrezIDs from the comparison LAG3vDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-aae90d3e945975235f11" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-aae90d3e945975235f11">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["MF","MF","CC"],"ID":["GO:0004888","GO:0004930","GO:0009897"],"Description":["transmembrane signaling receptor activity","G protein-coupled receptor activity","external side of plasma membrane"],"Count":[7,4,5],"% DE":[0.21875,0.125,0.161290322580645],"% BG":[0.021081193905239,0.00824462533917763,0.0224349078933827],"p.adjust":[0.0004270502286073,0.0153677504769333,0.0487060458199058],"geneID":["Cxcr5; Itga2; Klrk1; Gpr15; Vipr1; Gm5127; Cd79b","Cxcr5; Gpr15; Vipr1; Gm5127","Cxcr5; Itga2; Sell; Klrk1; Cd79b"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["4.27e-04","0.015","0.049"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Cxcr5; Itga2; Klrk1; Gpr15; Vipr1; Gm5127; Cd79b"},"children":["Cxcr5; Itga2; Klrk1; Gpr15; Vipr1; Gm5127; Cd79b"]},{"name":"span","attribs":{"title":"Cxcr5; Gpr15; Vipr1; Gm5127"},"children":["Cxcr5; Gpr15; Vipr1; Gm5127"]},{"name":"span","attribs":{"title":"Cxcr5; Itga2; Sell; Klrk1; Cd79b"},"children":["Cxcr5; Itga2; Sell; Klrk1; Cd79b"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"0893635c361d88f1a4f830a0c8b3a83b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="enrichment-results-up-only" class="section level2 tabset">
+<h2 class="tabset">Enrichment Results (Up Only)</h2>
+<pre class="r"><code>ego_results &lt;- top_tables %&gt;% 
+  lapply(
+    function(x) {
+      de &lt;- dplyr::filter(x, adj.P.Val &lt; 0.05, logFC &gt; 1)
+      ids &lt;- unique(unlist(de$entrezid))
+      enrichGO(
+        ids,
+        universe = universe,
+        OrgDb = org.Mm.eg.db,
+        ont = &quot;ALL&quot;,
+        keyType = &quot;ENTREZID&quot;,
+        pAdjustMethod = &quot;bonferroni&quot;,
+        pvalueCutoff = 0.05,
+        qvalueCutoff = 0.05,
+        readable = TRUE
+      )
+    }
+  )</code></pre>
+<p>Enrichment testing was repeated using all three available Gene
+Ontologies and the function <code>enrichGO()</code> from the package
+<code>clusterProfiler</code>. Ontologies were only considered to be
+enriched amongst the <strong>up-regulated genes</strong> if a
+Bonferroni-adjusted p-value &lt; 0.05 was returned during enrichment
+testing. Please note that an up-regulated gene does not always
+correspond to an increase in activity of a pathway.</p>
+<div id="dn-vs.-lag3-1" class="section level3">
+<h3>DN Vs. Lag3<sup>+</sup></h3>
+<pre class="r"><code>dotplot(ego_results$DNvLAG3) +
+  ggtitle(expression(paste(&quot;DN Vs. Lag&quot;, 3^{textstyle(&quot;+&quot;)}, &quot;(Up Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-dn-lag3-up-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-dn-lag3-up-1">
+Past versions of dotplot-dn-lag3-up-1.png
+</button>
+</p>
+<div id="fig-dotplot-dn-lag3-up-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-dn-lag3-up-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="dn-vs.-dp-1" class="section level3">
+<h3>DN Vs. DP</h3>
+<p><em>No significant results were obtained for up-regulated genes in
+this comparison.</em></p>
+<pre class="r"><code>dotplot(ego_results$DNvDP) +
+  ggtitle(&quot;DN Vs. DP (Up Only)&quot;) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+</div>
+<div id="dn-vs.-cd49b-1" class="section level3">
+<h3>DN Vs. Cd49b<sup>+</sup></h3>
+<pre class="r"><code>dotplot(ego_results$DNvCD49b) +
+  ggtitle(expression(paste(&quot;DN Vs. Cd49&quot;, b^{textstyle(&quot;+&quot;)}, &quot;(Up Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-dn-cd49-up-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-dn-cd49-up-1">
+Past versions of dotplot-dn-cd49-up-1.png
+</button>
+</p>
+<div id="fig-dotplot-dn-cd49-up-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-dn-cd49-up-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="lag3-vs-cd49-1" class="section level3">
+<h3>Lag3<sup>+</sup> Vs Cd49<sup>+</sup></h3>
+<pre class="r"><code>dotplot(ego_results$LAG3vCD49b) +
+  ggtitle(
+    expression(
+      paste(&quot;Lag&quot;, 3^{textstyle(&quot;+&quot;)}, &quot; Vs. CD49&quot;, b^{textstyle(&quot;+&quot;)}, &quot;(Up Only)&quot;)
+    )
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-lag3-cd49-up-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-lag3-cd49-up-1">
+Past versions of dotplot-lag3-cd49-up-1.png
+</button>
+</p>
+<div id="fig-dotplot-lag3-cd49-up-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-lag3-cd49-up-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="lag3-vs.-dp-1" class="section level3">
+<h3>Lag3<sup>+</sup> Vs. DP</h3>
+<p><em>No significant results were obtained for up-regulated genes in
+this comparison.</em></p>
+<pre class="r"><code>dotplot(ego_results$LAG3vDP) +
+  ggtitle(expression(paste(&quot;Lag&quot;, 3^{textstyle(&quot;+&quot;)}, &quot; Vs. DP&quot;, &quot;(Up Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+</div>
+<div id="cd49b-vs.-dp-1" class="section level3">
+<h3>Cd49b<sup>+</sup> Vs. DP</h3>
+<pre class="r"><code>dotplot(ego_results$CD49bvDP) +
+  ggtitle(expression(paste(&quot;Cd49&quot;, b^{textstyle(&quot;+&quot;)}, &quot; Vs. DP (Up Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-cd49-dp-up-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-cd49-dp-up-1">
+Past versions of dotplot-cd49-dp-up-1.png
+</button>
+</p>
+<div id="fig-dotplot-cd49-dp-up-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-cd49-dp-up-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="enrichment-tables-up-only" class="section level2 tabset">
+<h2 class="tabset">Enrichment Tables (Up Only)</h2>
+<pre class="r"><code>ego_results &lt;- ego_results[vapply(ego_results, nrow, integer(1)) &gt; 0]
+htmltools::tagList(
+  names(ego_results) %&gt;% 
+    lapply(
+      function(x) {
+        df &lt;- ego_results[[x]] %&gt;% 
+          as_tibble() %&gt;% 
+          dplyr::filter(p.adjust &lt; 0.05) %&gt;% 
+          mutate(
+            geneID = str_replace_all(geneID, &quot;\\/&quot;, &quot;; &quot;),
+            `% DE` = vapply(GeneRatio, function(x) eval(parse(text = x)), numeric(1)),
+            `% BG` = vapply(BgRatio, function(x) eval(parse(text = x)), numeric(1))
+          ) %&gt;% 
+          dplyr::select(ONTOLOGY, ID, Description, Count, starts_with(&quot;%&quot;), p.adjust, geneID) %&gt;% 
+          arrange(p.adjust) %&gt;% 
+          distinct(ONTOLOGY, geneID, .keep_all = TRUE) 
+        
+        if (nrow(df)) {
+          cp &lt;- glue(
+            &quot;All {nrow(df)} ontologies considered enriched in the set of &quot;,
+            length(unique(unlist(dplyr::filter(top_tables[[x]], DE, logFC &gt; 1)$entrezid))),
+            &quot; up-regulated genes mapped to EntrezIDs from the comparison {x}. Enrichment &quot;,
+            &quot;testing was performed using Fisher&#39;s Exact Test compared to the set of &quot;,
+            comma(length(unique(universe))), 
+            &quot; unique EntrezIDs mapped to genes considered as detectable. &quot;,
+            &quot;The percentage of nonDE genes mapped to the ontology are also given. &quot;,
+            &quot;P-values are Bonferroni adjusted and all pathways are considered enriched &quot;,
+            &quot;using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your &quot;, 
+            &quot;mouse over the final column. &quot;,
+            &quot;Where the identical genes map to multiple terms within each ontology, only &quot;, 
+            &quot;the term with the lowest p-value (i.e. strongest enrichment) is shown. &quot;,
+            &quot;As a result, some of the pathways seen in the above dotplots may not be &quot;,
+            &quot;presented in these tables.&quot;
+          )
+          htmltools::div(
+            htmltools::div(
+              id = glue(&quot;{x}-up&quot;), 
+              class=&quot;section level3&quot;,
+              htmltools::h3(class = &quot;tabset&quot;, x),
+              htmltools::tags$em(cp),
+              df %&gt;% 
+                reactable(
+                  filterable = TRUE,
+                  columns = list(
+                    ONTOLOGY = colDef(name = &quot;Ontology&quot;, maxWidth = 100),
+                    ID = colDef(name = &quot;GO ID&quot;, maxWidth = 125),
+                    Description = colDef(maxWidth = 250),
+                    Count = colDef(name = &quot;N&lt;sub&gt;DE&lt;/sub&gt;&quot;, html = TRUE, maxWidth = 80),
+                    `% DE` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    `% BG` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    p.adjust = colDef(
+                      name = &quot;p&lt;sub&gt;adj&lt;/sub&gt;&quot;, html = TRUE, maxWidth = 100,
+                      cell = function(value) {
+                        fm &lt;- ifelse(value &lt; 0.001, &quot;%.2e&quot;, &quot;%.3f&quot;)
+                        sprintf(fm, value)
+                      }
+                    ),
+                    geneID = colDef(
+                      name = &quot;DE Genes&quot;,
+                      cell = function(value) with_tooltip(value, width = 100)
+                    )
+                  )
+                )
+            )
+          )
+        } else {
+          cat(glue(&quot;No enrichment was found for {x}\n\n&quot;))
+        }
+      }
+    )
+)</code></pre>
+<div>
+<div id="DNvLAG3-up" class="section level3">
+<h3 class="tabset">DNvLAG3</h3>
+<em>All 55 ontologies considered enriched in the set of 45 up-regulated genes mapped to EntrezIDs from the comparison DNvLAG3. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-3ad505f8ec5d90b839e0" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3ad505f8ec5d90b839e0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["CC","BP","BP","CC","CC","BP","MF","BP","MF","CC","CC","MF","BP","MF","CC","BP","CC","BP","BP","MF","BP","BP","BP","BP","BP","BP","BP","BP","MF","CC","MF","BP","BP","BP","BP","BP","MF","BP","BP","BP","BP","BP","BP","BP","BP","BP","BP","BP","BP","MF","BP","BP","BP","BP","BP"],"ID":["GO:0009897","GO:0034341","GO:0006954","GO:0098552","GO:0009986","GO:0002250","GO:0023026","GO:0045087","GO:0005126","GO:0005615","GO:0098797","GO:0005125","GO:0022407","GO:0008009","GO:0042611","GO:0071347","GO:0043235","GO:0050778","GO:1903131","GO:0038023","GO:0051249","GO:0060326","GO:0019886","GO:0032496","GO:0030595","GO:0030098","GO:0002443","GO:0050863","GO:0003823","GO:0098802","GO:0004888","GO:0002449","GO:0022409","GO:0030593","GO:0043408","GO:0033993","GO:0042605","GO:0051251","GO:0070098","GO:0043405","GO:0019221","GO:0042110","GO:0050870","GO:0034612","GO:0002396","GO:0014047","GO:0006959","GO:0002764","GO:0019730","GO:0140375","GO:0002440","GO:0009617","GO:0071222","GO:0045580","GO:0097529"],"Description":["external side of plasma membrane","response to interferon-gamma","inflammatory response","side of membrane","cell surface","adaptive immune response","MHC class II protein complex binding","innate immune response","cytokine receptor binding","extracellular space","plasma membrane protein complex","cytokine activity","regulation of cell-cell adhesion","chemokine activity","MHC protein complex","cellular response to interleukin-1","receptor complex","positive regulation of immune response","mononuclear cell differentiation","signaling receptor activity","regulation of lymphocyte activation","cell chemotaxis","antigen processing and presentation of exogenous peptide antigen via MHC class II","response to lipopolysaccharide","leukocyte chemotaxis","lymphocyte differentiation","leukocyte mediated immunity","regulation of T cell activation","antigen binding","plasma membrane signaling receptor complex","transmembrane signaling receptor activity","lymphocyte mediated immunity","positive regulation of cell-cell adhesion","neutrophil chemotaxis","regulation of MAPK cascade","response to lipid","peptide antigen binding","positive regulation of lymphocyte activation","chemokine-mediated signaling pathway","regulation of MAP kinase activity","cytokine-mediated signaling pathway","T cell activation","positive regulation of T cell activation","response to tumor necrosis factor","MHC protein complex assembly","glutamate secretion","humoral immune response","immune response-regulating signaling pathway","antimicrobial humoral response","immune receptor activity","production of molecular mediator of immune response","response to bacterium","cellular response to lipopolysaccharide","regulation of T cell differentiation","myeloid leukocyte migration"],"Count":[11,9,14,12,12,12,4,14,8,12,9,6,11,4,4,6,7,11,11,9,11,8,4,8,7,10,9,9,4,5,7,8,8,5,10,10,3,8,4,6,8,10,7,6,3,3,5,8,4,4,7,9,6,6,6],"% DE":[0.255813953488372,0.209302325581395,0.325581395348837,0.27906976744186,0.27906976744186,0.27906976744186,0.0952380952380952,0.325581395348837,0.19047619047619,0.27906976744186,0.209302325581395,0.142857142857143,0.255813953488372,0.0952380952380952,0.0930232558139535,0.13953488372093,0.162790697674419,0.255813953488372,0.255813953488372,0.214285714285714,0.255813953488372,0.186046511627907,0.0930232558139535,0.186046511627907,0.162790697674419,0.232558139534884,0.209302325581395,0.209302325581395,0.0952380952380952,0.116279069767442,0.166666666666667,0.186046511627907,0.186046511627907,0.116279069767442,0.232558139534884,0.232558139534884,0.0714285714285714,0.186046511627907,0.0930232558139535,0.13953488372093,0.186046511627907,0.232558139534884,0.162790697674419,0.13953488372093,0.0697674418604651,0.0697674418604651,0.116279069767442,0.186046511627907,0.0930232558139535,0.0952380952380952,0.162790697674419,0.209302325581395,0.13953488372093,0.13953488372093,0.13953488372093],"% BG":[0.0224349078933827,0.0105437254496589,0.0422782716559851,0.0356076978491304,0.0403416692394772,0.0326648749224726,0.0010436234606554,0.0491006822410585,0.0142976414109789,0.0443552536791191,0.0221261706287949,0.00720100187852223,0.0331817242092206,0.00198288457524525,0.00216116085211485,0.00578871201157742,0.0155397756509211,0.0369030390738061,0.0372131486458549,0.0299519933208099,0.0377299979326029,0.0166425470332851,0.00175728757494315,0.0188133140376266,0.0132313417407484,0.034112052925367,0.0281166011990903,0.0281166011990903,0.0039657691504905,0.00874755582998868,0.021081193905239,0.0223278891875129,0.0224312590448625,0.00609882158362621,0.0402108745089932,0.0418647922265867,0.00198288457524525,0.025118875335952,0.0032044655778375,0.0118875335952036,0.0255323547653504,0.0434153400868307,0.018709944180277,0.0124043828819516,0.00124043828819516,0.00124043828819516,0.00764936944387017,0.0274963820549928,0.00382468472193508,0.00678355249426007,0.020260492040521,0.0372131486458549,0.0140583005995452,0.0144717800289436,0.0144717800289436],"p.adjust":[1.79445982659216e-07,6.75869943300736e-07,1.71005160000687e-06,2.0258459614779e-06,8.06147333855919e-06,1.06140212475966e-05,1.07085139375684e-05,1.18279804047023e-05,1.8171979883346e-05,2.26919750010557e-05,3.28186901539092e-05,7.79186222218476e-05,0.000144274624618962,0.000192076352198537,0.000195908850024888,0.000211723478971338,0.000399227021133812,0.000422634749800761,0.000459672489051136,0.000521756531101316,0.000527833042203107,0.000626431857937205,0.00110659737302277,0.00159283902850663,0.00187153924515176,0.0018769890377269,0.0033618609320788,0.0033618609320788,0.00344376018430398,0.00350674916857637,0.0039213911265197,0.00575390817511187,0.00595472506754071,0.00820156244955813,0.0082304365256067,0.011757872668767,0.0117798755765871,0.0137201794745054,0.0139833287786093,0.0151101602845105,0.0154613171009735,0.0161890521429591,0.0186823227966996,0.0192955240245869,0.0250812575325146,0.0250812575325146,0.0251231900072762,0.0265083586163366,0.0287881908919964,0.0289942475266815,0.031334205904742,0.032590742232206,0.0393819177682996,0.0463998251256856,0.0463998251256856],"geneID":["P2rx7; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4","Acod1; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cxcl16; Ccl8; Ccl7","P2rx7; Acod1; Cd40; Lyn; Cxcl2; Il1b; Il1rn; Cd14; Chil5; Pld4; Ccl8; Ifngr2; Ccr4; Ccl7","P2rx7; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd14; Cd79a; Ccr4","P2rx7; Plaur; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4","P2rx7; Trat1; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b; Cd79a","H2-Ab1; Cd74; H2-Aa; H2-Eb1","Acod1; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; Klrg1; H2-Eb1; Slpi; Cd14; Cxcl16; Pld4; Ccl8; Ccl7","Lyn; Cxcl2; Il1b; Il1rn; Cxcl16; Sh2b3; Ccl8; Ccl7","Cd74; Cd40; Cxcl2; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Chil5; Ccl8; Klk1b11; Ccl7","Trat1; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd79a","Cxcl2; Il1b; Il1rn; Cxcl16; Ccl8; Ccl7","Tespa1; Plaur; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; Sh2b3","Cxcl2; Cxcl16; Ccl8; Ccl7","H2-Ab1; Cd74; H2-Aa; H2-Eb1","Acod1; Cd40; Il1b; Il1rn; Ccl8; Ccl7","Trat1; Cd79b; Cd74; Cd40; Lyn; Cd14; Cd79a","Tespa1; P2rx7; Acod1; Trat1; Cd79b; H2-Ab1; Cd74; Cd40; Lyn; Il1b; Cd79a","Tespa1; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a","P2rx7; Plaur; Cd79b; Cd74; Cd40; H2-Eb1; Cd79a; Ifngr2; Ccr4","Tespa1; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3","Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccr4; Ccl7","H2-Ab1; Cd74; H2-Aa; H2-Eb1","P2rx7; Acod1; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16","Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccl7","Tespa1; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Il1b; Sh2b3; Cd79a","P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b","Tespa1; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3","H2-Ab1; H2-Aa; Cd40; H2-Eb1","Trat1; Cd79b; Cd40; Lyn; Cd79a","P2rx7; Cd79b; Cd74; H2-Eb1; Cd79a; Ifngr2; Ccr4","P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Gzmm; Il1b","Tespa1; Plaur; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b","Cd74; Cxcl2; Il1b; Ccl8; Ccl7","P2rx7; Atf3; Cd74; Cd40; Lyn; Il1b; Il1rn; Sh2b3; Ccl8; Ccl7","Id3; P2rx7; Acod1; Lyn; Cxcl2; Il1b; Il1rn; Slpi; Cd14; Cxcl16","H2-Ab1; H2-Aa; H2-Eb1","Tespa1; Cd83; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b","Cxcl2; Sh2b3; Ccl8; Ccl7","P2rx7; Cd40; Lyn; Il1b; Il1rn; Sh2b3","Cd74; Cxcl2; Il1b; Il1rn; Sh2b3; Ccl8; Ifngr2; Ccl7","Tespa1; P2rx7; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3","Tespa1; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b","Acod1; Cd40; Cd14; Cxcl16; Ccl8; Ccl7","H2-Ab1; H2-Aa; H2-Eb1","P2rx7; Il1b; Il1rn","Acod1; Cxcl2; Il1b; Slpi; Ccl8","Tespa1; Acod1; Trat1; Cd79b; Cd40; Lyn; Cd14; Cd79a","Acod1; Cxcl2; Slpi; Ccl8","Cd74; H2-Eb1; Ifngr2; Ccr4","P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b","P2rx7; Acod1; Cd79b; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16","Acod1; Lyn; Cxcl2; Il1b; Cd14; Cxcl16","Tespa1; Cd83; Tcf7; Cd74; H2-Aa; Sh2b3","Cd74; Lyn; Cxcl2; Il1b; Ccl8; Ccl7"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["1.79e-07","6.76e-07","1.71e-06","2.03e-06","8.06e-06","1.06e-05","1.07e-05","1.18e-05","1.82e-05","2.27e-05","3.28e-05","7.79e-05","1.44e-04","1.92e-04","1.96e-04","2.12e-04","3.99e-04","4.23e-04","4.60e-04","5.22e-04","5.28e-04","6.26e-04","0.001","0.002","0.002","0.002","0.003","0.003","0.003","0.004","0.004","0.006","0.006","0.008","0.008","0.012","0.012","0.014","0.014","0.015","0.015","0.016","0.019","0.019","0.025","0.025","0.025","0.027","0.029","0.029","0.031","0.033","0.039","0.046","0.046"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"P2rx7; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4"},"children":["P2rx7; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4"]},{"name":"span","attribs":{"title":"Acod1; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cxcl16; Ccl8; Ccl7"},"children":["Acod1; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"P2rx7; Acod1; Cd40; Lyn; Cxcl2; Il1b; Il1rn; Cd14; Chil5; Pld4; Ccl8; Ifngr2; Ccr4; Ccl7"},"children":["P2rx7; Acod1; Cd40; Lyn; Cxcl2; Il1b; Il1rn; Cd14; Chil5; Pld4; Ccl8; Ifngr2; Ccr4; Ccl7"]},{"name":"span","attribs":{"title":"P2rx7; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd14; Cd79a; Ccr4"},"children":["P2rx7; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd14; Cd79a; Ccr4"]},{"name":"span","attribs":{"title":"P2rx7; Plaur; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4"},"children":["P2rx7; Plaur; Cd83; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Cd14; Cd79a; Ccr4"]},{"name":"span","attribs":{"title":"P2rx7; Trat1; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b; Cd79a"},"children":["P2rx7; Trat1; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b; Cd79a"]},{"name":"span","attribs":{"title":"H2-Ab1; Cd74; H2-Aa; H2-Eb1"},"children":["H2-Ab1; Cd74; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"Acod1; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; Klrg1; H2-Eb1; Slpi; Cd14; Cxcl16; Pld4; Ccl8; Ccl7"},"children":["Acod1; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; Klrg1; H2-Eb1; Slpi; Cd14; Cxcl16; Pld4; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Lyn; Cxcl2; Il1b; Il1rn; Cxcl16; Sh2b3; Ccl8; Ccl7"},"children":["Lyn; Cxcl2; Il1b; Il1rn; Cxcl16; Sh2b3; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Cd74; Cd40; Cxcl2; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Chil5; Ccl8; Klk1b11; Ccl7"},"children":["Cd74; Cd40; Cxcl2; Il1b; Il1rn; Slpi; Cd14; Cxcl16; Chil5; Ccl8; Klk1b11; Ccl7"]},{"name":"span","attribs":{"title":"Trat1; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd79a"},"children":["Trat1; Cd79b; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Cd79a"]},{"name":"span","attribs":{"title":"Cxcl2; Il1b; Il1rn; Cxcl16; Ccl8; Ccl7"},"children":["Cxcl2; Il1b; Il1rn; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Tespa1; Plaur; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; Sh2b3"},"children":["Tespa1; Plaur; Cd83; H2-Ab1; Cd74; H2-Aa; Lyn; H2-Eb1; Il1b; Il1rn; Sh2b3"]},{"name":"span","attribs":{"title":"Cxcl2; Cxcl16; Ccl8; Ccl7"},"children":["Cxcl2; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"H2-Ab1; Cd74; H2-Aa; H2-Eb1"},"children":["H2-Ab1; Cd74; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"Acod1; Cd40; Il1b; Il1rn; Ccl8; Ccl7"},"children":["Acod1; Cd40; Il1b; Il1rn; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Trat1; Cd79b; Cd74; Cd40; Lyn; Cd14; Cd79a"},"children":["Trat1; Cd79b; Cd74; Cd40; Lyn; Cd14; Cd79a"]},{"name":"span","attribs":{"title":"Tespa1; P2rx7; Acod1; Trat1; Cd79b; H2-Ab1; Cd74; Cd40; Lyn; Il1b; Cd79a"},"children":["Tespa1; P2rx7; Acod1; Trat1; Cd79b; H2-Ab1; Cd74; Cd40; Lyn; Il1b; Cd79a"]},{"name":"span","attribs":{"title":"Tespa1; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a"},"children":["Tespa1; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Lyn; Il1b; Sh2b3; Cd79a"]},{"name":"span","attribs":{"title":"P2rx7; Plaur; Cd79b; Cd74; Cd40; H2-Eb1; Cd79a; Ifngr2; Ccr4"},"children":["P2rx7; Plaur; Cd79b; Cd74; Cd40; H2-Eb1; Cd79a; Ifngr2; Ccr4"]},{"name":"span","attribs":{"title":"Tespa1; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3"},"children":["Tespa1; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Il1b; Sh2b3"]},{"name":"span","attribs":{"title":"Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccr4; Ccl7"},"children":["Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccr4; Ccl7"]},{"name":"span","attribs":{"title":"H2-Ab1; Cd74; H2-Aa; H2-Eb1"},"children":["H2-Ab1; Cd74; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"P2rx7; Acod1; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16"},"children":["P2rx7; Acod1; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16"]},{"name":"span","attribs":{"title":"Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccl7"},"children":["Cd74; Lyn; Cxcl2; Il1b; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Tespa1; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Il1b; Sh2b3; Cd79a"},"children":["Tespa1; Cd83; Cd79b; Tcf7; H2-Ab1; Cd74; H2-Aa; Il1b; Sh2b3; Cd79a"]},{"name":"span","attribs":{"title":"P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b"},"children":["P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; Lyn; H2-Eb1; Gzmm; Il1b"]},{"name":"span","attribs":{"title":"Tespa1; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"},"children":["Tespa1; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"]},{"name":"span","attribs":{"title":"H2-Ab1; H2-Aa; Cd40; H2-Eb1"},"children":["H2-Ab1; H2-Aa; Cd40; H2-Eb1"]},{"name":"span","attribs":{"title":"Trat1; Cd79b; Cd40; Lyn; Cd79a"},"children":["Trat1; Cd79b; Cd40; Lyn; Cd79a"]},{"name":"span","attribs":{"title":"P2rx7; Cd79b; Cd74; H2-Eb1; Cd79a; Ifngr2; Ccr4"},"children":["P2rx7; Cd79b; Cd74; H2-Eb1; Cd79a; Ifngr2; Ccr4"]},{"name":"span","attribs":{"title":"P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Gzmm; Il1b"},"children":["P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Gzmm; Il1b"]},{"name":"span","attribs":{"title":"Tespa1; Plaur; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"},"children":["Tespa1; Plaur; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"Cd74; Cxcl2; Il1b; Ccl8; Ccl7"},"children":["Cd74; Cxcl2; Il1b; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"P2rx7; Atf3; Cd74; Cd40; Lyn; Il1b; Il1rn; Sh2b3; Ccl8; Ccl7"},"children":["P2rx7; Atf3; Cd74; Cd40; Lyn; Il1b; Il1rn; Sh2b3; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"Id3; P2rx7; Acod1; Lyn; Cxcl2; Il1b; Il1rn; Slpi; Cd14; Cxcl16"},"children":["Id3; P2rx7; Acod1; Lyn; Cxcl2; Il1b; Il1rn; Slpi; Cd14; Cxcl16"]},{"name":"span","attribs":{"title":"H2-Ab1; H2-Aa; H2-Eb1"},"children":["H2-Ab1; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"Tespa1; Cd83; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b"},"children":["Tespa1; Cd83; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"Cxcl2; Sh2b3; Ccl8; Ccl7"},"children":["Cxcl2; Sh2b3; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"P2rx7; Cd40; Lyn; Il1b; Il1rn; Sh2b3"},"children":["P2rx7; Cd40; Lyn; Il1b; Il1rn; Sh2b3"]},{"name":"span","attribs":{"title":"Cd74; Cxcl2; Il1b; Il1rn; Sh2b3; Ccl8; Ifngr2; Ccl7"},"children":["Cd74; Cxcl2; Il1b; Il1rn; Sh2b3; Ccl8; Ifngr2; Ccl7"]},{"name":"span","attribs":{"title":"Tespa1; P2rx7; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"},"children":["Tespa1; P2rx7; Cd83; Tcf7; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b; Sh2b3"]},{"name":"span","attribs":{"title":"Tespa1; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"},"children":["Tespa1; Cd83; H2-Ab1; Cd74; H2-Aa; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"Acod1; Cd40; Cd14; Cxcl16; Ccl8; Ccl7"},"children":["Acod1; Cd40; Cd14; Cxcl16; Ccl8; Ccl7"]},{"name":"span","attribs":{"title":"H2-Ab1; H2-Aa; H2-Eb1"},"children":["H2-Ab1; H2-Aa; H2-Eb1"]},{"name":"span","attribs":{"title":"P2rx7; Il1b; Il1rn"},"children":["P2rx7; Il1b; Il1rn"]},{"name":"span","attribs":{"title":"Acod1; Cxcl2; Il1b; Slpi; Ccl8"},"children":["Acod1; Cxcl2; Il1b; Slpi; Ccl8"]},{"name":"span","attribs":{"title":"Tespa1; Acod1; Trat1; Cd79b; Cd40; Lyn; Cd14; Cd79a"},"children":["Tespa1; Acod1; Trat1; Cd79b; Cd40; Lyn; Cd14; Cd79a"]},{"name":"span","attribs":{"title":"Acod1; Cxcl2; Slpi; Ccl8"},"children":["Acod1; Cxcl2; Slpi; Ccl8"]},{"name":"span","attribs":{"title":"Cd74; H2-Eb1; Ifngr2; Ccr4"},"children":["Cd74; H2-Eb1; Ifngr2; Ccr4"]},{"name":"span","attribs":{"title":"P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b"},"children":["P2rx7; H2-Ab1; Cd74; H2-Aa; Cd40; H2-Eb1; Il1b"]},{"name":"span","attribs":{"title":"P2rx7; Acod1; Cd79b; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16"},"children":["P2rx7; Acod1; Cd79b; Lyn; Cxcl2; Il1b; Slpi; Cd14; Cxcl16"]},{"name":"span","attribs":{"title":"Acod1; Lyn; Cxcl2; Il1b; Cd14; Cxcl16"},"children":["Acod1; Lyn; Cxcl2; Il1b; Cd14; Cxcl16"]},{"name":"span","attribs":{"title":"Tespa1; Cd83; Tcf7; Cd74; H2-Aa; Sh2b3"},"children":["Tespa1; Cd83; Tcf7; Cd74; H2-Aa; Sh2b3"]},{"name":"span","attribs":{"title":"Cd74; Lyn; Cxcl2; Il1b; Ccl8; Ccl7"},"children":["Cd74; Lyn; Cxcl2; Il1b; Ccl8; Ccl7"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"18a9cdede950dd429633f6df57c9f77d"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="DNvCD49b-up" class="section level3">
+<h3 class="tabset">DNvCD49b</h3>
+<em>All 11 ontologies considered enriched in the set of 14 up-regulated genes mapped to EntrezIDs from the comparison DNvCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-b62ee322197559a7ac80" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b62ee322197559a7ac80">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["BP","CC","BP","BP","BP","MF","BP","MF","BP","BP","BP"],"ID":["GO:0002523","GO:0009897","GO:1903034","GO:0030193","GO:0050900","GO:0043177","GO:1903036","GO:0035325","GO:0019932","GO:0048708","GO:0042063"],"Description":["leukocyte migration involved in inflammatory response","external side of plasma membrane","regulation of response to wounding","regulation of blood coagulation","leukocyte migration","organic acid binding","positive regulation of response to wounding","Toll-like receptor binding","second-messenger-mediated signaling","astrocyte differentiation","gliogenesis"],"Count":[3,5,4,3,5,3,3,2,4,3,4],"% DE":[0.25,0.384615384615385,0.333333333333333,0.25,0.416666666666667,0.230769230769231,0.25,0.153846153846154,0.333333333333333,0.25,0.333333333333333],"% BG":[0.00124043828819516,0.0224349078933827,0.00775273930121976,0.00248087657639032,0.0227413686169113,0.00678355249426007,0.00361794500723589,0.00114798580672094,0.01281786231135,0.00444490386603266,0.0190200537523258],"p.adjust":[0.000255397198604539,0.0003680714168825,0.00126059246218503,0.00233003972681555,0.00323765489386393,0.00681924452331374,0.00747693914214618,0.00779662460465401,0.00941740144363397,0.0140196003374349,0.0445733540330608],"geneID":["S100a8; Cd24a; S100a9","Cd24a; Cxcr5; Cd9; Cd36; Cd8a","Cd24a; S100a9; Cd9; Cd36","S100a9; Cd9; Cd36","S100a8; Cd24a; Cxcr5; S100a9; Cd9","S100a8; Id3; Cd36","Cd24a; S100a9; Cd36","S100a8; Cd36","Cd24a; Cxcr5; Cd36; Cd8a","S100a8; Eomes; S100a9","S100a8; Eomes; S100a9; Cd9"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["2.55e-04","3.68e-04","0.001","0.002","0.003","0.007","0.007","0.008","0.009","0.014","0.045"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"S100a8; Cd24a; S100a9"},"children":["S100a8; Cd24a; S100a9"]},{"name":"span","attribs":{"title":"Cd24a; Cxcr5; Cd9; Cd36; Cd8a"},"children":["Cd24a; Cxcr5; Cd9; Cd36; Cd8a"]},{"name":"span","attribs":{"title":"Cd24a; S100a9; Cd9; Cd36"},"children":["Cd24a; S100a9; Cd9; Cd36"]},{"name":"span","attribs":{"title":"S100a9; Cd9; Cd36"},"children":["S100a9; Cd9; Cd36"]},{"name":"span","attribs":{"title":"S100a8; Cd24a; Cxcr5; S100a9; Cd9"},"children":["S100a8; Cd24a; Cxcr5; S100a9; Cd9"]},{"name":"span","attribs":{"title":"S100a8; Id3; Cd36"},"children":["S100a8; Id3; Cd36"]},{"name":"span","attribs":{"title":"Cd24a; S100a9; Cd36"},"children":["Cd24a; S100a9; Cd36"]},{"name":"span","attribs":{"title":"S100a8; Cd36"},"children":["S100a8; Cd36"]},{"name":"span","attribs":{"title":"Cd24a; Cxcr5; Cd36; Cd8a"},"children":["Cd24a; Cxcr5; Cd36; Cd8a"]},{"name":"span","attribs":{"title":"S100a8; Eomes; S100a9"},"children":["S100a8; Eomes; S100a9"]},{"name":"span","attribs":{"title":"S100a8; Eomes; S100a9; Cd9"},"children":["S100a8; Eomes; S100a9; Cd9"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"39f2986735e480d2a540ac397bdef492"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="LAG3vCD49b-up" class="section level3">
+<h3 class="tabset">LAG3vCD49b</h3>
+<em>All 19 ontologies considered enriched in the set of 99 up-regulated genes mapped to EntrezIDs from the comparison LAG3vCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-446a7f2c4327c71dcaa6" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-446a7f2c4327c71dcaa6">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["CC","BP","CC","CC","MF","CC","BP","CC","BP","BP","CC","BP","CC","CC","MF","BP","MF","MF","BP"],"ID":["GO:0005615","GO:0098609","GO:0009986","GO:0009897","GO:0005509","GO:0016323","GO:0022408","GO:0098590","GO:1903034","GO:0050900","GO:0046658","GO:0050866","GO:0031226","GO:0098552","GO:0048018","GO:0030593","GO:0030296","GO:0050431","GO:0006935"],"Description":["extracellular space","cell-cell adhesion","cell surface","external side of plasma membrane","calcium ion binding","basolateral plasma membrane","negative regulation of cell-cell adhesion","plasma membrane region","regulation of response to wounding","leukocyte migration","anchored component of plasma membrane","negative regulation of cell activation","intrinsic component of plasma membrane","side of membrane","receptor ligand activity","neutrophil chemotaxis","protein tyrosine kinase activator activity","transforming growth factor beta binding","chemotaxis"],"Count":[23,18,16,11,10,7,9,15,7,11,4,9,13,12,7,6,3,3,11],"% DE":[0.23469387755102,0.191489361702128,0.163265306122449,0.112244897959184,0.104166666666667,0.0714285714285714,0.0957446808510638,0.153061224489796,0.074468085106383,0.117021276595745,0.0408163265306122,0.0957446808510638,0.13265306122449,0.122448979591837,0.0729166666666667,0.0638297872340425,0.03125,0.03125,0.117021276595745],"% BG":[0.0443552536791191,0.0440355592309283,0.0403416692394772,0.0224349078933827,0.0204550198288458,0.00957085520222291,0.0142650403142444,0.0489863126479366,0.00775273930121976,0.0227413686169113,0.00257281053823196,0.0150919991730411,0.0397241947103015,0.0356076978491304,0.0118973074514715,0.00609882158362621,0.00114798580672094,0.00114798580672094,0.0253256150506512],"p.adjust":[5.64057862566982e-09,0.00023113708500966,0.000326033600024686,0.00224383725476556,0.00753762265652722,0.0078643027548864,0.0149504592057106,0.0151588003331881,0.0157654415737852,0.017989522900884,0.0206052164630743,0.0236460565137312,0.0246924213821373,0.0348946380121476,0.0421908575209172,0.0444487429973365,0.0458169482852835,0.0458169482852835,0.0494541708657216],"geneID":["Lgals7; Igfbp7; Areg; Cst7; Angptl2; Serpinf1; Fam20a; Twsg1; Gcg; Ccl3; Ccl5; Cd9; Nrn1; Il10; Ccl4; S100a8; Prf1; Cd109; Serpine2; Pla1a; S100a9; Car4; Ear2","Lgals7; Perp; Lag3; Twsg1; Dsp; Ccl5; Cd9; Dlg2; Il10; S100a8; Serpine2; Cd24a; Epcam; Itga3; Sell; Cd80; S100a9; Ephb6","Areg; Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Epcam; Itga3; Cd36; Sell; Cd80; Ocln; Cd8a; Car4; Ptprk; Ephb6","Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Car4","Dgkg; S100a8; S100a1; Prf1; Cetn4; Sell; S100a9; S100a6; Prrg4; Ncald","Dsp; Dlg2; Slc39a14; Epcam; Ddr1; Itga3; Arrb1","Lgals7; Lag3; Twsg1; Cd9; Il10; Serpine2; Cd24a; Epcam; Cd80","Dsp; Cd9; Dlg2; Ptch1; Cd24a; Ptpn5; Slc39a14; Epcam; Ddr1; Itga3; Cd36; Ocln; Cd8a; Car4; Arrb1","Cd9; Il10; Cd109; Serpine2; Cd24a; Cd36; S100a9","Oxsr1; Ccl3; Ccl5; Cd9; Ccl4; S100a8; Cd24a; Cxcr5; Itga3; Sell; S100a9","Nrn1; Dlg2; Cd24a; Car4","Lgals7; Cst7; Lag3; Twsg1; Cd9; Il10; Serpine2; Cd24a; Cd80","Perp; Cd9; Nrn1; Dlg2; Ptch1; Cd24a; Slc39a14; Ddr1; Itga3; Clcn5; Sell; Car4; Ephb6","Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Car4; S100a6","Areg; Gcg; Ccl3; Ccl5; Il10; Ccl4; Insl6","Ccl3; Ccl5; Ccl4; S100a8; Sell; S100a9","Areg; Ccl5; Cd24a","Twsg1; Cd109; Cd36","Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Ptch1; Cxcr5; Sell; S100a9; Ear2; Ephb6"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["5.64e-09","2.31e-04","3.26e-04","0.002","0.008","0.008","0.015","0.015","0.016","0.018","0.021","0.024","0.025","0.035","0.042","0.044","0.046","0.046","0.049"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Lgals7; Igfbp7; Areg; Cst7; Angptl2; Serpinf1; Fam20a; Twsg1; Gcg; Ccl3; Ccl5; Cd9; Nrn1; Il10; Ccl4; S100a8; Prf1; Cd109; Serpine2; Pla1a; S100a9; Car4; Ear2"},"children":["Lgals7; Igfbp7; Areg; Cst7; Angptl2; Serpinf1; Fam20a; Twsg1; Gcg; Ccl3; Ccl5; Cd9; Nrn1; Il10; C..."]},{"name":"span","attribs":{"title":"Lgals7; Perp; Lag3; Twsg1; Dsp; Ccl5; Cd9; Dlg2; Il10; S100a8; Serpine2; Cd24a; Epcam; Itga3; Sell; Cd80; S100a9; Ephb6"},"children":["Lgals7; Perp; Lag3; Twsg1; Dsp; Ccl5; Cd9; Dlg2; Il10; S100a8; Serpine2; Cd24a; Epcam; Itga3; Sel..."]},{"name":"span","attribs":{"title":"Areg; Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Epcam; Itga3; Cd36; Sell; Cd80; Ocln; Cd8a; Car4; Ptprk; Ephb6"},"children":["Areg; Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Epcam; Itga3; Cd36; Sell; Cd80; Ocln; Cd8a; Car4; Ptprk;..."]},{"name":"span","attribs":{"title":"Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Car4"},"children":["Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Car4"]},{"name":"span","attribs":{"title":"Dgkg; S100a8; S100a1; Prf1; Cetn4; Sell; S100a9; S100a6; Prrg4; Ncald"},"children":["Dgkg; S100a8; S100a1; Prf1; Cetn4; Sell; S100a9; S100a6; Prrg4; Ncald"]},{"name":"span","attribs":{"title":"Dsp; Dlg2; Slc39a14; Epcam; Ddr1; Itga3; Arrb1"},"children":["Dsp; Dlg2; Slc39a14; Epcam; Ddr1; Itga3; Arrb1"]},{"name":"span","attribs":{"title":"Lgals7; Lag3; Twsg1; Cd9; Il10; Serpine2; Cd24a; Epcam; Cd80"},"children":["Lgals7; Lag3; Twsg1; Cd9; Il10; Serpine2; Cd24a; Epcam; Cd80"]},{"name":"span","attribs":{"title":"Dsp; Cd9; Dlg2; Ptch1; Cd24a; Ptpn5; Slc39a14; Epcam; Ddr1; Itga3; Cd36; Ocln; Cd8a; Car4; Arrb1"},"children":["Dsp; Cd9; Dlg2; Ptch1; Cd24a; Ptpn5; Slc39a14; Epcam; Ddr1; Itga3; Cd36; Ocln; Cd8a; Car4; Arrb1"]},{"name":"span","attribs":{"title":"Cd9; Il10; Cd109; Serpine2; Cd24a; Cd36; S100a9"},"children":["Cd9; Il10; Cd109; Serpine2; Cd24a; Cd36; S100a9"]},{"name":"span","attribs":{"title":"Oxsr1; Ccl3; Ccl5; Cd9; Ccl4; S100a8; Cd24a; Cxcr5; Itga3; Sell; S100a9"},"children":["Oxsr1; Ccl3; Ccl5; Cd9; Ccl4; S100a8; Cd24a; Cxcr5; Itga3; Sell; S100a9"]},{"name":"span","attribs":{"title":"Nrn1; Dlg2; Cd24a; Car4"},"children":["Nrn1; Dlg2; Cd24a; Car4"]},{"name":"span","attribs":{"title":"Lgals7; Cst7; Lag3; Twsg1; Cd9; Il10; Serpine2; Cd24a; Cd80"},"children":["Lgals7; Cst7; Lag3; Twsg1; Cd9; Il10; Serpine2; Cd24a; Cd80"]},{"name":"span","attribs":{"title":"Perp; Cd9; Nrn1; Dlg2; Ptch1; Cd24a; Slc39a14; Ddr1; Itga3; Clcn5; Sell; Car4; Ephb6"},"children":["Perp; Cd9; Nrn1; Dlg2; Ptch1; Cd24a; Slc39a14; Ddr1; Itga3; Clcn5; Sell; Car4; Ephb6"]},{"name":"span","attribs":{"title":"Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Car4; S100a6"},"children":["Lag3; Cd9; Serpine2; Cd24a; Cxcr5; Itga3; Cd36; Sell; Cd80; Cd8a; Car4; S100a6"]},{"name":"span","attribs":{"title":"Areg; Gcg; Ccl3; Ccl5; Il10; Ccl4; Insl6"},"children":["Areg; Gcg; Ccl3; Ccl5; Il10; Ccl4; Insl6"]},{"name":"span","attribs":{"title":"Ccl3; Ccl5; Ccl4; S100a8; Sell; S100a9"},"children":["Ccl3; Ccl5; Ccl4; S100a8; Sell; S100a9"]},{"name":"span","attribs":{"title":"Areg; Ccl5; Cd24a"},"children":["Areg; Ccl5; Cd24a"]},{"name":"span","attribs":{"title":"Twsg1; Cd109; Cd36"},"children":["Twsg1; Cd109; Cd36"]},{"name":"span","attribs":{"title":"Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Ptch1; Cxcr5; Sell; S100a9; Ear2; Ephb6"},"children":["Oxsr1; Ccl3; Ccl5; Ccl4; S100a8; Ptch1; Cxcr5; Sell; S100a9; Ear2; Ephb6"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"dd513175261a28a82a8367a098cc5b84"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="CD49bvDP-up" class="section level3">
+<h3 class="tabset">CD49bvDP</h3>
+<em>All 1 ontologies considered enriched in the set of 6 up-regulated genes mapped to EntrezIDs from the comparison CD49bvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-8d4006aa37c69a211656" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8d4006aa37c69a211656">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["BP"],"ID":["GO:0050862"],"Description":["positive regulation of T cell receptor signaling pathway"],"Count":[2],"% DE":[0.5],"% BG":[0.00175728757494315],"p.adjust":[0.00812776761639468],"geneID":["Tespa1; Trat1"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["0.008"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Tespa1; Trat1"},"children":["Tespa1; Trat1"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"50a48465a75d0f0e57073764feb37836"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="enrichment-results-down-only" class="section level2 tabset">
+<h2 class="tabset">Enrichment Results (Down Only)</h2>
+<pre class="r"><code>ego_results &lt;- top_tables %&gt;% 
+  lapply(
+    function(x) {
+      de &lt;- dplyr::filter(x, adj.P.Val &lt; 0.05, logFC &lt; -1)
+      ids &lt;- unique(unlist(de$entrezid))
+      enrichGO(
+        ids,
+        universe = universe,
+        OrgDb = org.Mm.eg.db,
+        ont = &quot;ALL&quot;,
+        keyType = &quot;ENTREZID&quot;,
+        pAdjustMethod = &quot;bonferroni&quot;,
+        pvalueCutoff = 0.05,
+        qvalueCutoff = 0.05,
+        readable = TRUE
+      )
+    }
+  )</code></pre>
+<p>Enrichment testing was repeated using all three available Gene
+Ontologies and the function <code>enrichGO()</code> from the package
+<code>clusterProfiler</code>. Ontologies were only considered to be
+enriched amongst the <strong>down-regulated genes</strong> if a
+Bonferroni-adjusted p-value &lt; 0.05 was returned during enrichment
+testing. Please note that a down-regulated gene does not always
+correspond to an decrease in activity of a pathway.</p>
+<div id="dn-vs.-lag3-2" class="section level3">
+<h3>DN Vs. Lag3<sup>+</sup></h3>
+<pre class="r"><code>dotplot(ego_results$DNvLAG3) +
+  ggtitle(expression(paste(&quot;DN Vs. Lag&quot;, 3^{textstyle(&quot;+&quot;)}, &quot;(Down Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-dn-lag3-down-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-dn-lag3-down-1">
+Past versions of dotplot-dn-lag3-down-1.png
+</button>
+</p>
+<div id="fig-dotplot-dn-lag3-down-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-dn-lag3-down-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="dn-vs.-dp-2" class="section level3">
+<h3>DN Vs. DP</h3>
+<pre class="r"><code>dotplot(ego_results$DNvDP) +
+  ggtitle(&quot;DN Vs. DP (Down Only)&quot;) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-dn-dp-down-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-dn-dp-down-1">
+Past versions of dotplot-dn-dp-down-1.png
+</button>
+</p>
+<div id="fig-dotplot-dn-dp-down-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-dn-dp-down-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="dn-vs.-cd49b-2" class="section level3">
+<h3>DN Vs. Cd49b<sup>+</sup></h3>
+<pre class="r"><code>dotplot(ego_results$DNvCD49b) +
+  ggtitle(expression(paste(&quot;DN Vs. Cd49&quot;, b^{textstyle(&quot;+&quot;)}, &quot;(Down Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-dn-cd49-down-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-dn-cd49-down-1">
+Past versions of dotplot-dn-cd49-down-1.png
+</button>
+</p>
+<div id="fig-dotplot-dn-cd49-down-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-dn-cd49-down-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="lag3-vs-cd49-2" class="section level3">
+<h3>Lag3<sup>+</sup> Vs Cd49<sup>+</sup></h3>
+<pre class="r"><code>dotplot(ego_results$LAG3vCD49b) +
+  ggtitle(
+    expression(
+      paste(&quot;Lag&quot;, 3^{textstyle(&quot;+&quot;)}, &quot; Vs. CD49&quot;, b^{textstyle(&quot;+&quot;)}, &quot;(Down Only)&quot;)
+    )
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-lag3-cd49-down-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-lag3-cd49-down-1">
+Past versions of dotplot-lag3-cd49-down-1.png
+</button>
+</p>
+<div id="fig-dotplot-lag3-cd49-down-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-lag3-cd49-down-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="lag3-vs.-dp-2" class="section level3">
+<h3>Lag3<sup>+</sup> Vs. DP</h3>
+<pre class="r"><code>dotplot(ego_results$LAG3vDP) +
+  ggtitle(expression(paste(&quot;Lag&quot;, 3^{textstyle(&quot;+&quot;)}, &quot; Vs. DP&quot;, &quot;(Down Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-lag3-dp-down-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-lag3-dp-down-1">
+Past versions of dotplot-lag3-dp-down-1.png
+</button>
+</p>
+<div id="fig-dotplot-lag3-dp-down-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-lag3-dp-down-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="cd49b-vs.-dp-2" class="section level3">
+<h3>Cd49b<sup>+</sup> Vs. DP</h3>
+<pre class="r"><code>dotplot(ego_results$CD49bvDP) +
+  ggtitle(expression(paste(&quot;Cd49&quot;, b^{textstyle(&quot;+&quot;)}, &quot; Vs. DP (Down Only)&quot;))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )</code></pre>
+<p><img src="figure/enrichment.Rmd/dotplot-cd49-dp-down-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-dotplot-cd49-dp-down-1">
+Past versions of dotplot-cd49-dp-down-1.png
+</button>
+</p>
+<div id="fig-dotplot-cd49-dp-down-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0b3ca1bda6bf71ce73b337b91895ad0962c876c2/docs/figure/enrichment.Rmd/dotplot-cd49-dp-down-1.png" target="_blank">0b3ca1b</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="enrichment-tables-down-only" class="section level2 tabset">
+<h2 class="tabset">Enrichment Tables (Down Only)</h2>
+<pre class="r"><code>ego_results &lt;- ego_results[vapply(ego_results, nrow, integer(1)) &gt; 0]
+htmltools::tagList(
+  names(ego_results) %&gt;% 
+    lapply(
+      function(x) {
+        df &lt;- ego_results[[x]] %&gt;% 
+          as_tibble() %&gt;% 
+          dplyr::filter(p.adjust &lt; 0.05) %&gt;% 
+          mutate(
+            geneID = str_replace_all(geneID, &quot;\\/&quot;, &quot;; &quot;),
+            `% DE` = vapply(GeneRatio, function(x) eval(parse(text = x)), numeric(1)),
+            `% BG` = vapply(BgRatio, function(x) eval(parse(text = x)), numeric(1))
+          ) %&gt;% 
+          dplyr::select(ONTOLOGY, ID, Description, Count, starts_with(&quot;%&quot;), p.adjust, geneID) %&gt;% 
+          arrange(p.adjust) %&gt;% 
+          distinct(ONTOLOGY, geneID, .keep_all = TRUE) 
+        
+        if (nrow(df)) {
+          cp &lt;- glue(
+            &quot;All {nrow(df)} ontologies considered enriched in the set of &quot;,
+            length(unique(unlist(dplyr::filter(top_tables[[x]], DE, logFC &lt; -1)$entrezid))),
+            &quot; down-regulated genes mapped to EntrezIDs from the comparison {x}. Enrichment &quot;,
+            &quot;testing was performed using Fisher&#39;s Exact Test compared to the set of &quot;,
+            comma(length(unique(universe))), 
+            &quot; unique EntrezIDs mapped to genes considered as detectable. &quot;,
+            &quot;The percentage of nonDE genes mapped to the ontology are also given. &quot;,
+            &quot;P-values are Bonferroni adjusted and all pathways are considered enriched &quot;,
+            &quot;using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your &quot;, 
+            &quot;mouse over the final column. &quot;,
+            &quot;Where the identical genes map to multiple terms within each ontology, only &quot;, 
+            &quot;the term with the lowest p-value (i.e. strongest enrichment) is shown. &quot;,
+            &quot;As a result, some of the pathways seen in the above dotplots may not be &quot;,
+            &quot;presented in these tables.&quot;
+          )
+          htmltools::div(
+            htmltools::div(
+              id = glue(&quot;{x}-down&quot;), 
+              class=&quot;section level3&quot;,
+              htmltools::h3(class = &quot;tabset&quot;, x),
+              htmltools::tags$em(cp),
+              df %&gt;% 
+                reactable(
+                  filterable = TRUE,
+                  columns = list(
+                    ONTOLOGY = colDef(name = &quot;Ontology&quot;, maxWidth = 100),
+                    ID = colDef(name = &quot;GO ID&quot;, maxWidth = 125),
+                    Description = colDef(maxWidth = 250),
+                    Count = colDef(name = &quot;N&lt;sub&gt;DE&lt;/sub&gt;&quot;, html = TRUE, maxWidth = 80),
+                    `% DE` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    `% BG` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    p.adjust = colDef(
+                      name = &quot;p&lt;sub&gt;adj&lt;/sub&gt;&quot;, html = TRUE, maxWidth = 100,
+                      cell = function(value) {
+                        fm &lt;- ifelse(value &lt; 0.001, &quot;%.2e&quot;, &quot;%.3f&quot;)
+                        sprintf(fm, value)
+                      }
+                    ),
+                    geneID = colDef(
+                      name = &quot;DE Genes&quot;,
+                      cell = function(value) with_tooltip(value, width = 100)
+                    )
+                  )
+                )
+            )
+          )
+        } else {
+          cat(glue(&quot;No enrichment was found for {x}\n\n&quot;))
+        }
+      }
+    )
+)</code></pre>
+<div>
+<div id="DNvLAG3-down" class="section level3">
+<h3 class="tabset">DNvLAG3</h3>
+<em>All 2 ontologies considered enriched in the set of 29 down-regulated genes mapped to EntrezIDs from the comparison DNvLAG3. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-698508e270cc5a2fa6f5" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-698508e270cc5a2fa6f5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["CC","CC"],"ID":["GO:0099146","GO:0005615"],"Description":["intrinsic component of postsynaptic density membrane","extracellular space"],"Count":[3,7],"% DE":[0.111111111111111,0.259259259259259],"% BG":[0.00113203663682206,0.0443552536791191],"p.adjust":[0.000410609963704798,0.0174089294346058],"geneID":["Slc16a3; Dlg2; Cnih2","Fam20a; Areg; Lgals7; Cst7; Ccl5; Serpinf1; Gpld1"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["4.11e-04","0.017"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Slc16a3; Dlg2; Cnih2"},"children":["Slc16a3; Dlg2; Cnih2"]},{"name":"span","attribs":{"title":"Fam20a; Areg; Lgals7; Cst7; Ccl5; Serpinf1; Gpld1"},"children":["Fam20a; Areg; Lgals7; Cst7; Ccl5; Serpinf1; Gpld1"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"811b8664f8a1642b77cd041d7533b844"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="DNvDP-down" class="section level3">
+<h3 class="tabset">DNvDP</h3>
+<em>All 4 ontologies considered enriched in the set of 33 down-regulated genes mapped to EntrezIDs from the comparison DNvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-4541cb6ae0d17a06834e" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4541cb6ae0d17a06834e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["MF","MF","CC","CC"],"ID":["GO:0038023","GO:0004888","GO:0043235","GO:0009986"],"Description":["signaling receptor activity","transmembrane signaling receptor activity","receptor complex","cell surface"],"Count":[8,6,5,7],"% DE":[0.25,0.1875,0.15625,0.21875],"% BG":[0.0299519933208099,0.021081193905239,0.0155397756509211,0.0403416692394772],"p.adjust":[0.000386641449353151,0.00546751640454253,0.0144843217692701,0.0275091470440502],"geneID":["Il12rb2; Tnfrsf9; Klrd1; Gpr15; Cd7; Lag3; Gpr160; Itga2","Il12rb2; Klrd1; Gpr15; Lag3; Gpr160; Itga2","Il12rb2; Klrd1; Cnih2; Gpr160; Itga2","Il12rb2; Havcr2; Tnfrsf9; Klrd1; Lag3; Ocln; Itga2"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["3.87e-04","0.005","0.014","0.028"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Il12rb2; Tnfrsf9; Klrd1; Gpr15; Cd7; Lag3; Gpr160; Itga2"},"children":["Il12rb2; Tnfrsf9; Klrd1; Gpr15; Cd7; Lag3; Gpr160; Itga2"]},{"name":"span","attribs":{"title":"Il12rb2; Klrd1; Gpr15; Lag3; Gpr160; Itga2"},"children":["Il12rb2; Klrd1; Gpr15; Lag3; Gpr160; Itga2"]},{"name":"span","attribs":{"title":"Il12rb2; Klrd1; Cnih2; Gpr160; Itga2"},"children":["Il12rb2; Klrd1; Cnih2; Gpr160; Itga2"]},{"name":"span","attribs":{"title":"Il12rb2; Havcr2; Tnfrsf9; Klrd1; Lag3; Ocln; Itga2"},"children":["Il12rb2; Havcr2; Tnfrsf9; Klrd1; Lag3; Ocln; Itga2"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e24078217e330d34be87187440ab4c8b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="DNvCD49b-down" class="section level3">
+<h3 class="tabset">DNvCD49b</h3>
+<em>All 2 ontologies considered enriched in the set of 2 down-regulated genes mapped to EntrezIDs from the comparison DNvCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-ce73e47b7d96600dab47" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ce73e47b7d96600dab47">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["MF","MF"],"ID":["GO:0001618","GO:0070003"],"Description":["virus receptor activity","threonine-type peptidase activity"],"Count":[1,1],"% DE":[0.5,0.5],"% BG":[0.00146107284491755,0.00146107284491755],"p.adjust":[0.0292016323007271,0.0292016323007271],"geneID":["Gpr15","Ggt1"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["0.029","0.029"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Gpr15"},"children":["Gpr15"]},{"name":"span","attribs":{"title":"Ggt1"},"children":["Ggt1"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"88f2af5f6bc9444f040f25c3c477ab9b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="LAG3vCD49b-down" class="section level3">
+<h3 class="tabset">LAG3vCD49b</h3>
+<em>All 18 ontologies considered enriched in the set of 53 down-regulated genes mapped to EntrezIDs from the comparison LAG3vCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-dde7d32fc69217457bc6" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dde7d32fc69217457bc6">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["MF","CC","MF","CC","CC","CC","BP","MF","BP","MF","BP","CC","BP","BP","BP","MF","CC","BP"],"ID":["GO:0038023","GO:0009897","GO:0004888","GO:0009986","GO:0098552","GO:0005615","GO:0050856","GO:0140375","GO:0006935","GO:0001968","GO:0002700","GO:0043235","GO:0002768","GO:0050778","GO:0002449","GO:0004896","GO:0005887","GO:0045785"],"Description":["signaling receptor activity","external side of plasma membrane","transmembrane signaling receptor activity","cell surface","side of membrane","extracellular space","regulation of T cell receptor signaling pathway","immune receptor activity","chemotaxis","fibronectin binding","regulation of production of molecular mediator of immune response","receptor complex","immune response-regulating cell surface receptor signaling pathway","positive regulation of immune response","lymphocyte mediated immunity","cytokine receptor activity","integral component of plasma membrane","positive regulation of cell adhesion"],"Count":[12,10,10,12,11,11,5,5,9,3,7,6,7,10,8,4,8,9],"% DE":[0.235294117647059,0.2,0.196078431372549,0.24,0.22,0.22,0.0980392156862745,0.0980392156862745,0.176470588235294,0.0588235294117647,0.137254901960784,0.12,0.137254901960784,0.196078431372549,0.156862745098039,0.0784313725490196,0.16,0.176470588235294],"% BG":[0.0299519933208099,0.0224349078933827,0.021081193905239,0.0403416692394772,0.0356076978491304,0.0443552536791191,0.00434153400868307,0.00678355249426007,0.0253256150506512,0.00146107284491755,0.014368410171594,0.0155397756509211,0.0156088484597891,0.0369030390738061,0.0223278891875129,0.0050093926111459,0.0359164351137182,0.031527806491627],"p.adjust":[5.02754574987685e-06,1.39254049688508e-05,1.81277919524257e-05,5.36474735059117e-05,0.000120816001618579,0.00101328428372224,0.00408722391369288,0.00492333216753519,0.00743302077525407,0.0107669412845394,0.0124045492375096,0.0130244592627796,0.0213710273673033,0.0228239051067756,0.0252705679249694,0.0252900349850284,0.0414042465781203,0.0433221804441459],"geneID":["P2rx7; Sorl1; Itga2; Ccr4; Gpr15; Vipr1; Ccr3; Klrk1; Ifngr2; Reck; Cd40; Cd74","P2rx7; Itgb3; Lilrb4a; Itga2; Ccr4; Cd226; Ccr3; Klrk1; Cd40; Cd74","P2rx7; Sorl1; Itga2; Ccr4; Gpr15; Vipr1; Ccr3; Klrk1; Ifngr2; Cd74","P2rx7; Lilrb4b; Itgb3; Lilrb4a; Sorl1; Itga2; Ccr4; Cd226; Ccr3; Klrk1; Cd40; Cd74","P2rx7; Itgb3; Lilrb4a; Itga2; Ccr4; Cd226; Pkp4; Ccr3; Klrk1; Cd40; Cd74","Sorl1; Cpm; Klk1b9; Ggt1; Bmp7; Tnfsf14; Cxcl16; Ccr3; Klk1b11; Cd40; Cd74","Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226","Ccr4; Ccr3; Klrk1; Ifngr2; Cd74","Itgb3; Itga2; Ccr4; Egr2; Bmp7; Tnfsf14; Cxcl16; Ccr3; Cd74","Lilrb4b; Itgb3; Lilrb4a","P2rx7; Lilrb4b; Lilrb4a; Cd226; Cgas; Cd40; Cd74","Trat1; Itgb3; Itga2; Vipr1; Cd40; Cd74","Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226; Klrk1; Cd40","P2rx7; Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226; Cgas; Klrk1; Cd40; Cd74","P2rx7; Lilrb4b; Lilrb4a; Cd226; Gzmm; Klrk1; Cd40; Cd74","Ccr4; Ccr3; Ifngr2; Cd74","P2rx7; Itgb3; Itga2; Ggt1; Hs3st3b1; Ifngr2; Cd40; Cd74","Lilrb4b; Tespa1; Itgb3; Lilrb4a; Itga2; Cass4; Bmp7; Tnfsf14; Cd74"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["5.03e-06","1.39e-05","1.81e-05","5.36e-05","1.21e-04","0.001","0.004","0.005","0.007","0.011","0.012","0.013","0.021","0.023","0.025","0.025","0.041","0.043"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"P2rx7; Sorl1; Itga2; Ccr4; Gpr15; Vipr1; Ccr3; Klrk1; Ifngr2; Reck; Cd40; Cd74"},"children":["P2rx7; Sorl1; Itga2; Ccr4; Gpr15; Vipr1; Ccr3; Klrk1; Ifngr2; Reck; Cd40; Cd74"]},{"name":"span","attribs":{"title":"P2rx7; Itgb3; Lilrb4a; Itga2; Ccr4; Cd226; Ccr3; Klrk1; Cd40; Cd74"},"children":["P2rx7; Itgb3; Lilrb4a; Itga2; Ccr4; Cd226; Ccr3; Klrk1; Cd40; Cd74"]},{"name":"span","attribs":{"title":"P2rx7; Sorl1; Itga2; Ccr4; Gpr15; Vipr1; Ccr3; Klrk1; Ifngr2; Cd74"},"children":["P2rx7; Sorl1; Itga2; Ccr4; Gpr15; Vipr1; Ccr3; Klrk1; Ifngr2; Cd74"]},{"name":"span","attribs":{"title":"P2rx7; Lilrb4b; Itgb3; Lilrb4a; Sorl1; Itga2; Ccr4; Cd226; Ccr3; Klrk1; Cd40; Cd74"},"children":["P2rx7; Lilrb4b; Itgb3; Lilrb4a; Sorl1; Itga2; Ccr4; Cd226; Ccr3; Klrk1; Cd40; Cd74"]},{"name":"span","attribs":{"title":"P2rx7; Itgb3; Lilrb4a; Itga2; Ccr4; Cd226; Pkp4; Ccr3; Klrk1; Cd40; Cd74"},"children":["P2rx7; Itgb3; Lilrb4a; Itga2; Ccr4; Cd226; Pkp4; Ccr3; Klrk1; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Sorl1; Cpm; Klk1b9; Ggt1; Bmp7; Tnfsf14; Cxcl16; Ccr3; Klk1b11; Cd40; Cd74"},"children":["Sorl1; Cpm; Klk1b9; Ggt1; Bmp7; Tnfsf14; Cxcl16; Ccr3; Klk1b11; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226"},"children":["Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226"]},{"name":"span","attribs":{"title":"Ccr4; Ccr3; Klrk1; Ifngr2; Cd74"},"children":["Ccr4; Ccr3; Klrk1; Ifngr2; Cd74"]},{"name":"span","attribs":{"title":"Itgb3; Itga2; Ccr4; Egr2; Bmp7; Tnfsf14; Cxcl16; Ccr3; Cd74"},"children":["Itgb3; Itga2; Ccr4; Egr2; Bmp7; Tnfsf14; Cxcl16; Ccr3; Cd74"]},{"name":"span","attribs":{"title":"Lilrb4b; Itgb3; Lilrb4a"},"children":["Lilrb4b; Itgb3; Lilrb4a"]},{"name":"span","attribs":{"title":"P2rx7; Lilrb4b; Lilrb4a; Cd226; Cgas; Cd40; Cd74"},"children":["P2rx7; Lilrb4b; Lilrb4a; Cd226; Cgas; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Trat1; Itgb3; Itga2; Vipr1; Cd40; Cd74"},"children":["Trat1; Itgb3; Itga2; Vipr1; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226; Klrk1; Cd40"},"children":["Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226; Klrk1; Cd40"]},{"name":"span","attribs":{"title":"P2rx7; Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226; Cgas; Klrk1; Cd40; Cd74"},"children":["P2rx7; Trat1; Lilrb4b; Tespa1; Lilrb4a; Cd226; Cgas; Klrk1; Cd40; Cd74"]},{"name":"span","attribs":{"title":"P2rx7; Lilrb4b; Lilrb4a; Cd226; Gzmm; Klrk1; Cd40; Cd74"},"children":["P2rx7; Lilrb4b; Lilrb4a; Cd226; Gzmm; Klrk1; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Ccr4; Ccr3; Ifngr2; Cd74"},"children":["Ccr4; Ccr3; Ifngr2; Cd74"]},{"name":"span","attribs":{"title":"P2rx7; Itgb3; Itga2; Ggt1; Hs3st3b1; Ifngr2; Cd40; Cd74"},"children":["P2rx7; Itgb3; Itga2; Ggt1; Hs3st3b1; Ifngr2; Cd40; Cd74"]},{"name":"span","attribs":{"title":"Lilrb4b; Tespa1; Itgb3; Lilrb4a; Itga2; Cass4; Bmp7; Tnfsf14; Cd74"},"children":["Lilrb4b; Tespa1; Itgb3; Lilrb4a; Itga2; Cass4; Bmp7; Tnfsf14; Cd74"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e45bda932c6a862c32dc8477068c6af5"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="CD49bvDP-down" class="section level3">
+<h3 class="tabset">CD49bvDP</h3>
+<em>All 3 ontologies considered enriched in the set of 28 down-regulated genes mapped to EntrezIDs from the comparison CD49bvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-dd639c94d3274d155b3b" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dd639c94d3274d155b3b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["CC","CC","MF"],"ID":["GO:0005615","GO:0001533","GO:0016209"],"Description":["extracellular space","cornified envelope","antioxidant activity"],"Count":[9,3,4],"% DE":[0.333333333333333,0.111111111111111,0.148148148148148],"% BG":[0.0443552536791191,0.00133786147988062,0.00469630557294928],"p.adjust":[0.000140411655083783,0.000537189146282273,0.00110838204982875],"geneID":["Fam20a; Igfbp7; Lgals7; Areg; S100a8; Cst7; Csf1; S100a9; Pla1a","Lgals7; Dsp; S100a9","S100a8; Prxl2a; S100a9; Gstt3"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["1.40e-04","5.37e-04","0.001"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Fam20a; Igfbp7; Lgals7; Areg; S100a8; Cst7; Csf1; S100a9; Pla1a"},"children":["Fam20a; Igfbp7; Lgals7; Areg; S100a8; Cst7; Csf1; S100a9; Pla1a"]},{"name":"span","attribs":{"title":"Lgals7; Dsp; S100a9"},"children":["Lgals7; Dsp; S100a9"]},{"name":"span","attribs":{"title":"S100a8; Prxl2a; S100a9; Gstt3"},"children":["S100a8; Prxl2a; S100a9; Gstt3"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e6f8d66be61cd4c676857efde2cae45c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div>
+<div id="LAG3vDP-down" class="section level3">
+<h3 class="tabset">LAG3vDP</h3>
+<em>All 2 ontologies considered enriched in the set of 17 down-regulated genes mapped to EntrezIDs from the comparison LAG3vDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
+<div id="htmlwidget-040c9915e821de4bad75" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-040c9915e821de4bad75">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"ONTOLOGY":["MF","MF"],"ID":["GO:0004888","GO:0004930"],"Description":["transmembrane signaling receptor activity","G protein-coupled receptor activity"],"Count":[6,3],"% DE":[0.352941176470588,0.176470588235294],"% BG":[0.021081193905239,0.00824462533917763],"p.adjust":[4.73725277528033e-05,0.0192376076583013],"geneID":["Itga2; Klrk1; Gpr15; Vipr1; Gm5127; Cd79b","Gpr15; Vipr1; Gm5127"]},"columns":[{"accessor":"ONTOLOGY","name":"Ontology","type":"character","maxWidth":100},{"accessor":"ID","name":"GO ID","type":"character","maxWidth":125},{"accessor":"Description","name":"Description","type":"character","maxWidth":250},{"accessor":"Count","name":"N<sub>DE<\/sub>","type":"numeric","html":true,"maxWidth":80},{"accessor":"% DE","name":"% DE","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"% BG","name":"% BG","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":85},{"accessor":"p.adjust","name":"p<sub>adj<\/sub>","type":"numeric","cell":["4.74e-05","0.019"],"html":true,"maxWidth":100},{"accessor":"geneID","name":"DE Genes","type":"character","cell":[{"name":"span","attribs":{"title":"Itga2; Klrk1; Gpr15; Vipr1; Gm5127; Cd79b"},"children":["Itga2; Klrk1; Gpr15; Vipr1; Gm5127; Cd79b"]},{"name":"span","attribs":{"title":"Gpr15; Vipr1; Gm5127"},"children":["Gpr15; Vipr1; Gm5127"]}]}],"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"eff87e3619bd6d9a04025eeabea1fc8a"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <br>
@@ -1039,21 +2116,22 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] org.Mm.eg.db_3.16.0   AnnotationDbi_1.60.0  IRanges_2.32.0       
- [4] S4Vectors_0.36.0      Biobase_2.58.0        BiocGenerics_0.44.0  
- [7] clusterProfiler_4.6.0 magrittr_2.0.3        pheatmap_1.0.12      
-[10] RColorBrewer_1.1-3    edgeR_3.40.0          limma_3.54.0         
-[13] forcats_0.5.2         stringr_1.4.1         dplyr_1.0.10         
-[16] purrr_0.3.5           readr_2.1.3           tidyr_1.2.1          
-[19] tibble_3.1.8          ggplot2_3.4.0         tidyverse_1.3.2      
-[22] workflowr_1.7.0      
+ [1] scales_1.2.1          glue_1.6.2            htmltools_0.5.3      
+ [4] reactable_0.3.0       org.Mm.eg.db_3.16.0   AnnotationDbi_1.60.0 
+ [7] IRanges_2.32.0        S4Vectors_0.36.0      Biobase_2.58.0       
+[10] BiocGenerics_0.44.0   clusterProfiler_4.6.0 magrittr_2.0.3       
+[13] pheatmap_1.0.12       RColorBrewer_1.1-3    edgeR_3.40.0         
+[16] limma_3.54.0          forcats_0.5.2         stringr_1.4.1        
+[19] dplyr_1.0.10          purrr_0.3.5           readr_2.1.3          
+[22] tidyr_1.2.1           tibble_3.1.8          ggplot2_3.4.0        
+[25] tidyverse_1.3.2       workflowr_1.7.0      
 
 loaded via a namespace (and not attached):
   [1] shadowtext_0.1.2       readxl_1.4.1           backports_1.4.1       
   [4] fastmatch_1.1-3        plyr_1.8.8             igraph_1.3.5          
-  [7] lazyeval_0.2.2         splines_4.2.1          BiocParallel_1.32.1   
- [10] GenomeInfoDb_1.34.3    digest_0.6.30          yulab.utils_0.0.5     
- [13] htmltools_0.5.3        GOSemSim_2.24.0        viridis_0.6.2         
+  [7] lazyeval_0.2.2         splines_4.2.1          crosstalk_1.2.0       
+ [10] BiocParallel_1.32.1    GenomeInfoDb_1.34.3    digest_0.6.30         
+ [13] yulab.utils_0.0.5      GOSemSim_2.24.0        viridis_0.6.2         
  [16] GO.db_3.16.0           fansi_1.0.3            memoise_2.0.1         
  [19] googlesheets4_1.0.1    tzdb_0.3.0             Biostrings_2.66.0     
  [22] graphlayouts_0.8.3     modelr_0.1.10          timechange_0.1.1      
@@ -1061,17 +2139,17 @@ loaded via a namespace (and not attached):
  [28] rvest_1.0.3            ggrepel_0.9.2          haven_2.5.1           
  [31] xfun_0.34              callr_3.7.3            crayon_1.5.2          
  [34] RCurl_1.98-1.9         jsonlite_1.8.3         scatterpie_0.1.8      
- [37] ape_5.6-2              glue_1.6.2             polyclip_1.10-4       
- [40] gtable_0.3.1           gargle_1.2.1           zlibbioc_1.44.0       
- [43] XVector_0.38.0         scales_1.2.1           DOSE_3.24.1           
- [46] DBI_1.1.3              Rcpp_1.0.9             viridisLite_0.4.1     
- [49] tidytree_0.4.1         gridGraphics_0.5-1     bit_4.0.4             
- [52] httr_1.4.4             fgsea_1.24.0           ellipsis_0.3.2        
- [55] pkgconfig_2.0.3        farver_2.1.1           sass_0.4.2            
- [58] dbplyr_2.2.1           here_1.0.1             locfit_1.5-9.6        
- [61] utf8_1.2.2             labeling_0.4.2         ggplotify_0.1.0       
- [64] tidyselect_1.2.0       rlang_1.0.6            reshape2_1.4.4        
- [67] later_1.3.0            munsell_0.5.0          cellranger_1.1.0      
+ [37] ape_5.6-2              polyclip_1.10-4        gtable_0.3.1          
+ [40] gargle_1.2.1           zlibbioc_1.44.0        XVector_0.38.0        
+ [43] DOSE_3.24.1            DBI_1.1.3              Rcpp_1.0.9            
+ [46] viridisLite_0.4.1      tidytree_0.4.1         gridGraphics_0.5-1    
+ [49] bit_4.0.4              htmlwidgets_1.5.4      httr_1.4.4            
+ [52] fgsea_1.24.0           ellipsis_0.3.2         pkgconfig_2.0.3       
+ [55] farver_2.1.1           sass_0.4.2             dbplyr_2.2.1          
+ [58] here_1.0.1             locfit_1.5-9.6         utf8_1.2.2            
+ [61] labeling_0.4.2         ggplotify_0.1.0        tidyselect_1.2.0      
+ [64] rlang_1.0.6            reshape2_1.4.4         later_1.3.0           
+ [67] reactR_0.4.4           munsell_0.5.0          cellranger_1.1.0      
  [70] tools_4.2.1            cachem_1.0.6           downloader_0.4        
  [73] cli_3.4.1              generics_0.1.3         RSQLite_2.2.18        
  [76] gson_0.0.9             broom_1.0.1            evaluate_0.18         
@@ -1094,7 +2172,6 @@ loaded via a namespace (and not attached):
 [127] ggfun_0.0.8            HDO.db_0.99.1          rmarkdown_2.18        
 [130] googledrive_2.0.0      git2r_0.30.1           getPass_0.2-2         
 [133] ggforce_0.4.1          lubridate_1.9.0       </code></pre>
-</div>
 </div>
 </div>
 

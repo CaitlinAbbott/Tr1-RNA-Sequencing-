@@ -25,6 +25,13 @@ library(pheatmap)
 library(magrittr)
 library(clusterProfiler)
 library(org.Mm.eg.db)
+library(reactable)
+library(htmltools)
+library(glue)
+library(scales)
+with_tooltip <- function(value, width = 30) {
+  tags$span(title = value, str_trunc(value, width))
+}
 ```
 
 ```{r load-data}
@@ -40,6 +47,8 @@ universe <- dgeFilt$genes$entrezid %>%
   unique() %>%
   as.character()
 ```
+
+## Enrichment Results {.tabset}
 
 ```{r ego-results}
 ego_results <- top_tables %>% 
@@ -62,10 +71,8 @@ ego_results <- top_tables %>%
   )
 ```
 
-## Enrichment Results {.tabset}
-
 Enrichment testing was performed using all three available Gene Ontologies and the function `enrichGO()` from the package `clusterProfiler`.
-Ontologies were only considered to be enriched amongst the differentially expressed genes if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing.
+Ontologies were only considered to be enriched amongst the differentially expressed genes if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing, with no regard to the sign of fold change.
 
 ### DN Vs. Lag3^+^
 
@@ -115,7 +122,6 @@ dotplot(ego_results$LAG3vCD49b) +
   )
 ```
 
-
 ### Lag3^+^ Vs. DP
 
 ```{r dotplot-lag3-dp}
@@ -137,4 +143,436 @@ dotplot(ego_results$CD49bvDP) +
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
   )
+```
+
+## Enrichment Tables {.tabset}
+
+```{r enrichment-tables}
+htmltools::tagList(
+  names(ego_results) %>% 
+    lapply(
+      function(x) {
+        df <- ego_results[[x]] %>% 
+          as_tibble() %>% 
+          dplyr::filter(p.adjust < 0.05) %>% 
+          mutate(
+            geneID = str_replace_all(geneID, "\\/", "; "),
+            `% DE` = vapply(GeneRatio, function(x) eval(parse(text = x)), numeric(1)),
+            `% BG` = vapply(BgRatio, function(x) eval(parse(text = x)), numeric(1))
+          ) %>% 
+          dplyr::select(ONTOLOGY, ID, Description, Count, starts_with("%"), p.adjust, geneID) %>% 
+          arrange(p.adjust) %>% 
+          distinct(ONTOLOGY, geneID, .keep_all = TRUE) 
+        
+        if (nrow(df)) {
+          cp <- glue(
+            "All {nrow(df)} ontologies considered enriched in the set of ",
+            length(unique(unlist(dplyr::filter(top_tables[[x]], DE)$entrezid))),
+            " DE genes mapped to EntrezIDs from the comparison {x}. Enrichment ",
+            "testing was performed using Fisher's Exact Test compared to the set of ",
+            comma(length(unique(universe))), 
+            " unique EntrezIDs mapped to genes considered as detectable. ",
+            "The percentage of nonDE genes mapped to the ontology are also given. ",
+            "P-values are Bonferroni adjusted and all pathways are considered enriched ",
+            "using an adjusted p-value < 0.05. In order to see all DE genes, hover your ", 
+            "mouse over the final column. ",
+            "Where the identical genes map to multiple terms within each ontology, only ", 
+            "the term with the lowest p-value (i.e. strongest enrichment) is shown. ",
+            "As a result, some of the pathways seen in the above dotplots may not be ",
+            "presented in these tables."
+          )
+          htmltools::div(
+            htmltools::div(
+              id = x, 
+              class="section level3",
+              htmltools::h3(class = "tabset", x),
+              htmltools::tags$em(cp),
+              df %>% 
+                reactable(
+                  filterable = TRUE,
+                  columns = list(
+                    ONTOLOGY = colDef(name = "Ontology", maxWidth = 100),
+                    ID = colDef(name = "GO ID", maxWidth = 125),
+                    Description = colDef(maxWidth = 250),
+                    Count = colDef(name = "N<sub>DE</sub>", html = TRUE, maxWidth = 80),
+                    `% DE` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    `% BG` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    p.adjust = colDef(
+                      name = "p<sub>adj</sub>", html = TRUE, maxWidth = 100,
+                      cell = function(value) {
+                        fm <- ifelse(value < 0.001, "%.2e", "%.3f")
+                        sprintf(fm, value)
+                      }
+                    ),
+                    geneID = colDef(
+                      name = "DE Genes",
+                      cell = function(value) with_tooltip(value, width = 100)
+                    )
+                  )
+                )
+            )
+          )
+        } else {
+          cat(glue("No enrichment was found for {x}\n\n"))
+        }
+      }
+    )
+)
+```
+
+
+## Enrichment Results (Up Only) {.tabset}
+
+```{r ego-results-up}
+ego_results <- top_tables %>% 
+  lapply(
+    function(x) {
+      de <- dplyr::filter(x, adj.P.Val < 0.05, logFC > 1)
+      ids <- unique(unlist(de$entrezid))
+      enrichGO(
+        ids,
+        universe = universe,
+        OrgDb = org.Mm.eg.db,
+        ont = "ALL",
+        keyType = "ENTREZID",
+        pAdjustMethod = "bonferroni",
+        pvalueCutoff = 0.05,
+        qvalueCutoff = 0.05,
+        readable = TRUE
+      )
+    }
+  )
+```
+
+Enrichment testing was repeated using all three available Gene Ontologies and the function `enrichGO()` from the package `clusterProfiler`.
+Ontologies were only considered to be enriched amongst the **up-regulated genes** if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing.
+Please note that an up-regulated gene does not always correspond to an increase in activity of a pathway.
+
+### DN Vs. Lag3^+^
+
+```{r dotplot-dn-lag3-up}
+dotplot(ego_results$DNvLAG3) +
+  ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}, "(Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. DP
+
+*No significant results were obtained for up-regulated genes in this comparison.*
+
+```{r dotplot-dn-dp-up, eval=FALSE}
+dotplot(ego_results$DNvDP) +
+  ggtitle("DN Vs. DP (Up Only)") +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. Cd49b^+^
+
+```{r dotplot-dn-cd49-up}
+dotplot(ego_results$DNvCD49b) +
+  ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}, "(Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### Lag3^+^ Vs Cd49^+^
+
+```{r dotplot-lag3-cd49-up}
+dotplot(ego_results$LAG3vCD49b) +
+  ggtitle(
+    expression(
+      paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")}, "(Up Only)")
+    )
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Lag3^+^ Vs. DP
+
+*No significant results were obtained for up-regulated genes in this comparison.*
+
+```{r dotplot-lag3-dp-up, eval = FALSE}
+dotplot(ego_results$LAG3vDP) +
+  ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP", "(Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Cd49b^+^ Vs. DP
+
+```{r dotplot-cd49-dp-up}
+dotplot(ego_results$CD49bvDP) +
+  ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP (Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+## Enrichment Tables (Up Only) {.tabset}
+
+```{r enrichment-tables-up}
+ego_results <- ego_results[vapply(ego_results, nrow, integer(1)) > 0]
+htmltools::tagList(
+  names(ego_results) %>% 
+    lapply(
+      function(x) {
+        df <- ego_results[[x]] %>% 
+          as_tibble() %>% 
+          dplyr::filter(p.adjust < 0.05) %>% 
+          mutate(
+            geneID = str_replace_all(geneID, "\\/", "; "),
+            `% DE` = vapply(GeneRatio, function(x) eval(parse(text = x)), numeric(1)),
+            `% BG` = vapply(BgRatio, function(x) eval(parse(text = x)), numeric(1))
+          ) %>% 
+          dplyr::select(ONTOLOGY, ID, Description, Count, starts_with("%"), p.adjust, geneID) %>% 
+          arrange(p.adjust) %>% 
+          distinct(ONTOLOGY, geneID, .keep_all = TRUE) 
+        
+        if (nrow(df)) {
+          cp <- glue(
+            "All {nrow(df)} ontologies considered enriched in the set of ",
+            length(unique(unlist(dplyr::filter(top_tables[[x]], DE, logFC > 1)$entrezid))),
+            " up-regulated genes mapped to EntrezIDs from the comparison {x}. Enrichment ",
+            "testing was performed using Fisher's Exact Test compared to the set of ",
+            comma(length(unique(universe))), 
+            " unique EntrezIDs mapped to genes considered as detectable. ",
+            "The percentage of nonDE genes mapped to the ontology are also given. ",
+            "P-values are Bonferroni adjusted and all pathways are considered enriched ",
+            "using an adjusted p-value < 0.05. In order to see all DE genes, hover your ", 
+            "mouse over the final column. ",
+            "Where the identical genes map to multiple terms within each ontology, only ", 
+            "the term with the lowest p-value (i.e. strongest enrichment) is shown. ",
+            "As a result, some of the pathways seen in the above dotplots may not be ",
+            "presented in these tables."
+          )
+          htmltools::div(
+            htmltools::div(
+              id = glue("{x}-up"), 
+              class="section level3",
+              htmltools::h3(class = "tabset", x),
+              htmltools::tags$em(cp),
+              df %>% 
+                reactable(
+                  filterable = TRUE,
+                  columns = list(
+                    ONTOLOGY = colDef(name = "Ontology", maxWidth = 100),
+                    ID = colDef(name = "GO ID", maxWidth = 125),
+                    Description = colDef(maxWidth = 250),
+                    Count = colDef(name = "N<sub>DE</sub>", html = TRUE, maxWidth = 80),
+                    `% DE` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    `% BG` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    p.adjust = colDef(
+                      name = "p<sub>adj</sub>", html = TRUE, maxWidth = 100,
+                      cell = function(value) {
+                        fm <- ifelse(value < 0.001, "%.2e", "%.3f")
+                        sprintf(fm, value)
+                      }
+                    ),
+                    geneID = colDef(
+                      name = "DE Genes",
+                      cell = function(value) with_tooltip(value, width = 100)
+                    )
+                  )
+                )
+            )
+          )
+        } else {
+          cat(glue("No enrichment was found for {x}\n\n"))
+        }
+      }
+    )
+)
+```
+
+
+## Enrichment Results (Down Only) {.tabset}
+
+```{r ego-results-down}
+ego_results <- top_tables %>% 
+  lapply(
+    function(x) {
+      de <- dplyr::filter(x, adj.P.Val < 0.05, logFC < -1)
+      ids <- unique(unlist(de$entrezid))
+      enrichGO(
+        ids,
+        universe = universe,
+        OrgDb = org.Mm.eg.db,
+        ont = "ALL",
+        keyType = "ENTREZID",
+        pAdjustMethod = "bonferroni",
+        pvalueCutoff = 0.05,
+        qvalueCutoff = 0.05,
+        readable = TRUE
+      )
+    }
+  )
+```
+
+Enrichment testing was repeated using all three available Gene Ontologies and the function `enrichGO()` from the package `clusterProfiler`.
+Ontologies were only considered to be enriched amongst the **down-regulated genes** if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing.
+Please note that a down-regulated gene does not always correspond to an decrease in activity of a pathway.
+
+### DN Vs. Lag3^+^
+
+```{r dotplot-dn-lag3-down}
+dotplot(ego_results$DNvLAG3) +
+  ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}, "(Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. DP
+
+```{r dotplot-dn-dp-down}
+dotplot(ego_results$DNvDP) +
+  ggtitle("DN Vs. DP (Down Only)") +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. Cd49b^+^
+
+```{r dotplot-dn-cd49-down}
+dotplot(ego_results$DNvCD49b) +
+  ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}, "(Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### Lag3^+^ Vs Cd49^+^
+
+```{r dotplot-lag3-cd49-down}
+dotplot(ego_results$LAG3vCD49b) +
+  ggtitle(
+    expression(
+      paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")}, "(Down Only)")
+    )
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Lag3^+^ Vs. DP
+
+```{r dotplot-lag3-dp-down}
+dotplot(ego_results$LAG3vDP) +
+  ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP", "(Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Cd49b^+^ Vs. DP
+
+```{r dotplot-cd49-dp-down}
+dotplot(ego_results$CD49bvDP) +
+  ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP (Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+## Enrichment Tables (Down Only) {.tabset}
+
+```{r enrichment-tables-down}
+ego_results <- ego_results[vapply(ego_results, nrow, integer(1)) > 0]
+htmltools::tagList(
+  names(ego_results) %>% 
+    lapply(
+      function(x) {
+        df <- ego_results[[x]] %>% 
+          as_tibble() %>% 
+          dplyr::filter(p.adjust < 0.05) %>% 
+          mutate(
+            geneID = str_replace_all(geneID, "\\/", "; "),
+            `% DE` = vapply(GeneRatio, function(x) eval(parse(text = x)), numeric(1)),
+            `% BG` = vapply(BgRatio, function(x) eval(parse(text = x)), numeric(1))
+          ) %>% 
+          dplyr::select(ONTOLOGY, ID, Description, Count, starts_with("%"), p.adjust, geneID) %>% 
+          arrange(p.adjust) %>% 
+          distinct(ONTOLOGY, geneID, .keep_all = TRUE) 
+        
+        if (nrow(df)) {
+          cp <- glue(
+            "All {nrow(df)} ontologies considered enriched in the set of ",
+            length(unique(unlist(dplyr::filter(top_tables[[x]], DE, logFC < -1)$entrezid))),
+            " down-regulated genes mapped to EntrezIDs from the comparison {x}. Enrichment ",
+            "testing was performed using Fisher's Exact Test compared to the set of ",
+            comma(length(unique(universe))), 
+            " unique EntrezIDs mapped to genes considered as detectable. ",
+            "The percentage of nonDE genes mapped to the ontology are also given. ",
+            "P-values are Bonferroni adjusted and all pathways are considered enriched ",
+            "using an adjusted p-value < 0.05. In order to see all DE genes, hover your ", 
+            "mouse over the final column. ",
+            "Where the identical genes map to multiple terms within each ontology, only ", 
+            "the term with the lowest p-value (i.e. strongest enrichment) is shown. ",
+            "As a result, some of the pathways seen in the above dotplots may not be ",
+            "presented in these tables."
+          )
+          htmltools::div(
+            htmltools::div(
+              id = glue("{x}-down"), 
+              class="section level3",
+              htmltools::h3(class = "tabset", x),
+              htmltools::tags$em(cp),
+              df %>% 
+                reactable(
+                  filterable = TRUE,
+                  columns = list(
+                    ONTOLOGY = colDef(name = "Ontology", maxWidth = 100),
+                    ID = colDef(name = "GO ID", maxWidth = 125),
+                    Description = colDef(maxWidth = 250),
+                    Count = colDef(name = "N<sub>DE</sub>", html = TRUE, maxWidth = 80),
+                    `% DE` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    `% BG` = colDef(format = colFormat(percent = TRUE, digits = 1), maxWidth = 85),
+                    p.adjust = colDef(
+                      name = "p<sub>adj</sub>", html = TRUE, maxWidth = 100,
+                      cell = function(value) {
+                        fm <- ifelse(value < 0.001, "%.2e", "%.3f")
+                        sprintf(fm, value)
+                      }
+                    ),
+                    geneID = colDef(
+                      name = "DE Genes",
+                      cell = function(value) with_tooltip(value, width = 100)
+                    )
+                  )
+                )
+            )
+          )
+        } else {
+          cat(glue("No enrichment was found for {x}\n\n"))
+        }
+      }
+    )
+)
 ```
