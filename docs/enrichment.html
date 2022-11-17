@@ -378,7 +378,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -389,8 +389,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -403,9 +403,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Tr1-RNA-Sequencing-/</code> <span
@@ -428,18 +428,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -530,15 +533,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree36a1cb886f7af393e21a64260818552ac4cc0d36targetblank36a1cb8a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree3a59bc588052927680289ec0a029cb568d1f8d03targetblank3a59bc5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/36a1cb886f7af393e21a64260818552ac4cc0d36" target="_blank">36a1cb8</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/3a59bc588052927680289ec0a029cb568d1f8d03" target="_blank">3a59bc5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree36a1cb886f7af393e21a64260818552ac4cc0d36targetblank36a1cb8a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree3a59bc588052927680289ec0a029cb568d1f8d03targetblank3a59bc5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -548,7 +551,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/36a1cb886f7af393e21a64260818552ac4cc0d36" target="_blank">36a1cb8</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/3a59bc588052927680289ec0a029cb568d1f8d03" target="_blank">3a59bc5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -565,6 +568,9 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   analysis/enrichment.Rmd
 
 </code></pre>
 <p>
@@ -610,6 +616,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/3a59bc588052927680289ec0a029cb568d1f8d03/docs/enrichment.html" target="_blank">3a59bc5</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1560,7 +1583,7 @@ htmltools::tagList(
           )
           htmltools::div(
             htmltools::div(
-              id = x, 
+              id = glue(&quot;{x}-up&quot;), 
               class=&quot;section level3&quot;,
               htmltools::h3(class = &quot;tabset&quot;, x),
               htmltools::tags$em(cp),
@@ -1596,7 +1619,7 @@ htmltools::tagList(
     )
 )</code></pre>
 <div>
-<div id="DNvLAG3" class="section level3">
+<div id="DNvLAG3-up" class="section level3">
 <h3 class="tabset">DNvLAG3</h3>
 <em>All 55 ontologies considered enriched in the set of 45 up-regulated genes mapped to EntrezIDs from the comparison DNvLAG3. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-3ad505f8ec5d90b839e0" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -1604,7 +1627,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="DNvCD49b" class="section level3">
+<div id="DNvCD49b-up" class="section level3">
 <h3 class="tabset">DNvCD49b</h3>
 <em>All 11 ontologies considered enriched in the set of 14 up-regulated genes mapped to EntrezIDs from the comparison DNvCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-b62ee322197559a7ac80" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -1612,7 +1635,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="LAG3vCD49b" class="section level3">
+<div id="LAG3vCD49b-up" class="section level3">
 <h3 class="tabset">LAG3vCD49b</h3>
 <em>All 19 ontologies considered enriched in the set of 99 up-regulated genes mapped to EntrezIDs from the comparison LAG3vCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-446a7f2c4327c71dcaa6" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -1620,7 +1643,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="CD49bvDP" class="section level3">
+<div id="CD49bvDP-up" class="section level3">
 <h3 class="tabset">CD49bvDP</h3>
 <em>All 1 ontologies considered enriched in the set of 6 up-regulated genes mapped to EntrezIDs from the comparison CD49bvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-8d4006aa37c69a211656" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -1980,7 +2003,7 @@ htmltools::tagList(
           )
           htmltools::div(
             htmltools::div(
-              id = x, 
+              id = glue(&quot;{x}-down&quot;), 
               class=&quot;section level3&quot;,
               htmltools::h3(class = &quot;tabset&quot;, x),
               htmltools::tags$em(cp),
@@ -2016,7 +2039,7 @@ htmltools::tagList(
     )
 )</code></pre>
 <div>
-<div id="DNvLAG3" class="section level3">
+<div id="DNvLAG3-down" class="section level3">
 <h3 class="tabset">DNvLAG3</h3>
 <em>All 2 ontologies considered enriched in the set of 29 down-regulated genes mapped to EntrezIDs from the comparison DNvLAG3. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-698508e270cc5a2fa6f5" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -2024,7 +2047,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="DNvDP" class="section level3">
+<div id="DNvDP-down" class="section level3">
 <h3 class="tabset">DNvDP</h3>
 <em>All 4 ontologies considered enriched in the set of 33 down-regulated genes mapped to EntrezIDs from the comparison DNvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-4541cb6ae0d17a06834e" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -2032,7 +2055,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="DNvCD49b" class="section level3">
+<div id="DNvCD49b-down" class="section level3">
 <h3 class="tabset">DNvCD49b</h3>
 <em>All 2 ontologies considered enriched in the set of 2 down-regulated genes mapped to EntrezIDs from the comparison DNvCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-ce73e47b7d96600dab47" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -2040,7 +2063,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="LAG3vCD49b" class="section level3">
+<div id="LAG3vCD49b-down" class="section level3">
 <h3 class="tabset">LAG3vCD49b</h3>
 <em>All 18 ontologies considered enriched in the set of 53 down-regulated genes mapped to EntrezIDs from the comparison LAG3vCD49b. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-dde7d32fc69217457bc6" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -2048,7 +2071,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="CD49bvDP" class="section level3">
+<div id="CD49bvDP-down" class="section level3">
 <h3 class="tabset">CD49bvDP</h3>
 <em>All 3 ontologies considered enriched in the set of 28 down-regulated genes mapped to EntrezIDs from the comparison CD49bvDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-dd639c94d3274d155b3b" class="reactable html-widget" style="width:auto;height:auto;"></div>
@@ -2056,7 +2079,7 @@ htmltools::tagList(
 </div>
 </div>
 <div>
-<div id="LAG3vDP" class="section level3">
+<div id="LAG3vDP-down" class="section level3">
 <h3 class="tabset">LAG3vDP</h3>
 <em>All 2 ontologies considered enriched in the set of 17 down-regulated genes mapped to EntrezIDs from the comparison LAG3vDP. Enrichment testing was performed using Fisher's Exact Test compared to the set of 10,006 unique EntrezIDs mapped to genes considered as detectable. The percentage of nonDE genes mapped to the ontology are also given. P-values are Bonferroni adjusted and all pathways are considered enriched using an adjusted p-value &lt; 0.05. In order to see all DE genes, hover your mouse over the final column. Where the identical genes map to multiple terms within each ontology, only the term with the lowest p-value (i.e. strongest enrichment) is shown. As a result, some of the pathways seen in the above dotplots may not be presented in these tables.</em>
 <div id="htmlwidget-040c9915e821de4bad75" class="reactable html-widget" style="width:auto;height:auto;"></div>

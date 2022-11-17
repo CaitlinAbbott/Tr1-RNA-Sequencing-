@@ -364,7 +364,7 @@ htmltools::tagList(
           )
           htmltools::div(
             htmltools::div(
-              id = x, 
+              id = glue("{x}-up"), 
               class="section level3",
               htmltools::h3(class = "tabset", x),
               htmltools::tags$em(cp),
@@ -540,7 +540,7 @@ htmltools::tagList(
           )
           htmltools::div(
             htmltools::div(
-              id = x, 
+              id = glue("{x}-down"), 
               class="section level3",
               htmltools::h3(class = "tabset", x),
               htmltools::tags$em(cp),
