@@ -452,7 +452,7 @@ top_tables$CD49bvDP %>%
 
 #### DN Vs. LAG3
 
-```{r plot-volcano-dnvlag3, fig.cap = "Volcano Plot for DN Vs. LAG3. The (up to) 10 most highly-ranked genes are labelled."}
+```{r plot-volcano-dnvlag3, fig.cap = "Volcano Plot for DN Vs. LAG3. The (up to) 20 most highly-ranked genes are labelled."}
 top_tables$DNvLAG3 %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -461,18 +461,20 @@ top_tables$DNvLAG3 %>%
     data = . %>% 
       dplyr::filter(DE) %>% 
       arrange(P.Value) %>% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. LAG3") +
-  scale_colour_manual(values = c("grey30", "red"))
+  scale_colour_manual(values = c("grey30", "red")) +
+  theme(text = element_text(size = 16))
 ```
 
 #### DN Vs. DP
 
-```{r plot-volcano-dnvdp, fig.cap = "Volcano Plot for DN Vs. DP. The (up to) 10 most highly-ranked genes are labelled."}
+```{r plot-volcano-dnvdp, fig.cap = "Volcano Plot for DN Vs. DP. The (up to) 20 most highly-ranked genes are labelled."}
 top_tables$DNvDP %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -481,18 +483,20 @@ top_tables$DNvDP %>%
     data = . %>% 
       dplyr::filter(DE) %>% 
       arrange(P.Value) %>% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. DP") +
-  scale_colour_manual(values = c("grey30", "red"))
+  scale_colour_manual(values = c("grey30", "red")) +
+  theme(text = element_text(size = 16))
 ```
 
 #### DN Vs. CD49b
 
-```{r plot-volcano-dnvcd49, fig.cap = "Volcano Plot for DN Vs. CD49b. The (up to) 10 most highly-ranked genes are labelled."}
+```{r plot-volcano-dnvcd49, fig.cap = "Volcano Plot for DN Vs. CD49b. The (up to) 20 most highly-ranked genes are labelled."}
 top_tables$DNvCD49b %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -501,18 +505,20 @@ top_tables$DNvCD49b %>%
     data = . %>% 
       dplyr::filter(DE) %>% 
       arrange(P.Value) %>% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("DN Vs. CD49b") +
-  scale_colour_manual(values = c("grey30", "red"))
+  scale_colour_manual(values = c("grey30", "red")) +
+  theme(text = element_text(size = 16))
 ```
 
 #### LAG3 Vs. CD49b
 
-```{r plot-volcano-lag3vcd49, fig.cap = "Volcano Plot for LAG3 Vs. CD49b. The (up to) 10 most highly-ranked genes are labelled."}
+```{r plot-volcano-lag3vcd49, fig.cap = "Volcano Plot for LAG3 Vs. CD49b. The (up to) 20 most highly-ranked genes are labelled."}
 top_tables$LAG3vCD49b %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -521,18 +527,20 @@ top_tables$LAG3vCD49b %>%
     data = . %>% 
       dplyr::filter(DE) %>% 
       arrange(P.Value) %>% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("LAG3 Vs. CD49b") +
-  scale_colour_manual(values = c("grey30", "red"))
+  scale_colour_manual(values = c("grey30", "red")) +
+  theme(text = element_text(size = 16))
 ```
 
 #### LAG3 Vs. DP
 
-```{r plot-volcano-lag3vdp, fig.cap = "Volcano Plot for LAG3 Vs. DP. The (up to) 10 most highly-ranked genes are labelled."}
+```{r plot-volcano-lag3vdp, fig.cap = "Volcano Plot for LAG3 Vs. DP. The (up to) 20 most highly-ranked genes are labelled."}
 top_tables$LAG3vDP %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -541,18 +549,20 @@ top_tables$LAG3vDP %>%
     data = . %>% 
       dplyr::filter(DE) %>% 
       arrange(P.Value) %>% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("LAG3 Vs. DP") +
-  scale_colour_manual(values = c("grey30", "red"))
+  scale_colour_manual(values = c("grey30", "red")) +
+  theme(text = element_text(size = 16))
 ```
 
 #### CD49b Vs. DP
 
-```{r plot-volcano-cd49vdp, fig.cap = "Volcano Plot for CD49b Vs. DP. The (up to) 10 most highly-ranked genes are labelled."}
+```{r plot-volcano-cd49vdp, fig.cap = "Volcano Plot for CD49b Vs. DP. The (up to) 20 most highly-ranked genes are labelled."}
 top_tables$CD49bvDP %>% 
   ggplot(aes(logFC, -log10(P.Value))) +
   geom_point(aes(colour = DE), alpha = 0.6) +
@@ -561,13 +571,15 @@ top_tables$CD49bvDP %>%
     data = . %>% 
       dplyr::filter(DE) %>% 
       arrange(P.Value) %>% 
-      dplyr::slice(1:10),
+      dplyr::slice(1:20),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
   ) +
   ggtitle("CD49b Vs. DP") +
-  scale_colour_manual(values = c("grey30", "red"))
+  scale_colour_manual(values = c("grey30", "red")) +
+  theme(text = element_text(size = 16))
 ```
 
 ## Heatmaps {.tabset}
