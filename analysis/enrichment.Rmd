@@ -41,6 +41,8 @@ universe <- dgeFilt$genes$entrezid %>%
   as.character()
 ```
 
+## Enrichment Results {.tabset}
+
 ```{r ego-results}
 ego_results <- top_tables %>% 
   lapply(
@@ -62,10 +64,8 @@ ego_results <- top_tables %>%
   )
 ```
 
-## Enrichment Results {.tabset}
-
 Enrichment testing was performed using all three available Gene Ontologies and the function `enrichGO()` from the package `clusterProfiler`.
-Ontologies were only considered to be enriched amongst the differentially expressed genes if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing.
+Ontologies were only considered to be enriched amongst the differentially expressed genes if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing, with no regard to the sign of fold change.
 
 ### DN Vs. Lag3^+^
 
@@ -138,3 +138,206 @@ dotplot(ego_results$CD49bvDP) +
     text = element_text(size = 16)
   )
 ```
+
+## Enrichment Results (Up Only) {.tabset}
+
+```{r ego-results-up}
+ego_results <- top_tables %>% 
+  lapply(
+    function(x) {
+      de <- dplyr::filter(x, adj.P.Val < 0.05, logFC > 1)
+      ids <- unique(unlist(de$entrezid))
+      enrichGO(
+        ids,
+        universe = universe,
+        OrgDb = org.Mm.eg.db,
+        ont = "ALL",
+        keyType = "ENTREZID",
+        pAdjustMethod = "bonferroni",
+        pvalueCutoff = 0.05,
+        qvalueCutoff = 0.05,
+        readable = TRUE
+      )
+    }
+  )
+```
+
+Enrichment testing was repeated using all three available Gene Ontologies and the function `enrichGO()` from the package `clusterProfiler`.
+Ontologies were only considered to be enriched amongst the **up-regulated genes** if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing.
+Please note that an up-regulated gene does not always correspond to an increase in activity of a pathway.
+
+### DN Vs. Lag3^+^
+
+```{r dotplot-dn-lag3-up}
+dotplot(ego_results$DNvLAG3) +
+  ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}, "(Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. DP
+
+*No significant results were obtained for up-regulated genes in this comparison.*
+
+```{r dotplot-dn-dp-up, eval=FALSE}
+dotplot(ego_results$DNvDP) +
+  ggtitle("DN Vs. DP (Up Only)") +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. Cd49b^+^
+
+```{r dotplot-dn-cd49-up}
+dotplot(ego_results$DNvCD49b) +
+  ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}, "(Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### Lag3^+^ Vs Cd49^+^
+
+```{r dotplot-lag3-cd49-up}
+dotplot(ego_results$LAG3vCD49b) +
+  ggtitle(
+    expression(
+      paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")}, "(Up Only)")
+    )
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Lag3^+^ Vs. DP
+
+*No significant results were obtained for up-regulated genes in this comparison.*
+
+```{r dotplot-lag3-dp-up, eval = FALSE}
+dotplot(ego_results$LAG3vDP) +
+  ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP", "(Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Cd49b^+^ Vs. DP
+
+```{r dotplot-cd49-dp-up}
+dotplot(ego_results$CD49bvDP) +
+  ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP (Up Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+## Enrichment Results (Down Only) {.tabset}
+
+```{r ego-results-down}
+ego_results <- top_tables %>% 
+  lapply(
+    function(x) {
+      de <- dplyr::filter(x, adj.P.Val < 0.05, logFC < -1)
+      ids <- unique(unlist(de$entrezid))
+      enrichGO(
+        ids,
+        universe = universe,
+        OrgDb = org.Mm.eg.db,
+        ont = "ALL",
+        keyType = "ENTREZID",
+        pAdjustMethod = "bonferroni",
+        pvalueCutoff = 0.05,
+        qvalueCutoff = 0.05,
+        readable = TRUE
+      )
+    }
+  )
+```
+
+Enrichment testing was repeated using all three available Gene Ontologies and the function `enrichGO()` from the package `clusterProfiler`.
+Ontologies were only considered to be enriched amongst the **down-regulated genes** if a Bonferroni-adjusted p-value < 0.05 was returned during enrichment testing.
+Please note that a down-regulated gene does not always correspond to an decrease in activity of a pathway.
+
+### DN Vs. Lag3^+^
+
+```{r dotplot-dn-lag3-down}
+dotplot(ego_results$DNvLAG3) +
+  ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}, "(Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. DP
+
+```{r dotplot-dn-dp-down}
+dotplot(ego_results$DNvDP) +
+  ggtitle("DN Vs. DP (Down Only)") +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### DN Vs. Cd49b^+^
+
+```{r dotplot-dn-cd49-down}
+dotplot(ego_results$DNvCD49b) +
+  ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}, "(Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+### Lag3^+^ Vs Cd49^+^
+
+```{r dotplot-lag3-cd49-down}
+dotplot(ego_results$LAG3vCD49b) +
+  ggtitle(
+    expression(
+      paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")}, "(Down Only)")
+    )
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Lag3^+^ Vs. DP
+
+```{r dotplot-lag3-dp-down}
+dotplot(ego_results$LAG3vDP) +
+  ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP", "(Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
+
+### Cd49b^+^ Vs. DP
+
+```{r dotplot-cd49-dp-down}
+dotplot(ego_results$CD49bvDP) +
+  ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP (Down Only)"))) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    text = element_text(size = 16)
+  )
+```
+
