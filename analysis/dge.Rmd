@@ -31,6 +31,8 @@ library(broom)
 library(glue)
 library(pander)
 library(grid)
+library(ComplexUpset)
+library(reactable)
 theme_set(
   theme_bw() +
     theme(plot.title = element_text(hjust = 0.5))
@@ -581,6 +583,139 @@ top_tables$CD49bvDP %>%
   scale_colour_manual(values = c("grey30", "red")) +
   theme(text = element_text(size = 16))
 ```
+
+### DE Gene Summary {.tabset}
+
+#### UpSet Plot
+
+```{r upset-all-de, fig.height=7, fig.cap = "UpSet plot for all DE genes. A complete list of DE genes was obtained by finding all genes considered DE after filtering by FDR and logFC. For the purposes of comparison, any genes in this list which received an FDR-adjusted p-value < 0.05 in any comparison were included as DE for this figure to give a mroe accurate picture across all 6 comparisons."}
+all_de <- top_tables %>% 
+  lapply(dplyr::filter, DE) %>%
+  bind_rows() %>% 
+  pull("gene_id") %>% 
+  unique()
+top_tables %>% 
+  lapply(dplyr::filter, adj.P.Val < 0.05, gene_id %in% all_de) %>%
+  lapply(dplyr::select, gene_id) %>% 
+  bind_rows(.id = "comparison") %>% 
+  mutate(DE = TRUE, comparison = str_replace_all(comparison, "v", " Vs. ")) %>% 
+  pivot_wider(names_from = comparison, values_from = DE, values_fill = FALSE) %>% 
+  upset(
+    intersect = str_replace_all(names(top_tables), "v", " Vs. "),
+    base_annotations = list(
+      'Intersection size' = intersection_size(bar_number_threshold = 1, width = 0.9) +
+        scale_y_continuous(expand = expansion(c(0, 0.1))) +
+        scale_fill_manual(values = c(bars_color = "grey20")) +
+        theme(panel.grid = element_blank())
+    ),
+    sort_sets = FALSE,
+    set_sizes = upset_set_size() +
+      geom_text(aes(label = comma(after_stat(count))), stat = 'count', hjust = 1.1) +
+      scale_y_reverse(expand = expansion(c(0.25, 0))) +
+      theme(panel.grid = element_blank()),
+    queries = list(
+      upset_query(
+        intersect = str_subset(colnames(.), "LAG3"),
+        fill = "red", color = "red",
+        only_components = c("intersections_matrix", "Intersection size")
+      ),
+      upset_query(
+        intersect = str_subset(colnames(.), "CD49"),
+        fill = "forestgreen", color = "forestgreen",
+        only_components = c("intersections_matrix", "Intersection size")
+      ),
+      upset_query(
+        intersect = str_subset(colnames(.), "DN"),
+        fill = "blue", color = "blue",
+        only_components = c("intersections_matrix", "Intersection size")
+      )
+    ),
+    min_size = 2
+  ) +
+  labs(x = "Group") +
+  theme(panel.grid = element_blank())
+```
+
+#### Summary Table
+
+```{r tab-all-de}
+tbl <- top_tables %>% 
+  bind_rows(.id = "comparison") %>% 
+  # dplyr::filter(adj.P.Val < 0.05, gene_id %in% all_de) %>% 
+  dplyr::filter(gene_id %in% all_de) %>%
+  dplyr::select(comparison, gene_name, logFC) %>% 
+  # group_by(gene_name) %>% 
+  # mutate(n = dplyr::n()) %>% 
+  # ungroup() %>% 
+  pivot_wider(names_from = "comparison", values_from = "logFC") %>% 
+  reactable(
+    filterable = TRUE,
+    columns = list(
+      gene_name = colDef(name = "Gene", maxWidth = 200),
+      # n = colDef(name = "# Comps", format = colFormat(digits = 0)),
+      DNvLAG3 = colDef(
+        name = "DN Vs. LAG3",
+        style = function(value){
+          col = ifelse(value > 0, "red", "blue")
+          list(color = col)
+        }
+      ),
+      DNvDP = colDef(
+        name = "DN Vs. DP",
+        style = function(value){
+          col = ifelse(value > 0, "red", "blue")
+          list(color = col)
+        }
+      ),
+      DNvCD49b = colDef(
+        name = "DN Vs. CD49b",
+        style = function(value){
+          col = ifelse(value > 0, "red", "blue")
+          list(color = col)
+        }
+      ),
+      LAG3vCD49b = colDef(
+        name = "LAG3 Vs. CD49b",
+        style = function(value){
+          col = ifelse(value > 0, "red", "blue")
+          list(color = col)
+        }
+      ),
+      CD49bvDP = colDef(
+        name = "CD49b Vs. DP",
+        style = function(value){
+          col = ifelse(value > 0, "red", "blue")
+          list(color = col)
+        }
+      ),
+      LAG3vDP = colDef(
+        name = "LAG3 Vs. DP",
+        style = function(value){
+          col = ifelse(value > 0, "red", "blue")
+          list(color = col)
+        }
+      )
+    ),
+    defaultColDef = colDef(format = colFormat(digits = 2), maxWidth = 100)
+  )
+cp <- htmltools::tags$caption(
+  htmltools::em(
+    glue(
+      "
+      Interactive summary table of all {length(all_de)} genes considered as DE 
+      in at least one comparison. Estimated logFC values are given regardless 
+      of formal consideration s DE.
+      "
+    )
+  )
+)
+htmltools::div(
+  id = "tab-all-de",
+  htmltools::div(class = 'table-caption', cp),
+  htmltools::div(class = 'table', tbl)
+)
+```
+
 
 ## Heatmaps {.tabset}
 
