@@ -31,6 +31,8 @@ library(broom)
 library(glue)
 library(pander)
 library(grid)
+library(ComplexUpset)
+library(reactable)
 theme_set(
   theme_bw() +
     theme(plot.title = element_text(hjust = 0.5))
@@ -582,7 +584,63 @@ top_tables$CD49bvDP %>%
   theme(text = element_text(size = 16))
 ```
 
+### DE Gene Summary {.tabset}
+
+#### UpSet Plot
+
+```{r upset-all-de, fig.height=7, fig.cap = "UpSet plot for all DE genes. A complete list of DE genes was obtained by finding all genes considered DE after filtering by FDR and logFC across all comparisons. For the purposes of comparison, any genes in this complete list were considered as DE in a comparison if receiving an FDR-adjusted p-value < 0.05 in order for this figure to give a more accurate picture across all 6 comparisons, and avoiding any misleading results from the use of a hard cutoff. The genes DE in all LAG3 comparisons are highlighted in red, whilst the CD49b signature is shown in green and the DN signature is shown in blue. No clear DP signature was evident in this viewpoint."}
+all_de <- top_tables %>% 
+  lapply(dplyr::filter, DE) %>%
+  bind_rows() %>% 
+  pull("gene_id") %>% 
+  unique()
+top_tables %>% 
+  lapply(dplyr::filter, adj.P.Val < 0.05, gene_id %in% all_de) %>%
+  lapply(dplyr::select, gene_id) %>% 
+  bind_rows(.id = "comparison") %>% 
+  mutate(DE = TRUE, comparison = str_replace_all(comparison, "v", " Vs. ")) %>% 
+  pivot_wider(names_from = comparison, values_from = DE, values_fill = FALSE) %>% 
+  upset(
+    intersect = str_replace_all(names(top_tables), "v", " Vs. "),
+    base_annotations = list(
+      'Intersection size' = intersection_size(bar_number_threshold = 1, width = 0.9) +
+        scale_y_continuous(expand = expansion(c(0, 0.1))) +
+        scale_fill_manual(values = c(bars_color = "grey20")) +
+        theme(panel.grid = element_blank())
+    ),
+    sort_sets = FALSE,
+    set_sizes = upset_set_size() +
+      geom_text(aes(label = comma(after_stat(count))), stat = 'count', hjust = 1.1) +
+      scale_y_reverse(expand = expansion(c(0.25, 0))) +
+      theme(panel.grid = element_blank()),
+    queries = list(
+      upset_query(
+        intersect = str_subset(colnames(.), "LAG3"),
+        fill = "red", color = "red",
+        only_components = c("intersections_matrix", "Intersection size")
+      ),
+      upset_query(
+        intersect = str_subset(colnames(.), "CD49"),
+        fill = "forestgreen", color = "forestgreen",
+        only_components = c("intersections_matrix", "Intersection size")
+      ),
+      upset_query(
+        intersect = str_subset(colnames(.), "DN"),
+        fill = "blue", color = "blue",
+        only_components = c("intersections_matrix", "Intersection size")
+      )
+    ),
+    min_size = 2
+  ) +
+  labs(x = "Group") +
+  theme(panel.grid = element_blank())
+```
+
+
+
 ## Heatmaps {.tabset}
+
+In order to visualise the data using heatmaps, the average expression within each cell type was calculated.
 
 ```{r grp-coef}
 grp_coef <- dgeList %>%
@@ -602,8 +660,66 @@ grp_coef <- dgeList %>%
 ```
 
 
-In order to visualise the data using heatmaps, the average expression within each cell type was calculated.
+### Key Signatures
 
+```{r sig-heat, results='hide'}
+signatures <- top_tables %>% 
+  bind_rows(.id = "comparison") %>% 
+  dplyr::filter(gene_id %in% all_de, adj.P.Val < 0.05) %>% 
+  dplyr::select(comparison, gene_id, gene_name, AveExpr) %>% 
+  chop(comparison) %>% 
+  dplyr::filter(vapply(comparison, length, integer(1)) == 3) %>% 
+  dplyr::mutate(
+    Signature = case_when(
+      vapply(comparison, function(x) sum(str_detect(x, "CD49")) == 3, logical(1)) ~ "Cd49b+",
+      vapply(comparison, function(x) sum(str_detect(x, "LAG3")) == 3, logical(1)) ~ "Lag3+",
+      vapply(comparison, function(x) sum(str_detect(x, "DN")) == 3, logical(1)) ~ "DN",
+      TRUE ~ "Other"
+    )
+  ) %>% 
+  dplyr::filter(Signature != "Other") %>% 
+  dplyr::select(starts_with("gene"), Signature, AveExpr) %>% 
+  arrange(Signature, desc(AveExpr)) %>% 
+  as.data.frame() %>% 
+  column_to_rownames("gene_id")
+sig_heat <- grp_coef[rownames(signatures),] %>% 
+  pheatmap(
+    annotation_row = dplyr::select(signatures, Signature),
+    cluster_rows = FALSE, cluster_cols = FALSE,
+    labels_row = setNames(signatures$gene_name, rownames(signatures)),
+    labels_col = c(DN = "DN", DP = "DP", LAG_3 = "Lag3+", CD49b = "CD49b+"),
+    gaps_row = cumsum(c(
+      sum(signatures$Signature == "Cd49b+"),
+      sum(signatures$Signature == "DN")
+    )),
+    color = hcl.colors(101, "inferno"),
+    cutree_rows = 7,
+    cellwidth = 25,
+    cellheight = 15,
+    annotation_colors = list(
+      Signature = c("Cd49b+" = "forestgreen", "DN" = "blue", "Lag3+" = "red")
+    ),
+    silent = TRUE
+  ) %>% 
+  .[["gtable"]]
+sig_heat$grobs[[3]]$gp <- gpar(fonsize = 10, fontface = "italic")
+png(
+  here::here("docs", "assets", "sig_heat.png"),
+  height = 6, width = 4, units = "in", res = 300
+)
+grid.newpage()
+grid.draw(sig_heat)
+dev.off()
+pdf(
+  here::here("docs", "assets", "sig_heat.pdf"),
+  height = 6, width = 4
+)
+grid.newpage()
+grid.draw(sig_heat)
+dev.off()
+```
+
+![Expression values from genes in each of the key signatures defined in the previous UpSet plot were plotted. Within each signature genes are arranged in order of average expression. Most genes in the CD49b+ signature showed lower expression in this cell type, whilst patterns were more varied for each of the other signatures. The pdf of this image is available [here](assets/sig_heat.pdf)](assets/sig_heat.png){width=400px}
 
 ### High Confidence Genes
 

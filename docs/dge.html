@@ -364,7 +364,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Tr1: Differential Gene Expression</h1>
 <h4 class="author">Stephen Pederson &amp; Caitlin Abbott</h4>
-<h4 class="date">17 November, 2022</h4>
+<h4 class="date">24 November, 2022</h4>
 
 </div>
 
@@ -372,7 +372,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -383,8 +383,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -393,13 +393,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-17
+<strong>Last updated:</strong> 2022-11-24
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Tr1-RNA-Sequencing-/</code> <span
@@ -422,18 +422,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -524,15 +527,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree9abed75262d72a73776e0f44be4c71d9d40d19f7targetblank9abed75a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree335d9ada53331fa184f0fe482004eda6bbf85a18targetblank335d9ada">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/9abed75262d72a73776e0f44be4c71d9d40d19f7" target="_blank">9abed75</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/335d9ada53331fa184f0fe482004eda6bbf85a18" target="_blank">335d9ad</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree9abed75262d72a73776e0f44be4c71d9d40d19f7targetblank9abed75a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree335d9ada53331fa184f0fe482004eda6bbf85a18targetblank335d9ada"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -542,7 +545,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/9abed75262d72a73776e0f44be4c71d9d40d19f7" target="_blank">9abed75</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/335d9ada53331fa184f0fe482004eda6bbf85a18" target="_blank">335d9ad</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -559,6 +562,13 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   analysis/dge.Rmd
+    Modified:   output/dgeFilt.rds
+    Modified:   output/fit.rds
+    Modified:   output/top_tables.rds
+    Modified:   output/v.rds
 
 </code></pre>
 <p>
@@ -603,6 +613,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/335d9ada53331fa184f0fe482004eda6bbf85a18/analysis/dge.Rmd" target="_blank">335d9ad</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-23
+</td>
+<td>
+Added DE genes summaries. Need to change logFC to set cell BG colour
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/335d9ada53331fa184f0fe482004eda6bbf85a18/docs/dge.html" target="_blank">335d9ad</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-23
+</td>
+<td>
+Added DE genes summaries. Need to change logFC to set cell BG colour
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/dge.html" target="_blank">ee4bb47</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -935,6 +996,8 @@ library(broom)
 library(glue)
 library(pander)
 library(grid)
+library(ComplexUpset)
+library(reactable)
 theme_set(
   theme_bw() +
     theme(plot.title = element_text(hjust = 0.5))
@@ -1936,6 +1999,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">ee4bb47</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">0892674</a>
 </td>
 <td>
@@ -2009,6 +2083,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">ee4bb47</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">0892674</a>
@@ -2086,6 +2171,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">ee4bb47</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">0892674</a>
 </td>
 <td>
@@ -2159,6 +2255,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">ee4bb47</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">0892674</a>
@@ -2236,6 +2343,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">ee4bb47</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
@@ -2311,6 +2429,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">ee4bb47</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
@@ -2337,9 +2466,77 @@ Steve Pederson
 </div>
 </div>
 </div>
+<div id="de-gene-summary" class="section level3 tabset">
+<h3 class="tabset">DE Gene Summary</h3>
+<div id="upset-plot" class="section level4">
+<h4>UpSet Plot</h4>
+<pre class="r"><code>all_de &lt;- top_tables %&gt;% 
+  lapply(dplyr::filter, DE) %&gt;%
+  bind_rows() %&gt;% 
+  pull(&quot;gene_id&quot;) %&gt;% 
+  unique()
+top_tables %&gt;% 
+  lapply(dplyr::filter, adj.P.Val &lt; 0.05, gene_id %in% all_de) %&gt;%
+  lapply(dplyr::select, gene_id) %&gt;% 
+  bind_rows(.id = &quot;comparison&quot;) %&gt;% 
+  mutate(DE = TRUE, comparison = str_replace_all(comparison, &quot;v&quot;, &quot; Vs. &quot;)) %&gt;% 
+  pivot_wider(names_from = comparison, values_from = DE, values_fill = FALSE) %&gt;% 
+  upset(
+    intersect = str_replace_all(names(top_tables), &quot;v&quot;, &quot; Vs. &quot;),
+    base_annotations = list(
+      &#39;Intersection size&#39; = intersection_size(bar_number_threshold = 1, width = 0.9) +
+        scale_y_continuous(expand = expansion(c(0, 0.1))) +
+        scale_fill_manual(values = c(bars_color = &quot;grey20&quot;)) +
+        theme(panel.grid = element_blank())
+    ),
+    sort_sets = FALSE,
+    set_sizes = upset_set_size() +
+      geom_text(aes(label = comma(after_stat(count))), stat = &#39;count&#39;, hjust = 1.1) +
+      scale_y_reverse(expand = expansion(c(0.25, 0))) +
+      theme(panel.grid = element_blank()),
+    queries = list(
+      upset_query(
+        intersect = str_subset(colnames(.), &quot;LAG3&quot;),
+        fill = &quot;red&quot;, color = &quot;red&quot;,
+        only_components = c(&quot;intersections_matrix&quot;, &quot;Intersection size&quot;)
+      ),
+      upset_query(
+        intersect = str_subset(colnames(.), &quot;CD49&quot;),
+        fill = &quot;forestgreen&quot;, color = &quot;forestgreen&quot;,
+        only_components = c(&quot;intersections_matrix&quot;, &quot;Intersection size&quot;)
+      ),
+      upset_query(
+        intersect = str_subset(colnames(.), &quot;DN&quot;),
+        fill = &quot;blue&quot;, color = &quot;blue&quot;,
+        only_components = c(&quot;intersections_matrix&quot;, &quot;Intersection size&quot;)
+      )
+    ),
+    min_size = 2
+  ) +
+  labs(x = &quot;Group&quot;) +
+  theme(panel.grid = element_blank())</code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/dge.Rmd/upset-all-de-1.png" alt="UpSet plot for all DE genes. A complete list of DE genes was obtained by finding all genes considered DE after filtering by FDR and logFC across all comparisons. For the purposes of comparison, any genes in this complete list were considered as DE in a comparison if receiving an FDR-adjusted p-value &lt; 0.05 in order for this figure to give a more accurate picture across all 6 comparisons, and avoiding any misleading results from the use of a hard cutoff. The genes DE in all LAG3 comparisons are highlighted in red, whilst the CD49b signature is shown in green and the DN signature is shown in blue. No clear DP signature was evident in this viewpoint." width="960" />
+<p class="caption">
+UpSet plot for all DE genes. A complete list of DE genes was obtained by
+finding all genes considered DE after filtering by FDR and logFC across
+all comparisons. For the purposes of comparison, any genes in this
+complete list were considered as DE in a comparison if receiving an
+FDR-adjusted p-value &lt; 0.05 in order for this figure to give a more
+accurate picture across all 6 comparisons, and avoiding any misleading
+results from the use of a hard cutoff. The genes DE in all LAG3
+comparisons are highlighted in red, whilst the CD49b signature is shown
+in green and the DN signature is shown in blue. No clear DP signature
+was evident in this viewpoint.
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="heatmaps" class="section level2 tabset">
 <h2 class="tabset">Heatmaps</h2>
+<p>In order to visualise the data using heatmaps, the average expression
+within each cell type was calculated.</p>
 <pre class="r"><code>grp_coef &lt;- dgeList %&gt;%
   cpm(log = TRUE) %&gt;% 
   as_tibble(rownames = &quot;gene_id&quot;) %&gt;% 
@@ -2354,8 +2551,73 @@ Steve Pederson
   as.data.frame() %&gt;%
   column_to_rownames(&quot;gene_id&quot;) %&gt;% 
   as.matrix()</code></pre>
-<p>In order to visualise the data using heatmaps, the average expression
-within each cell type was calculated.</p>
+<div id="key-signatures" class="section level3">
+<h3>Key Signatures</h3>
+<pre class="r"><code>signatures &lt;- top_tables %&gt;% 
+  bind_rows(.id = &quot;comparison&quot;) %&gt;% 
+  dplyr::filter(gene_id %in% all_de, adj.P.Val &lt; 0.05) %&gt;% 
+  dplyr::select(comparison, gene_id, gene_name, AveExpr) %&gt;% 
+  chop(comparison) %&gt;% 
+  dplyr::filter(vapply(comparison, length, integer(1)) == 3) %&gt;% 
+  dplyr::mutate(
+    Signature = case_when(
+      vapply(comparison, function(x) sum(str_detect(x, &quot;CD49&quot;)) == 3, logical(1)) ~ &quot;Cd49b+&quot;,
+      vapply(comparison, function(x) sum(str_detect(x, &quot;LAG3&quot;)) == 3, logical(1)) ~ &quot;Lag3+&quot;,
+      vapply(comparison, function(x) sum(str_detect(x, &quot;DN&quot;)) == 3, logical(1)) ~ &quot;DN&quot;,
+      TRUE ~ &quot;Other&quot;
+    )
+  ) %&gt;% 
+  dplyr::filter(Signature != &quot;Other&quot;) %&gt;% 
+  dplyr::select(starts_with(&quot;gene&quot;), Signature, AveExpr) %&gt;% 
+  arrange(Signature, desc(AveExpr)) %&gt;% 
+  as.data.frame() %&gt;% 
+  column_to_rownames(&quot;gene_id&quot;)
+sig_heat &lt;- grp_coef[rownames(signatures),] %&gt;% 
+  pheatmap(
+    annotation_row = dplyr::select(signatures, Signature),
+    cluster_rows = FALSE, cluster_cols = FALSE,
+    labels_row = setNames(signatures$gene_name, rownames(signatures)),
+    labels_col = c(DN = &quot;DN&quot;, DP = &quot;DP&quot;, LAG_3 = &quot;Lag3+&quot;, CD49b = &quot;CD49b+&quot;),
+    gaps_row = cumsum(c(
+      sum(signatures$Signature == &quot;Cd49b+&quot;),
+      sum(signatures$Signature == &quot;DN&quot;)
+    )),
+    color = hcl.colors(101, &quot;inferno&quot;),
+    cutree_rows = 7,
+    cellwidth = 25,
+    cellheight = 15,
+    annotation_colors = list(
+      Signature = c(&quot;Cd49b+&quot; = &quot;forestgreen&quot;, &quot;DN&quot; = &quot;blue&quot;, &quot;Lag3+&quot; = &quot;red&quot;)
+    ),
+    silent = TRUE
+  ) %&gt;% 
+  .[[&quot;gtable&quot;]]
+sig_heat$grobs[[3]]$gp &lt;- gpar(fonsize = 10, fontface = &quot;italic&quot;)
+png(
+  here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;sig_heat.png&quot;),
+  height = 6, width = 4, units = &quot;in&quot;, res = 300
+)
+grid.newpage()
+grid.draw(sig_heat)
+dev.off()
+pdf(
+  here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;sig_heat.pdf&quot;),
+  height = 6, width = 4
+)
+grid.newpage()
+grid.draw(sig_heat)
+dev.off()</code></pre>
+<div class="figure">
+<img src="assets/sig_heat.png" width="400" alt="" />
+<p class="caption">Expression values from genes in each of the key
+signatures defined in the previous UpSet plot were plotted. Within each
+signature genes are arranged in order of average expression. Most genes
+in the CD49b+ signature showed lower expression in this cell type,
+whilst patterns were more varied for each of the other signatures. The
+pdf of this image is available <a
+href="assets/sig_heat.pdf">here</a></p>
+</div>
+</div>
 <div id="high-confidence-genes" class="section level3">
 <h3>High Confidence Genes</h3>
 <pre class="r"><code>highConf_df &lt;- tribble(
@@ -2616,7 +2878,7 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.1 (2022-06-23)
+<pre><code>R version 4.2.2 Patched (2022-11-10 r83330)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 20.04.5 LTS
 
@@ -2637,78 +2899,80 @@ attached base packages:
 [8] methods   base     
 
 other attached packages:
- [1] pander_0.6.5            glue_1.6.2              broom_1.0.1            
- [4] scales_1.2.1            ensembldb_2.22.0        AnnotationFilter_1.22.0
- [7] GenomicFeatures_1.50.2  AnnotationDbi_1.60.0    Biobase_2.58.0         
-[10] GenomicRanges_1.50.1    GenomeInfoDb_1.34.3     IRanges_2.32.0         
-[13] S4Vectors_0.36.0        AnnotationHub_3.6.0     BiocFileCache_2.6.0    
-[16] dbplyr_2.2.1            BiocGenerics_0.44.0     pheatmap_1.0.12        
-[19] ggrepel_0.9.2           edgeR_3.40.0            limma_3.54.0           
-[22] magrittr_2.0.3          forcats_0.5.2           stringr_1.4.1          
-[25] dplyr_1.0.10            purrr_0.3.5             readr_2.1.3            
-[28] tidyr_1.2.1             tibble_3.1.8            ggplot2_3.4.0          
-[31] tidyverse_1.3.2         workflowr_1.7.0        
+ [1] reactable_0.3.0         ComplexUpset_1.3.3      pander_0.6.5           
+ [4] glue_1.6.2              broom_1.0.1             scales_1.2.1           
+ [7] ensembldb_2.22.0        AnnotationFilter_1.22.0 GenomicFeatures_1.50.2 
+[10] AnnotationDbi_1.60.0    Biobase_2.58.0          GenomicRanges_1.50.1   
+[13] GenomeInfoDb_1.34.3     IRanges_2.32.0          S4Vectors_0.36.0       
+[16] AnnotationHub_3.6.0     BiocFileCache_2.6.0     dbplyr_2.2.1           
+[19] BiocGenerics_0.44.0     pheatmap_1.0.12         ggrepel_0.9.2          
+[22] edgeR_3.40.0            limma_3.54.0            magrittr_2.0.3         
+[25] forcats_0.5.2           stringr_1.4.1           dplyr_1.0.10           
+[28] purrr_0.3.5             readr_2.1.3             tidyr_1.2.1            
+[31] tibble_3.1.8            ggplot2_3.4.0           tidyverse_1.3.2        
+[34] workflowr_1.7.0        
 
 loaded via a namespace (and not attached):
   [1] readxl_1.4.1                  backports_1.4.1              
-  [3] lazyeval_0.2.2                splines_4.2.1                
+  [3] lazyeval_0.2.2                splines_4.2.2                
   [5] BiocParallel_1.32.1           digest_0.6.30                
   [7] htmltools_0.5.3               fansi_1.0.3                  
   [9] memoise_2.0.1                 googlesheets4_1.0.1          
  [11] tzdb_0.3.0                    Biostrings_2.66.0            
- [13] modelr_0.1.10                 matrixStats_0.62.0           
+ [13] modelr_0.1.10                 matrixStats_0.63.0           
  [15] vroom_1.6.0                   timechange_0.1.1             
  [17] prettyunits_1.1.1             colorspace_2.0-3             
  [19] blob_1.2.3                    rvest_1.0.3                  
  [21] rappdirs_0.3.3                haven_2.5.1                  
- [23] xfun_0.34                     callr_3.7.3                  
+ [23] xfun_0.35                     callr_3.7.3                  
  [25] crayon_1.5.2                  RCurl_1.98-1.9               
  [27] jsonlite_1.8.3                gtable_0.3.1                 
  [29] gargle_1.2.1                  zlibbioc_1.44.0              
  [31] XVector_0.38.0                DelayedArray_0.24.0          
  [33] DBI_1.1.3                     Rcpp_1.0.9                   
  [35] xtable_1.8-4                  progress_1.2.2               
- [37] bit_4.0.4                     httr_1.4.4                   
- [39] RColorBrewer_1.1-3            ellipsis_0.3.2               
- [41] farver_2.1.1                  pkgconfig_2.0.3              
- [43] XML_3.99-0.12                 sass_0.4.2                   
- [45] here_1.0.1                    locfit_1.5-9.6               
- [47] utf8_1.2.2                    labeling_0.4.2               
- [49] tidyselect_1.2.0              rlang_1.0.6                  
- [51] later_1.3.0                   munsell_0.5.0                
- [53] BiocVersion_3.16.0            cellranger_1.1.0             
- [55] tools_4.2.1                   cachem_1.0.6                 
- [57] cli_3.4.1                     generics_0.1.3               
- [59] RSQLite_2.2.18                evaluate_0.18                
- [61] fastmap_1.1.0                 yaml_2.3.6                   
- [63] processx_3.8.0                knitr_1.40                   
- [65] bit64_4.0.5                   fs_1.5.2                     
- [67] KEGGREST_1.38.0               nlme_3.1-160                 
- [69] whisker_0.4                   mime_0.12                    
- [71] xml2_1.3.3                    biomaRt_2.54.0               
- [73] compiler_4.2.1                rstudioapi_0.14              
- [75] filelock_1.0.2                curl_4.3.3                   
- [77] png_0.1-7                     interactiveDisplayBase_1.36.0
- [79] reprex_2.0.2                  statmod_1.4.37               
- [81] bslib_0.4.1                   stringi_1.7.8                
- [83] highr_0.9                     ps_1.7.2                     
- [85] lattice_0.20-45               ProtGenerics_1.30.0          
- [87] Matrix_1.5-3                  vctrs_0.5.0                  
- [89] pillar_1.8.1                  lifecycle_1.0.3              
- [91] BiocManager_1.30.19           jquerylib_0.1.4              
- [93] bitops_1.0-7                  httpuv_1.6.6                 
- [95] rtracklayer_1.58.0            R6_2.5.1                     
- [97] BiocIO_1.8.0                  promises_1.2.0.1             
- [99] codetools_0.2-18              assertthat_0.2.1             
-[101] SummarizedExperiment_1.28.0   rprojroot_2.0.3              
-[103] rjson_0.2.21                  withr_2.5.0                  
-[105] GenomicAlignments_1.34.0      Rsamtools_2.14.0             
-[107] GenomeInfoDbData_1.2.9        mgcv_1.8-41                  
-[109] parallel_4.2.1                hms_1.1.2                    
-[111] rmarkdown_2.18                MatrixGenerics_1.10.0        
-[113] googledrive_2.0.0             git2r_0.30.1                 
-[115] getPass_0.2-2                 shiny_1.7.3                  
-[117] lubridate_1.9.0               restfulr_0.0.15              </code></pre>
+ [37] bit_4.0.5                     htmlwidgets_1.5.4            
+ [39] httr_1.4.4                    RColorBrewer_1.1-3           
+ [41] ellipsis_0.3.2                farver_2.1.1                 
+ [43] pkgconfig_2.0.3               XML_3.99-0.12                
+ [45] sass_0.4.3                    here_1.0.1                   
+ [47] locfit_1.5-9.6                utf8_1.2.2                   
+ [49] labeling_0.4.2                tidyselect_1.2.0             
+ [51] rlang_1.0.6                   later_1.3.0                  
+ [53] munsell_0.5.0                 BiocVersion_3.16.0           
+ [55] cellranger_1.1.0              tools_4.2.2                  
+ [57] cachem_1.0.6                  cli_3.4.1                    
+ [59] generics_0.1.3                RSQLite_2.2.18               
+ [61] evaluate_0.18                 fastmap_1.1.0                
+ [63] yaml_2.3.6                    processx_3.8.0               
+ [65] knitr_1.41                    bit64_4.0.5                  
+ [67] fs_1.5.2                      KEGGREST_1.38.0              
+ [69] nlme_3.1-160                  whisker_0.4                  
+ [71] mime_0.12                     xml2_1.3.3                   
+ [73] biomaRt_2.54.0                compiler_4.2.2               
+ [75] rstudioapi_0.14               filelock_1.0.2               
+ [77] curl_4.3.3                    png_0.1-7                    
+ [79] interactiveDisplayBase_1.36.0 reprex_2.0.2                 
+ [81] statmod_1.4.37                bslib_0.4.1                  
+ [83] stringi_1.7.8                 highr_0.9                    
+ [85] ps_1.7.2                      lattice_0.20-45              
+ [87] ProtGenerics_1.30.0           Matrix_1.5-1                 
+ [89] vctrs_0.5.1                   pillar_1.8.1                 
+ [91] lifecycle_1.0.3               BiocManager_1.30.19          
+ [93] jquerylib_0.1.4               bitops_1.0-7                 
+ [95] patchwork_1.1.2               httpuv_1.6.6                 
+ [97] rtracklayer_1.58.0            R6_2.5.1                     
+ [99] BiocIO_1.8.0                  promises_1.2.0.1             
+[101] codetools_0.2-18              assertthat_0.2.1             
+[103] SummarizedExperiment_1.28.0   rprojroot_2.0.3              
+[105] rjson_0.2.21                  withr_2.5.0                  
+[107] GenomicAlignments_1.34.0      Rsamtools_2.14.0             
+[109] GenomeInfoDbData_1.2.9        mgcv_1.8-41                  
+[111] parallel_4.2.2                hms_1.1.2                    
+[113] rmarkdown_2.18                MatrixGenerics_1.10.0        
+[115] googledrive_2.0.0             git2r_0.30.1                 
+[117] getPass_0.2-2                 shiny_1.7.3                  
+[119] lubridate_1.9.0               restfulr_0.0.15              </code></pre>
 </div>
 </div>
 
