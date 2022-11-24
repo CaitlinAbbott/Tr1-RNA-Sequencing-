@@ -372,7 +372,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -383,8 +383,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -397,9 +397,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Tr1-RNA-Sequencing-/</code> <span
@@ -422,21 +422,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -527,15 +524,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree335d9ada53331fa184f0fe482004eda6bbf85a18targetblank335d9ada">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree39f0b046d4331db712f7b9d24fed50a0913b1f6btargetblank39f0b04a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/335d9ada53331fa184f0fe482004eda6bbf85a18" target="_blank">335d9ad</a>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/39f0b046d4331db712f7b9d24fed50a0913b1f6b" target="_blank">39f0b04</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree335d9ada53331fa184f0fe482004eda6bbf85a18targetblank335d9ada"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree39f0b046d4331db712f7b9d24fed50a0913b1f6btargetblank39f0b04a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -545,7 +542,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/335d9ada53331fa184f0fe482004eda6bbf85a18" target="_blank">335d9ad</a>.
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/39f0b046d4331db712f7b9d24fed50a0913b1f6b" target="_blank">39f0b04</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -562,13 +559,6 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-
-Unstaged changes:
-    Modified:   analysis/dge.Rmd
-    Modified:   output/dgeFilt.rds
-    Modified:   output/fit.rds
-    Modified:   output/top_tables.rds
-    Modified:   output/v.rds
 
 </code></pre>
 <p>
@@ -613,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/39f0b046d4331db712f7b9d24fed50a0913b1f6b/analysis/dge.Rmd" target="_blank">39f0b04</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-11-24
+</td>
+<td>
+Added UpSet plot &amp; heatmap of signatures
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/39f0b046d4331db712f7b9d24fed50a0913b1f6b/docs/dge.html" target="_blank">39f0b04</a>
+</td>
+<td>
+Steve Pederson
+</td>
+<td>
+2022-11-24
+</td>
+<td>
+Added UpSet plot &amp; heatmap of signatures
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2878,7 +2902,7 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.2 Patched (2022-11-10 r83330)
+<pre><code>R version 4.2.1 (2022-06-23)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 20.04.5 LTS
 
@@ -2914,50 +2938,50 @@ other attached packages:
 
 loaded via a namespace (and not attached):
   [1] readxl_1.4.1                  backports_1.4.1              
-  [3] lazyeval_0.2.2                splines_4.2.2                
+  [3] lazyeval_0.2.2                splines_4.2.1                
   [5] BiocParallel_1.32.1           digest_0.6.30                
   [7] htmltools_0.5.3               fansi_1.0.3                  
   [9] memoise_2.0.1                 googlesheets4_1.0.1          
  [11] tzdb_0.3.0                    Biostrings_2.66.0            
- [13] modelr_0.1.10                 matrixStats_0.63.0           
+ [13] modelr_0.1.10                 matrixStats_0.62.0           
  [15] vroom_1.6.0                   timechange_0.1.1             
  [17] prettyunits_1.1.1             colorspace_2.0-3             
  [19] blob_1.2.3                    rvest_1.0.3                  
  [21] rappdirs_0.3.3                haven_2.5.1                  
- [23] xfun_0.35                     callr_3.7.3                  
+ [23] xfun_0.34                     callr_3.7.3                  
  [25] crayon_1.5.2                  RCurl_1.98-1.9               
  [27] jsonlite_1.8.3                gtable_0.3.1                 
  [29] gargle_1.2.1                  zlibbioc_1.44.0              
  [31] XVector_0.38.0                DelayedArray_0.24.0          
  [33] DBI_1.1.3                     Rcpp_1.0.9                   
  [35] xtable_1.8-4                  progress_1.2.2               
- [37] bit_4.0.5                     htmlwidgets_1.5.4            
+ [37] bit_4.0.4                     htmlwidgets_1.5.4            
  [39] httr_1.4.4                    RColorBrewer_1.1-3           
  [41] ellipsis_0.3.2                farver_2.1.1                 
  [43] pkgconfig_2.0.3               XML_3.99-0.12                
- [45] sass_0.4.3                    here_1.0.1                   
+ [45] sass_0.4.2                    here_1.0.1                   
  [47] locfit_1.5-9.6                utf8_1.2.2                   
  [49] labeling_0.4.2                tidyselect_1.2.0             
  [51] rlang_1.0.6                   later_1.3.0                  
  [53] munsell_0.5.0                 BiocVersion_3.16.0           
- [55] cellranger_1.1.0              tools_4.2.2                  
+ [55] cellranger_1.1.0              tools_4.2.1                  
  [57] cachem_1.0.6                  cli_3.4.1                    
  [59] generics_0.1.3                RSQLite_2.2.18               
  [61] evaluate_0.18                 fastmap_1.1.0                
  [63] yaml_2.3.6                    processx_3.8.0               
- [65] knitr_1.41                    bit64_4.0.5                  
+ [65] knitr_1.40                    bit64_4.0.5                  
  [67] fs_1.5.2                      KEGGREST_1.38.0              
  [69] nlme_3.1-160                  whisker_0.4                  
  [71] mime_0.12                     xml2_1.3.3                   
- [73] biomaRt_2.54.0                compiler_4.2.2               
+ [73] biomaRt_2.54.0                compiler_4.2.1               
  [75] rstudioapi_0.14               filelock_1.0.2               
  [77] curl_4.3.3                    png_0.1-7                    
  [79] interactiveDisplayBase_1.36.0 reprex_2.0.2                 
  [81] statmod_1.4.37                bslib_0.4.1                  
  [83] stringi_1.7.8                 highr_0.9                    
  [85] ps_1.7.2                      lattice_0.20-45              
- [87] ProtGenerics_1.30.0           Matrix_1.5-1                 
- [89] vctrs_0.5.1                   pillar_1.8.1                 
+ [87] ProtGenerics_1.30.0           Matrix_1.5-3                 
+ [89] vctrs_0.5.0                   pillar_1.8.1                 
  [91] lifecycle_1.0.3               BiocManager_1.30.19          
  [93] jquerylib_0.1.4               bitops_1.0-7                 
  [95] patchwork_1.1.2               httpuv_1.6.6                 
@@ -2968,7 +2992,7 @@ loaded via a namespace (and not attached):
 [105] rjson_0.2.21                  withr_2.5.0                  
 [107] GenomicAlignments_1.34.0      Rsamtools_2.14.0             
 [109] GenomeInfoDbData_1.2.9        mgcv_1.8-41                  
-[111] parallel_4.2.2                hms_1.1.2                    
+[111] parallel_4.2.1                hms_1.1.2                    
 [113] rmarkdown_2.18                MatrixGenerics_1.10.0        
 [115] googledrive_2.0.0             git2r_0.30.1                 
 [117] getPass_0.2-2                 shiny_1.7.3                  
