@@ -79,6 +79,7 @@ Ontologies were only considered to be enriched amongst the differentially expres
 ```{r dotplot-dn-lag3}
 dotplot(ego_results$DNvLAG3) +
   ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -90,6 +91,7 @@ dotplot(ego_results$DNvLAG3) +
 ```{r dotplot-dn-dp}
 dotplot(ego_results$DNvDP) +
   ggtitle("DN Vs. DP") +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -101,6 +103,7 @@ dotplot(ego_results$DNvDP) +
 ```{r dotplot-dn-cd49}
 dotplot(ego_results$DNvCD49b) +
   ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -116,6 +119,7 @@ dotplot(ego_results$LAG3vCD49b) +
       paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")})
     )
   ) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -127,6 +131,7 @@ dotplot(ego_results$LAG3vCD49b) +
 ```{r dotplot-lag3-dp}
 dotplot(ego_results$LAG3vDP) +
   ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -139,6 +144,7 @@ dotplot(ego_results$LAG3vDP) +
 ```{r dotplot-cd49-dp}
 dotplot(ego_results$CD49bvDP) +
   ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -253,6 +259,7 @@ Please note that an up-regulated gene does not always correspond to an increase 
 ```{r dotplot-dn-lag3-up}
 dotplot(ego_results$DNvLAG3) +
   ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}, "(Up Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -266,6 +273,7 @@ dotplot(ego_results$DNvLAG3) +
 ```{r dotplot-dn-dp-up, eval=FALSE}
 dotplot(ego_results$DNvDP) +
   ggtitle("DN Vs. DP (Up Only)") +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -277,6 +285,7 @@ dotplot(ego_results$DNvDP) +
 ```{r dotplot-dn-cd49-up}
 dotplot(ego_results$DNvCD49b) +
   ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}, "(Up Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -292,6 +301,7 @@ dotplot(ego_results$LAG3vCD49b) +
       paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")}, "(Up Only)")
     )
   ) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -306,6 +316,7 @@ dotplot(ego_results$LAG3vCD49b) +
 ```{r dotplot-lag3-dp-up, eval = FALSE}
 dotplot(ego_results$LAG3vDP) +
   ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP", "(Up Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -318,6 +329,7 @@ dotplot(ego_results$LAG3vDP) +
 ```{r dotplot-cd49-dp-up}
 dotplot(ego_results$CD49bvDP) +
   ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP (Up Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -434,6 +446,7 @@ Please note that a down-regulated gene does not always correspond to an decrease
 ```{r dotplot-dn-lag3-down}
 dotplot(ego_results$DNvLAG3) +
   ggtitle(expression(paste("DN Vs. Lag", 3^{textstyle("+")}, "(Down Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -445,6 +458,7 @@ dotplot(ego_results$DNvLAG3) +
 ```{r dotplot-dn-dp-down}
 dotplot(ego_results$DNvDP) +
   ggtitle("DN Vs. DP (Down Only)") +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -456,6 +470,7 @@ dotplot(ego_results$DNvDP) +
 ```{r dotplot-dn-cd49-down}
 dotplot(ego_results$DNvCD49b) +
   ggtitle(expression(paste("DN Vs. Cd49", b^{textstyle("+")}, "(Down Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -471,6 +486,7 @@ dotplot(ego_results$LAG3vCD49b) +
       paste("Lag", 3^{textstyle("+")}, " Vs. CD49", b^{textstyle("+")}, "(Down Only)")
     )
   ) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -483,6 +499,7 @@ dotplot(ego_results$LAG3vCD49b) +
 ```{r dotplot-lag3-dp-down}
 dotplot(ego_results$LAG3vDP) +
   ggtitle(expression(paste("Lag", 3^{textstyle("+")}, " Vs. DP", "(Down Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
@@ -495,6 +512,7 @@ dotplot(ego_results$LAG3vDP) +
 ```{r dotplot-cd49-dp-down}
 dotplot(ego_results$CD49bvDP) +
   ggtitle(expression(paste("Cd49", b^{textstyle("+")}, " Vs. DP (Down Only)"))) +
+  scale_y_discrete(labels = label_wrap(25)) +
   theme(
     plot.title = element_text(hjust = 0.5),
     text = element_text(size = 16)
