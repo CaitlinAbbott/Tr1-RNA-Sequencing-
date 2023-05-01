@@ -14,7 +14,7 @@
 
 <title>Tr1: Differential Gene Expression</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -364,7 +364,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Tr1: Differential Gene Expression</h1>
 <h4 class="author">Stephen Pederson &amp; Caitlin Abbott</h4>
-<h4 class="date">24 November, 2022</h4>
+<h4 class="date">01 May, 2023</h4>
 
 </div>
 
@@ -372,7 +372,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -383,8 +383,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -393,13 +393,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-24
+<strong>Last updated:</strong> 2023-05-01
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Tr1-RNA-Sequencing-/</code> <span
@@ -422,18 +422,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -524,15 +527,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree39f0b046d4331db712f7b9d24fed50a0913b1f6btargetblank39f0b04a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsmpedTr1RNASequencingtree7d98024c585bb50bf86a45087ffb5f4c0981b7a9targetblank7d98024a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/39f0b046d4331db712f7b9d24fed50a0913b1f6b" target="_blank">39f0b04</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/tree/7d98024c585bb50bf86a45087ffb5f4c0981b7a9" target="_blank">7d98024</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstevepedTr1RNASequencingtree39f0b046d4331db712f7b9d24fed50a0913b1f6btargetblank39f0b04a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomsmpedTr1RNASequencingtree7d98024c585bb50bf86a45087ffb5f4c0981b7a9targetblank7d98024a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -542,7 +545,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/tree/39f0b046d4331db712f7b9d24fed50a0913b1f6b" target="_blank">39f0b04</a>.
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/tree/7d98024c585bb50bf86a45087ffb5f4c0981b7a9" target="_blank">7d98024</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -559,6 +562,13 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Unstaged changes:
+    Modified:   analysis/dge.Rmd
+    Modified:   output/dgeFilt.rds
+    Modified:   output/fit.rds
+    Modified:   output/top_tables.rds
+    Modified:   output/v.rds
 
 </code></pre>
 <p>
@@ -605,10 +615,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/63a6ba68bd156da1180e6810745253f2551bb033/docs/dge.html" target="_blank">63a6ba6</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-24
+</td>
+<td>
+Updated all figures
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/39f0b046d4331db712f7b9d24fed50a0913b1f6b/analysis/dge.Rmd" target="_blank">39f0b04</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/39f0b046d4331db712f7b9d24fed50a0913b1f6b/analysis/dge.Rmd" target="_blank">39f0b04</a>
 </td>
 <td>
 Steve Pederson
@@ -625,7 +652,7 @@ Added UpSet plot &amp; heatmap of signatures
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/39f0b046d4331db712f7b9d24fed50a0913b1f6b/docs/dge.html" target="_blank">39f0b04</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/39f0b046d4331db712f7b9d24fed50a0913b1f6b/docs/dge.html" target="_blank">39f0b04</a>
 </td>
 <td>
 Steve Pederson
@@ -642,7 +669,7 @@ Added UpSet plot &amp; heatmap of signatures
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/335d9ada53331fa184f0fe482004eda6bbf85a18/analysis/dge.Rmd" target="_blank">335d9ad</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/335d9ada53331fa184f0fe482004eda6bbf85a18/analysis/dge.Rmd" target="_blank">335d9ad</a>
 </td>
 <td>
 steveped
@@ -659,7 +686,7 @@ Added DE genes summaries. Need to change logFC to set cell BG colour
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/335d9ada53331fa184f0fe482004eda6bbf85a18/docs/dge.html" target="_blank">335d9ad</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/335d9ada53331fa184f0fe482004eda6bbf85a18/docs/dge.html" target="_blank">335d9ad</a>
 </td>
 <td>
 steveped
@@ -676,7 +703,7 @@ Added DE genes summaries. Need to change logFC to set cell BG colour
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/dge.html" target="_blank">ee4bb47</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/dge.html" target="_blank">ee4bb47</a>
 </td>
 <td>
 steveped
@@ -693,7 +720,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/9abed75262d72a73776e0f44be4c71d9d40d19f7/analysis/dge.Rmd" target="_blank">9abed75</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/9abed75262d72a73776e0f44be4c71d9d40d19f7/analysis/dge.Rmd" target="_blank">9abed75</a>
 </td>
 <td>
 steveped
@@ -710,7 +737,7 @@ Increased font size &amp; labelled more genes
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/f2ee30ed28f0c3007704577393163e951327740c/docs/dge.html" target="_blank">f2ee30e</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/f2ee30ed28f0c3007704577393163e951327740c/docs/dge.html" target="_blank">f2ee30e</a>
 </td>
 <td>
 steveped
@@ -727,7 +754,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/7969b18f855665d504817816459739fbe2bc56a1/analysis/dge.Rmd" target="_blank">7969b18</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/7969b18f855665d504817816459739fbe2bc56a1/analysis/dge.Rmd" target="_blank">7969b18</a>
 </td>
 <td>
 steveped
@@ -744,7 +771,7 @@ Final Analysis
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/e81de734b8604c39a5a648e9feae3da2af9c4900/analysis/dge.Rmd" target="_blank">e81de73</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/e81de734b8604c39a5a648e9feae3da2af9c4900/analysis/dge.Rmd" target="_blank">e81de73</a>
 </td>
 <td>
 Steve Pederson
@@ -761,7 +788,7 @@ Corrected figure captions
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/e81de734b8604c39a5a648e9feae3da2af9c4900/docs/dge.html" target="_blank">e81de73</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/e81de734b8604c39a5a648e9feae3da2af9c4900/docs/dge.html" target="_blank">e81de73</a>
 </td>
 <td>
 Steve Pederson
@@ -778,7 +805,7 @@ Corrected figure captions
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/3897b9b110b28929223a68c1681b23017d169c42/analysis/dge.Rmd" target="_blank">3897b9b</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/3897b9b110b28929223a68c1681b23017d169c42/analysis/dge.Rmd" target="_blank">3897b9b</a>
 </td>
 <td>
 Steve Pederson
@@ -795,7 +822,7 @@ Added top100 showing estimated logFC
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/3897b9b110b28929223a68c1681b23017d169c42/docs/dge.html" target="_blank">3897b9b</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/3897b9b110b28929223a68c1681b23017d169c42/docs/dge.html" target="_blank">3897b9b</a>
 </td>
 <td>
 Steve Pederson
@@ -812,7 +839,7 @@ Added top100 showing estimated logFC
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676/analysis/dge.Rmd" target="_blank">2ae9dfb</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676/analysis/dge.Rmd" target="_blank">2ae9dfb</a>
 </td>
 <td>
 Steve Pederson
@@ -829,7 +856,7 @@ Added top100 pdf
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676/docs/dge.html" target="_blank">2ae9dfb</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/2ae9dfbfe40b23f9ed6fbb240b6381e1e8ce1676/docs/dge.html" target="_blank">2ae9dfb</a>
 </td>
 <td>
 Steve Pederson
@@ -846,7 +873,7 @@ Added top100 pdf
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0c8218dbd8611ceebbae583a3b2ccef44f754728/analysis/dge.Rmd" target="_blank">0c8218d</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0c8218dbd8611ceebbae583a3b2ccef44f754728/analysis/dge.Rmd" target="_blank">0c8218d</a>
 </td>
 <td>
 Steve Pederson
@@ -863,7 +890,7 @@ Added pdf
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/0c8218dbd8611ceebbae583a3b2ccef44f754728/docs/dge.html" target="_blank">0c8218d</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/0c8218dbd8611ceebbae583a3b2ccef44f754728/docs/dge.html" target="_blank">0c8218d</a>
 </td>
 <td>
 Steve Pederson
@@ -880,7 +907,7 @@ Added pdf
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/analysis/dge.Rmd" target="_blank">5c676b4</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/analysis/dge.Rmd" target="_blank">5c676b4</a>
 </td>
 <td>
 Steve Pederson
@@ -897,7 +924,7 @@ Finished high-conf heatmap
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/docs/dge.html" target="_blank">5c676b4</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/5c676b4f90e30c2b0e59a2955ddb5b5c647d79a3/docs/dge.html" target="_blank">5c676b4</a>
 </td>
 <td>
 Steve Pederson
@@ -914,7 +941,7 @@ Finished high-conf heatmap
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/18916d3d329d995956aa9bfbb1e6e32169a81f4b/analysis/dge.Rmd" target="_blank">18916d3</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/18916d3d329d995956aa9bfbb1e6e32169a81f4b/analysis/dge.Rmd" target="_blank">18916d3</a>
 </td>
 <td>
 Steve Pederson
@@ -931,7 +958,7 @@ Started looking at high-confidence genes
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/analysis/dge.Rmd" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/analysis/dge.Rmd" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -948,7 +975,7 @@ Started adding heatmaps
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/0892674261bb82edea954d3b372ee1a157b30381/docs/dge.html" target="_blank">0892674</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/0892674261bb82edea954d3b372ee1a157b30381/docs/dge.html" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -965,7 +992,7 @@ Started adding heatmaps
 Rmd
 </td>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/analysis/dge.Rmd" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/analysis/dge.Rmd" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -982,7 +1009,7 @@ Shifted to workflowr
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/steveped/Tr1-RNA-Sequencing-/8745ba2c539e132ad5328b7b767920569b16577c/docs/dge.html" target="_blank">8745ba2</a>
+<a href="https://rawcdn.githack.com/smped/Tr1-RNA-Sequencing-/8745ba2c539e132ad5328b7b767920569b16577c/docs/dge.html" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1024,7 +1051,10 @@ library(ComplexUpset)
 library(reactable)
 theme_set(
   theme_bw() +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(
+      text = element_text(size = 14),
+      plot.title = element_text(hjust = 0.5)
+    )
 )</code></pre>
 <div id="data-preparation-inspection" class="section level2 tabset">
 <h2 class="tabset">Data Preparation &amp; Inspection</h2>
@@ -1123,7 +1153,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-lib-sizes-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-lib-sizes-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1144,7 +1174,7 @@ Steve Pederson
   as_tibble(rownames = &quot;gene_id&quot;) %&gt;% 
   pivot_longer(cols = all_of(colnames(dgeFilt)), names_to = &quot;sample&quot;, values_to = &quot;logCPM&quot;) %&gt;% 
   left_join(dgeFilt$samples, by = &quot;sample&quot;) %&gt;% 
-  ggplot(aes(logCPM, y = stat(density), colour = condition, group = sample)) +
+  ggplot(aes(logCPM, y = after_stat(density), colour = condition, group = sample)) +
   geom_density() +
   facet_wrap(~mouse) +
   scale_y_continuous(expand = expansion(c(0.01, 0.05)))</code></pre>
@@ -1181,7 +1211,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/dge.Rmd/plot-densities-1.png" target="_blank">f2ee30e</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/f2ee30ed28f0c3007704577393163e951327740c/docs/figure/dge.Rmd/plot-densities-1.png" target="_blank">f2ee30e</a>
 </td>
 <td>
 steveped
@@ -1192,7 +1222,7 @@ steveped
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-densities-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-densities-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1222,7 +1252,7 @@ pca %&gt;%
   geom_point(size = 3) +
   geom_text_repel(
     aes(label = label),#str_replace_all(label, &quot; &quot;, &quot;\n&quot;)),
-    max.overlaps = Inf
+    size = 5, max.overlaps = Inf, show.legend = FALSE
   ) +
   labs(
     x = glue(&quot;PC1 ({percent(summary(pca)$importance[2, &#39;PC1&#39;])})&quot;),
@@ -1263,7 +1293,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-pca-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-pca-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1348,7 +1378,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-weights-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-weights-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1478,6 +1508,7 @@ considered to be DE in at least one comparison.</caption>
       dplyr::filter(DE, logFC &gt; 0) %&gt;% 
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1488,6 +1519,7 @@ considered to be DE in at least one comparison.</caption>
       dplyr::filter(DE, logFC &lt; 0) %&gt;% 
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1525,7 +1557,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-dnvlag3-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-dnvlag3-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -1536,7 +1568,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvlag3-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvlag3-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1562,6 +1594,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &gt; 0) %&gt;% 
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1572,6 +1605,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &lt; 0) %&gt;% 
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1609,7 +1643,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-dnvdp-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-dnvdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -1620,7 +1654,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvdp-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvdp-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1646,6 +1680,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &gt; 0) %&gt;% 
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1656,6 +1691,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &lt; 0) %&gt;% 
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1693,7 +1729,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-dnvcd49-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-dnvcd49-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -1704,7 +1740,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvcd49-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-dnvcd49-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1730,6 +1766,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &gt; 0) %&gt;% 
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1740,6 +1777,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &lt; 0) %&gt;% 
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1777,7 +1815,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-lag3vcd49-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-lag3vcd49-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -1788,7 +1826,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-lag3vcd49-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-lag3vcd49-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1814,6 +1852,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &gt; 0) %&gt;% 
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1824,6 +1863,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &lt; 0) %&gt;% 
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1861,7 +1901,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-lag3vdp-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-lag3vdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -1872,7 +1912,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-lag3vdp-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-lag3vdp-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -1898,6 +1938,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &gt; 0) %&gt;% 
       arrange(desc(logFC)) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1908,6 +1949,7 @@ Steve Pederson
       dplyr::filter(DE, logFC &lt; 0) %&gt;% 
       arrange(logFC) %&gt;% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = &quot;italic&quot;,
     show.legend = FALSE
@@ -1945,7 +1987,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-cd49vdp-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-ma-cd49vdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -1956,7 +1998,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-cd49vdp-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-ma-cd49vdp-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -2023,7 +2065,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">ee4bb47</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">ee4bb47</a>
 </td>
 <td>
 steveped
@@ -2034,7 +2076,7 @@ steveped
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -2045,7 +2087,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvlag3-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -2109,7 +2151,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">ee4bb47</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">ee4bb47</a>
 </td>
 <td>
 steveped
@@ -2120,7 +2162,7 @@ steveped
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -2131,7 +2173,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvdp-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -2195,7 +2237,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">ee4bb47</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">ee4bb47</a>
 </td>
 <td>
 steveped
@@ -2206,7 +2248,7 @@ steveped
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -2217,7 +2259,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-dnvcd49-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -2281,7 +2323,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">ee4bb47</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">ee4bb47</a>
 </td>
 <td>
 steveped
@@ -2292,7 +2334,7 @@ steveped
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -2303,7 +2345,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-lag3vcd49-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -2367,7 +2409,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">ee4bb47</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">ee4bb47</a>
 </td>
 <td>
 steveped
@@ -2378,7 +2420,7 @@ steveped
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -2389,7 +2431,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-lag3vdp-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -2453,7 +2495,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">ee4bb47</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/ee4bb4792a18e79db3b065a03360dee42a6f98bc/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">ee4bb47</a>
 </td>
 <td>
 steveped
@@ -2464,7 +2506,7 @@ steveped
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">0892674</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/0892674261bb82edea954d3b372ee1a157b30381/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">0892674</a>
 </td>
 <td>
 Steve Pederson
@@ -2475,7 +2517,7 @@ Steve Pederson
 </tr>
 <tr>
 <td>
-<a href="https://github.com/steveped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">8745ba2</a>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/8745ba2c539e132ad5328b7b767920569b16577c/docs/figure/dge.Rmd/plot-volcano-cd49vdp-1.png" target="_blank">8745ba2</a>
 </td>
 <td>
 Steve Pederson
@@ -2508,16 +2550,28 @@ top_tables %&gt;%
   upset(
     intersect = str_replace_all(names(top_tables), &quot;v&quot;, &quot; Vs. &quot;),
     base_annotations = list(
-      &#39;Intersection size&#39; = intersection_size(bar_number_threshold = 1, width = 0.9) +
+      &#39;Intersection size&#39; = intersection_size(
+        bar_number_threshold = 1, width = 0.9, text = list(size = 5)
+      ) +
         scale_y_continuous(expand = expansion(c(0, 0.1))) +
         scale_fill_manual(values = c(bars_color = &quot;grey20&quot;)) +
-        theme(panel.grid = element_blank())
+        theme(
+          panel.grid = element_blank(), 
+          axis.title = element_text(size = 14),
+          axis.text = element_text(size = 14)
+        )
     ),
     sort_sets = FALSE,
     set_sizes = upset_set_size() +
-      geom_text(aes(label = comma(after_stat(count))), stat = &#39;count&#39;, hjust = 1.1) +
+      geom_text(
+        aes(label = comma(after_stat(count))), 
+        stat = &#39;count&#39;, hjust = 1.1, size = 5
+      ) +
       scale_y_reverse(expand = expansion(c(0.25, 0))) +
-      theme(panel.grid = element_blank()),
+      theme(
+        panel.grid = element_blank(), axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14)
+      ),
     queries = list(
       upset_query(
         intersect = str_subset(colnames(.), &quot;LAG3&quot;),
@@ -2538,7 +2592,10 @@ top_tables %&gt;%
     min_size = 2
   ) +
   labs(x = &quot;Group&quot;) +
-  theme(panel.grid = element_blank())</code></pre>
+  theme(
+    panel.grid = element_blank(), axis.text = element_text(size = 14),
+    axis.title = element_text(size = 14)
+  )</code></pre>
 <div class="figure" style="text-align: center">
 <img src="figure/dge.Rmd/upset-all-de-1.png" alt="UpSet plot for all DE genes. A complete list of DE genes was obtained by finding all genes considered DE after filtering by FDR and logFC across all comparisons. For the purposes of comparison, any genes in this complete list were considered as DE in a comparison if receiving an FDR-adjusted p-value &lt; 0.05 in order for this figure to give a more accurate picture across all 6 comparisons, and avoiding any misleading results from the use of a hard cutoff. The genes DE in all LAG3 comparisons are highlighted in red, whilst the CD49b signature is shown in green and the DN signature is shown in blue. No clear DP signature was evident in this viewpoint." width="960" />
 <p class="caption">
@@ -2553,6 +2610,43 @@ comparisons are highlighted in red, whilst the CD49b signature is shown
 in green and the DN signature is shown in blue. No clear DP signature
 was evident in this viewpoint.
 </p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-upset-all-de-1">
+Past versions of upset-all-de-1.png
+</button>
+</p>
+<div id="fig-upset-all-de-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/smped/Tr1-RNA-Sequencing-/blob/63a6ba68bd156da1180e6810745253f2551bb033/docs/figure/dge.Rmd/upset-all-de-1.png" target="_blank">63a6ba6</a>
+</td>
+<td>
+steveped
+</td>
+<td>
+2022-11-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -2612,11 +2706,11 @@ sig_heat &lt;- grp_coef[rownames(signatures),] %&gt;%
     cellheight = 15,
     annotation_colors = list(
       Signature = c(&quot;Cd49b+&quot; = &quot;forestgreen&quot;, &quot;DN&quot; = &quot;blue&quot;, &quot;Lag3+&quot; = &quot;red&quot;)
-    ),
+    ), fontsize = 12,
     silent = TRUE
   ) %&gt;% 
   .[[&quot;gtable&quot;]]
-sig_heat$grobs[[3]]$gp &lt;- gpar(fonsize = 10, fontface = &quot;italic&quot;)
+sig_heat$grobs[[3]]$gp &lt;- gpar(fonsize = 12, fontface = &quot;italic&quot;)
 png(
   here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;sig_heat.png&quot;),
   height = 6, width = 4, units = &quot;in&quot;, res = 300
@@ -2647,10 +2741,10 @@ href="assets/sig_heat.pdf">here</a></p>
 <pre class="r"><code>highConf_df &lt;- tribble(
   ~Group, ~gene_name,
   &quot;Treg&quot;, &quot;Foxp3&quot;,
-  &quot;Treg&quot;, &quot;Il2ra&quot;,
-  &quot;Treg&quot;, &quot;Il2rb&quot;,
   &quot;Treg&quot;, &quot;Ikzf4&quot;,
   &quot;Treg&quot;, &quot;Il1rl1&quot;,
+  &quot;Treg&quot;, &quot;Il2ra&quot;,
+  &quot;Treg&quot;, &quot;Il2rb&quot;,
   &quot;Th2&quot;, &quot;Gata3&quot;,
   &quot;Th2&quot;, &quot;Il4&quot;,
   &quot;Th2&quot;, &quot;Il5&quot;,
@@ -2659,37 +2753,37 @@ href="assets/sig_heat.pdf">here</a></p>
   &quot;Th17&quot;, &quot;Il17a&quot;,
   &quot;Th17&quot;, &quot;Il17f&quot;,
   &quot;Th17&quot;, &quot;Ccr6&quot;,
+  &quot;Th1&quot;, &quot;Tnf&quot;,
   &quot;Th1&quot;, &quot;Tbx21&quot;,
   &quot;Th1&quot;, &quot;Cxcr3&quot;,
   &quot;Th1&quot;, &quot;Cxcr6&quot;,
-  &quot;Th1&quot;, &quot;Tnf&quot;,
   &quot;Th1&quot;, &quot;Ifng&quot;,
   &quot;Tfh&quot;, &quot;Bcl6&quot;,
   &quot;Tfh&quot;, &quot;Cxcr5&quot;,
   &quot;Tfh&quot;, &quot;Tcf7&quot;,
   &quot;Tfh&quot;, &quot;Tox2&quot;,
-  &quot;Tr1&quot;, &quot;Ccr5&quot;,
-  &quot;Tr1&quot;, &quot;Il10&quot;,
-  &quot;Tr1&quot;, &quot;Il21&quot;,
-  &quot;Tr1&quot;, &quot;Tgfb1&quot;,
-  &quot;Tr1&quot;, &quot;Gzmb&quot;,
   &quot;Tr1&quot;, &quot;Lag3&quot;,
   &quot;Tr1&quot;, &quot;Itga2&quot;,
-  &quot;Tr1&quot;, &quot;Icos&quot;,
+  &quot;Tr1&quot;, &quot;Eomes&quot;,
+  &quot;Tr1&quot;, &quot;Tgfb1&quot;,
+  &quot;Tr1&quot;, &quot;Il21&quot;,
+  &quot;Tr1&quot;, &quot;Ccr5&quot;,
+  &quot;Tr1&quot;, &quot;Il10&quot;,
   &quot;Tr1&quot;, &quot;Pdcd1&quot;,
+  &quot;Tr1&quot;, &quot;Tigit&quot;,
+  &quot;Tr1&quot;, &quot;Maf&quot;,
+  &quot;Tr1&quot;, &quot;Batf&quot;,
+  &quot;Tr1&quot;, &quot;Irf1&quot;,
+  &quot;Tr1&quot;, &quot;Stat1&quot;,
+  &quot;Tr1&quot;, &quot;Stat3&quot;,
+  &quot;Tr1&quot;, &quot;Gzmb&quot;,
+  &quot;Tr1&quot;, &quot;Icos&quot;,
   &quot;Tr1&quot;, &quot;Ctla4&quot;,
   &quot;Tr1&quot;, &quot;Havcr2&quot;,
-  &quot;Tr1&quot;, &quot;Tigit&quot;,
   &quot;Tr1&quot;, &quot;Cd226&quot;,
-  &quot;Tr1&quot;, &quot;Maf&quot;,
   &quot;Tr1&quot;, &quot;Prdm1&quot;,
-  &quot;Tr1&quot;, &quot;Batf&quot;,
   &quot;Tr1&quot;, &quot;Ahr&quot;,
-  &quot;Tr1&quot;, &quot;Eomes&quot;,
-  &quot;Tr1&quot;, &quot;Irf1&quot;,
   &quot;Tr1&quot;, &quot;Irf4&quot;,
-  &quot;Tr1&quot;, &quot;Stat1&quot;,
-  &quot;Tr1&quot;, &quot;Stat3&quot;
 ) %&gt;%
   left_join(
     # dplyr::select(dgeFilt$genes, gene_name, gene_id)
@@ -2699,16 +2793,22 @@ href="assets/sig_heat.pdf">here</a></p>
   column_to_rownames(&quot;gene_id&quot;)
 p &lt;- grp_coef[rownames(highConf_df),] %&gt;% 
   pheatmap(
-    cluster_rows = FALSE, cluster_cols = FALSE,
+    # cluster_rows = FALSE,
+    # cluster_cols = FALSE,
+    clustering_method = &quot;complete&quot;,
     labels_row = setNames(highConf_df$gene_name, rownames(highConf_df)),
     labels_col = c(DN = &quot;DN&quot;, DP = &quot;DP&quot;, LAG_3 = &quot;Lag3+&quot;, CD49b = &quot;CD49b+&quot;),
     color = hcl.colors(101, &quot;inferno&quot;),
-    cellwidth = 15,
+    cellwidth = 15, fontsize = 13,
+    cutree_rows = 4,
+    annotation_row = dplyr::select(highConf_df, Group),
+    annotation_colors = list(
+      Group = setNames(RColorBrewer::brewer.pal(6, &quot;Accent&quot;), unique(highConf_df$Group))
+    ),
     silent = TRUE
-    # annotation_col = dplyr::select(highConf_df, Group)
   ) %&gt;% 
   .[[&quot;gtable&quot;]]
-p$grobs[[3]]$gp &lt;- gpar(fontsize = 10, fontface = &quot;italic&quot;)
+p$grobs[[length(p$grobs) - 4]]$gp &lt;- gpar(fontsize = 13, fontface = &quot;italic&quot;)
 bu &lt;- 0.07
 grp_df &lt;- highConf_df %&gt;%
   mutate(i = seq_along(gene_name) / nrow(.)) %&gt;% 
@@ -2724,45 +2824,45 @@ grp_df &lt;- highConf_df %&gt;%
   split(.$Group)
 png(
   here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;highconf_heat.png&quot;),
-  width = 5, height = 10, res = 300, units = &quot;in&quot;
+  width = 5, height = 11, res = 300, units = &quot;in&quot;
 )
 grid.newpage()
 grid.draw(p)
-grp_df %&gt;% 
-  lapply(
-    function(x) {
-      grid.lines(
-        x = 0.305, 
-        y = c(x$y_max, x$y_min), 
-        gp = gpar(lwd = 2.5)
-      )
-      grid.text(
-        x$Group, x = 0.25,
-        y = 0.5 * (x$y_min + x$y_max) + 0.01
-      )
-    }
-  )
+# grp_df %&gt;% 
+#   lapply(
+#     function(x) {
+#       grid.lines(
+#         x = 0.295, 
+#         y = c(x$y_max, x$y_min), 
+#         gp = gpar(lwd = 2.5)
+#       )
+#       grid.text(
+#         x$Group, x = 0.25,
+#         y = 0.5 * (x$y_min + x$y_max) + 0.01
+#       )
+#     }
+#   )
 dev.off()
 pdf(
   here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;highconf_heat.pdf&quot;),
-  width = 5, height = 10
+  width = 5, height = 11
 )
 grid.newpage()
 grid.draw(p)
-grp_df %&gt;% 
-  lapply(
-    function(x) {
-      grid.lines(
-        x = 0.305, 
-        y = c(x$y_max, x$y_min), 
-        gp = gpar(lwd = 2.5)
-      )
-      grid.text(
-        x$Group, x = 0.25,
-        y = 0.5 * (x$y_min + x$y_max) + 0.01
-      )
-    }
-  )
+# grp_df %&gt;%
+#   lapply(
+#     function(x) {
+#       grid.lines(
+#         x = 0.295,
+#         y = c(x$y_max, x$y_min),
+#         gp = gpar(lwd = 2.5)
+#       )
+#       grid.text(
+#         x$Group, x = 0.25,
+#         y = 0.5 * (x$y_min + x$y_max) + 0.01
+#       )
+#     }
+#   )
 dev.off()</code></pre>
 <div class="figure">
 <img src="assets/highconf_heat.png" width="300" alt="" />
@@ -2811,11 +2911,11 @@ p &lt;- grp_coef[top_100,] %&gt;%
     # annotation_legend = FALSE,
     cutree_rows = 8,
     cellwidth = 15,
-    fontsize = 8,
+    fontsize = 9,
     silent = TRUE
   ) %&gt;% 
   .[[&quot;gtable&quot;]]
-p$grobs[[4]]$gp &lt;- gpar(fontsize = 8, fontface = &quot;italic&quot;)
+p$grobs[[4]]$gp &lt;- gpar(fontsize = 9, fontface = &quot;italic&quot;)
 p$grobs[[3]]$gp &lt;- gpar(fontsize = 10)
 png(
   here::here(&quot;docs&quot;, &quot;assets&quot;, &quot;top100_heat.png&quot;),
@@ -2855,7 +2955,7 @@ p &lt;- fit$coefficients[top_100,c(1:4, 6, 5)] %&gt;%
     cellwidth = 15,
     labels_row = id2gene[top_100],
     cutree_rows = 5,
-    fontsize = 8,
+    fontsize = 9,
     cluster_cols = FALSE,
     labels_col = setNames(
       str_replace(colnames(.), &quot;v&quot;, &quot; Vs. &quot;),
@@ -2902,12 +3002,12 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.1 (2022-06-23)
+<pre><code>R version 4.3.0 (2023-04-21)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 20.04.5 LTS
+Running under: Ubuntu 20.04.6 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0 
 LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
 
 locale:
@@ -2918,85 +3018,83 @@ locale:
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
 
+time zone: Australia/Adelaide
+tzcode source: system (glibc)
+
 attached base packages:
 [1] grid      stats4    stats     graphics  grDevices utils     datasets 
 [8] methods   base     
 
 other attached packages:
- [1] reactable_0.3.0         ComplexUpset_1.3.3      pander_0.6.5           
- [4] glue_1.6.2              broom_1.0.1             scales_1.2.1           
- [7] ensembldb_2.22.0        AnnotationFilter_1.22.0 GenomicFeatures_1.50.2 
-[10] AnnotationDbi_1.60.0    Biobase_2.58.0          GenomicRanges_1.50.1   
-[13] GenomeInfoDb_1.34.3     IRanges_2.32.0          S4Vectors_0.36.0       
-[16] AnnotationHub_3.6.0     BiocFileCache_2.6.0     dbplyr_2.2.1           
-[19] BiocGenerics_0.44.0     pheatmap_1.0.12         ggrepel_0.9.2          
-[22] edgeR_3.40.0            limma_3.54.0            magrittr_2.0.3         
-[25] forcats_0.5.2           stringr_1.4.1           dplyr_1.0.10           
-[28] purrr_0.3.5             readr_2.1.3             tidyr_1.2.1            
-[31] tibble_3.1.8            ggplot2_3.4.0           tidyverse_1.3.2        
-[34] workflowr_1.7.0        
+ [1] reactable_0.4.4         ComplexUpset_1.3.3      pander_0.6.5           
+ [4] glue_1.6.2              broom_1.0.4             scales_1.2.1           
+ [7] ensembldb_2.24.0        AnnotationFilter_1.24.0 GenomicFeatures_1.52.0 
+[10] AnnotationDbi_1.62.0    Biobase_2.60.0          GenomicRanges_1.52.0   
+[13] GenomeInfoDb_1.36.0     IRanges_2.34.0          S4Vectors_0.38.0       
+[16] AnnotationHub_3.8.0     BiocFileCache_2.8.0     dbplyr_2.3.2           
+[19] BiocGenerics_0.46.0     pheatmap_1.0.12         ggrepel_0.9.3          
+[22] edgeR_3.42.0            limma_3.56.0            magrittr_2.0.3         
+[25] lubridate_1.9.2         forcats_1.0.0           stringr_1.5.0          
+[28] dplyr_1.1.2             purrr_1.0.1             readr_2.1.4            
+[31] tidyr_1.3.0             tibble_3.2.1            ggplot2_3.4.2          
+[34] tidyverse_2.0.0         workflowr_1.7.0        
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.4.1                  backports_1.4.1              
-  [3] lazyeval_0.2.2                splines_4.2.1                
-  [5] BiocParallel_1.32.1           digest_0.6.30                
-  [7] htmltools_0.5.3               fansi_1.0.3                  
-  [9] memoise_2.0.1                 googlesheets4_1.0.1          
- [11] tzdb_0.3.0                    Biostrings_2.66.0            
- [13] modelr_0.1.10                 matrixStats_0.62.0           
- [15] vroom_1.6.0                   timechange_0.1.1             
- [17] prettyunits_1.1.1             colorspace_2.0-3             
- [19] blob_1.2.3                    rvest_1.0.3                  
- [21] rappdirs_0.3.3                haven_2.5.1                  
- [23] xfun_0.34                     callr_3.7.3                  
- [25] crayon_1.5.2                  RCurl_1.98-1.9               
- [27] jsonlite_1.8.3                gtable_0.3.1                 
- [29] gargle_1.2.1                  zlibbioc_1.44.0              
- [31] XVector_0.38.0                DelayedArray_0.24.0          
- [33] DBI_1.1.3                     Rcpp_1.0.9                   
- [35] xtable_1.8-4                  progress_1.2.2               
- [37] bit_4.0.4                     htmlwidgets_1.5.4            
- [39] httr_1.4.4                    RColorBrewer_1.1-3           
- [41] ellipsis_0.3.2                farver_2.1.1                 
- [43] pkgconfig_2.0.3               XML_3.99-0.12                
- [45] sass_0.4.2                    here_1.0.1                   
- [47] locfit_1.5-9.6                utf8_1.2.2                   
- [49] labeling_0.4.2                tidyselect_1.2.0             
- [51] rlang_1.0.6                   later_1.3.0                  
- [53] munsell_0.5.0                 BiocVersion_3.16.0           
- [55] cellranger_1.1.0              tools_4.2.1                  
- [57] cachem_1.0.6                  cli_3.4.1                    
- [59] generics_0.1.3                RSQLite_2.2.18               
- [61] evaluate_0.18                 fastmap_1.1.0                
- [63] yaml_2.3.6                    processx_3.8.0               
- [65] knitr_1.40                    bit64_4.0.5                  
- [67] fs_1.5.2                      KEGGREST_1.38.0              
- [69] nlme_3.1-160                  whisker_0.4                  
- [71] mime_0.12                     xml2_1.3.3                   
- [73] biomaRt_2.54.0                compiler_4.2.1               
- [75] rstudioapi_0.14               filelock_1.0.2               
- [77] curl_4.3.3                    png_0.1-7                    
- [79] interactiveDisplayBase_1.36.0 reprex_2.0.2                 
- [81] statmod_1.4.37                bslib_0.4.1                  
- [83] stringi_1.7.8                 highr_0.9                    
- [85] ps_1.7.2                      lattice_0.20-45              
- [87] ProtGenerics_1.30.0           Matrix_1.5-3                 
- [89] vctrs_0.5.0                   pillar_1.8.1                 
- [91] lifecycle_1.0.3               BiocManager_1.30.19          
- [93] jquerylib_0.1.4               bitops_1.0-7                 
- [95] patchwork_1.1.2               httpuv_1.6.6                 
- [97] rtracklayer_1.58.0            R6_2.5.1                     
- [99] BiocIO_1.8.0                  promises_1.2.0.1             
-[101] codetools_0.2-18              assertthat_0.2.1             
-[103] SummarizedExperiment_1.28.0   rprojroot_2.0.3              
-[105] rjson_0.2.21                  withr_2.5.0                  
-[107] GenomicAlignments_1.34.0      Rsamtools_2.14.0             
-[109] GenomeInfoDbData_1.2.9        mgcv_1.8-41                  
-[111] parallel_4.2.1                hms_1.1.2                    
-[113] rmarkdown_2.18                MatrixGenerics_1.10.0        
-[115] googledrive_2.0.0             git2r_0.30.1                 
-[117] getPass_0.2-2                 shiny_1.7.3                  
-[119] lubridate_1.9.0               restfulr_0.0.15              </code></pre>
+  [1] RColorBrewer_1.1-3            rstudioapi_0.14              
+  [3] jsonlite_1.8.4                farver_2.1.1                 
+  [5] rmarkdown_2.21                fs_1.6.2                     
+  [7] BiocIO_1.10.0                 zlibbioc_1.46.0              
+  [9] vctrs_0.6.2                   memoise_2.0.1                
+ [11] Rsamtools_2.16.0              RCurl_1.98-1.12              
+ [13] htmltools_0.5.5               progress_1.2.2               
+ [15] curl_5.0.0                    sass_0.4.5                   
+ [17] bslib_0.4.2                   htmlwidgets_1.6.2            
+ [19] cachem_1.0.7                  GenomicAlignments_1.36.0     
+ [21] whisker_0.4.1                 mime_0.12                    
+ [23] lifecycle_1.0.3               pkgconfig_2.0.3              
+ [25] Matrix_1.5-4                  R6_2.5.1                     
+ [27] fastmap_1.1.1                 GenomeInfoDbData_1.2.10      
+ [29] MatrixGenerics_1.12.0         shiny_1.7.4                  
+ [31] digest_0.6.31                 colorspace_2.1-0             
+ [33] patchwork_1.1.2               ps_1.7.5                     
+ [35] rprojroot_2.0.3               RSQLite_2.3.1                
+ [37] labeling_0.4.2                filelock_1.0.2               
+ [39] fansi_1.0.4                   timechange_0.2.0             
+ [41] mgcv_1.8-42                   httr_1.4.5                   
+ [43] compiler_4.3.0                here_1.0.1                   
+ [45] bit64_4.0.5                   withr_2.5.0                  
+ [47] backports_1.4.1               BiocParallel_1.34.0          
+ [49] DBI_1.1.3                     highr_0.10                   
+ [51] biomaRt_2.56.0                rappdirs_0.3.3               
+ [53] DelayedArray_0.25.0           rjson_0.2.21                 
+ [55] tools_4.3.0                   interactiveDisplayBase_1.38.0
+ [57] httpuv_1.6.9                  restfulr_0.0.15              
+ [59] callr_3.7.3                   nlme_3.1-162                 
+ [61] promises_1.2.0.1              getPass_0.2-2                
+ [63] generics_0.1.3                gtable_0.3.3                 
+ [65] tzdb_0.3.0                    hms_1.1.3                    
+ [67] xml2_1.3.4                    utf8_1.2.3                   
+ [69] XVector_0.40.0                BiocVersion_3.17.1           
+ [71] pillar_1.9.0                  vroom_1.6.1                  
+ [73] later_1.3.0                   splines_4.3.0                
+ [75] lattice_0.21-8                rtracklayer_1.60.0           
+ [77] bit_4.0.5                     tidyselect_1.2.0             
+ [79] locfit_1.5-9.7                Biostrings_2.68.0            
+ [81] knitr_1.42                    git2r_0.32.0                 
+ [83] ProtGenerics_1.32.0           SummarizedExperiment_1.30.0  
+ [85] xfun_0.39                     statmod_1.5.0                
+ [87] matrixStats_0.63.0            stringi_1.7.12               
+ [89] lazyeval_0.2.2                yaml_2.3.7                   
+ [91] evaluate_0.20                 codetools_0.2-19             
+ [93] BiocManager_1.30.20           cli_3.6.1                    
+ [95] xtable_1.8-4                  munsell_0.5.0                
+ [97] processx_3.8.1                jquerylib_0.1.4              
+ [99] Rcpp_1.0.10                   png_0.1-8                    
+[101] XML_3.99-0.14                 parallel_4.3.0               
+[103] ellipsis_0.3.2                blob_1.2.4                   
+[105] prettyunits_1.1.1             bitops_1.0-7                 
+[107] crayon_1.5.2                  rlang_1.1.0                  
+[109] KEGGREST_1.40.0              </code></pre>
 </div>
 </div>
 

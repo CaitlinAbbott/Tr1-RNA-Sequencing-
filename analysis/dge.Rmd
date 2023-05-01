@@ -35,7 +35,10 @@ library(ComplexUpset)
 library(reactable)
 theme_set(
   theme_bw() +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(
+      text = element_text(size = 14),
+      plot.title = element_text(hjust = 0.5)
+    )
 )
 ```
 
@@ -123,7 +126,7 @@ dgeFilt %>%
   as_tibble(rownames = "gene_id") %>% 
   pivot_longer(cols = all_of(colnames(dgeFilt)), names_to = "sample", values_to = "logCPM") %>% 
   left_join(dgeFilt$samples, by = "sample") %>% 
-  ggplot(aes(logCPM, y = stat(density), colour = condition, group = sample)) +
+  ggplot(aes(logCPM, y = after_stat(density), colour = condition, group = sample)) +
   geom_density() +
   facet_wrap(~mouse) +
   scale_y_continuous(expand = expansion(c(0.01, 0.05)))
@@ -146,7 +149,7 @@ pca %>%
   geom_point(size = 3) +
   geom_text_repel(
     aes(label = label),#str_replace_all(label, " ", "\n")),
-    max.overlaps = Inf
+    size = 5, max.overlaps = Inf, show.legend = FALSE
   ) +
   labs(
     x = glue("PC1 ({percent(summary(pca)$importance[2, 'PC1'])})"),
@@ -189,7 +192,7 @@ pca2 %>%
   left_join(v$targets, by = "sample") %>% 
   ggplot(aes(PC1, PC2, colour = condition)) +
   geom_point(aes(size = sample.weights)) +
-  geom_text_repel(aes(label = sample)) +
+  geom_text_repel(aes(label = sample), size = 5, show.legend = FALSE) +
   labs(
     x = glue("PC1 ({percent(summary(pca2)$importance[2, 'PC1'])})"),
     y = glue("PC2 ({percent(summary(pca2)$importance[2, 'PC2'])})"),
@@ -277,6 +280,7 @@ top_tables$DNvLAG3 %>%
       dplyr::filter(DE, logFC > 0) %>% 
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -287,6 +291,7 @@ top_tables$DNvLAG3 %>%
       dplyr::filter(DE, logFC < 0) %>% 
       arrange(logFC) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -308,6 +313,7 @@ top_tables$DNvDP %>%
       dplyr::filter(DE, logFC > 0) %>% 
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -318,6 +324,7 @@ top_tables$DNvDP %>%
       dplyr::filter(DE, logFC < 0) %>% 
       arrange(logFC) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -339,6 +346,7 @@ top_tables$DNvCD49b %>%
       dplyr::filter(DE, logFC > 0) %>% 
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -349,6 +357,7 @@ top_tables$DNvCD49b %>%
       dplyr::filter(DE, logFC < 0) %>% 
       arrange(logFC) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -370,6 +379,7 @@ top_tables$LAG3vCD49b %>%
       dplyr::filter(DE, logFC > 0) %>% 
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -380,6 +390,7 @@ top_tables$LAG3vCD49b %>%
       dplyr::filter(DE, logFC < 0) %>% 
       arrange(logFC) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -401,6 +412,7 @@ top_tables$LAG3vDP %>%
       dplyr::filter(DE, logFC > 0) %>% 
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -411,6 +423,7 @@ top_tables$LAG3vDP %>%
       dplyr::filter(DE, logFC < 0) %>% 
       arrange(logFC) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -432,6 +445,7 @@ top_tables$CD49bvDP %>%
       dplyr::filter(DE, logFC > 0) %>% 
       arrange(desc(logFC)) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -442,6 +456,7 @@ top_tables$CD49bvDP %>%
       dplyr::filter(DE, logFC < 0) %>% 
       arrange(logFC) %>% 
       dplyr::slice(1:5),
+    size = 5,
     max.overlaps = Inf,
     fontface = "italic",
     show.legend = FALSE
@@ -603,16 +618,28 @@ top_tables %>%
   upset(
     intersect = str_replace_all(names(top_tables), "v", " Vs. "),
     base_annotations = list(
-      'Intersection size' = intersection_size(bar_number_threshold = 1, width = 0.9) +
+      'Intersection size' = intersection_size(
+        bar_number_threshold = 1, width = 0.9, text = list(size = 5)
+      ) +
         scale_y_continuous(expand = expansion(c(0, 0.1))) +
         scale_fill_manual(values = c(bars_color = "grey20")) +
-        theme(panel.grid = element_blank())
+        theme(
+          panel.grid = element_blank(), 
+          axis.title = element_text(size = 14),
+          axis.text = element_text(size = 14)
+        )
     ),
     sort_sets = FALSE,
     set_sizes = upset_set_size() +
-      geom_text(aes(label = comma(after_stat(count))), stat = 'count', hjust = 1.1) +
+      geom_text(
+        aes(label = comma(after_stat(count))), 
+        stat = 'count', hjust = 1.1, size = 5
+      ) +
       scale_y_reverse(expand = expansion(c(0.25, 0))) +
-      theme(panel.grid = element_blank()),
+      theme(
+        panel.grid = element_blank(), axis.text = element_text(size = 14),
+        axis.title = element_text(size = 14)
+      ),
     queries = list(
       upset_query(
         intersect = str_subset(colnames(.), "LAG3"),
@@ -633,7 +660,10 @@ top_tables %>%
     min_size = 2
   ) +
   labs(x = "Group") +
-  theme(panel.grid = element_blank())
+  theme(
+    panel.grid = element_blank(), axis.text = element_text(size = 14),
+    axis.title = element_text(size = 14)
+  )
 ```
 
 
@@ -698,11 +728,11 @@ sig_heat <- grp_coef[rownames(signatures),] %>%
     cellheight = 15,
     annotation_colors = list(
       Signature = c("Cd49b+" = "forestgreen", "DN" = "blue", "Lag3+" = "red")
-    ),
+    ), fontsize = 12,
     silent = TRUE
   ) %>% 
   .[["gtable"]]
-sig_heat$grobs[[3]]$gp <- gpar(fonsize = 10, fontface = "italic")
+sig_heat$grobs[[3]]$gp <- gpar(fonsize = 12, fontface = "italic")
 png(
   here::here("docs", "assets", "sig_heat.png"),
   height = 6, width = 4, units = "in", res = 300
@@ -727,10 +757,10 @@ dev.off()
 highConf_df <- tribble(
   ~Group, ~gene_name,
   "Treg", "Foxp3",
-  "Treg", "Il2ra",
-  "Treg", "Il2rb",
   "Treg", "Ikzf4",
   "Treg", "Il1rl1",
+  "Treg", "Il2ra",
+  "Treg", "Il2rb",
   "Th2", "Gata3",
   "Th2", "Il4",
   "Th2", "Il5",
@@ -739,37 +769,37 @@ highConf_df <- tribble(
   "Th17", "Il17a",
   "Th17", "Il17f",
   "Th17", "Ccr6",
+  "Th1", "Tnf",
   "Th1", "Tbx21",
   "Th1", "Cxcr3",
   "Th1", "Cxcr6",
-  "Th1", "Tnf",
   "Th1", "Ifng",
   "Tfh", "Bcl6",
   "Tfh", "Cxcr5",
   "Tfh", "Tcf7",
   "Tfh", "Tox2",
-  "Tr1", "Ccr5",
-  "Tr1", "Il10",
-  "Tr1", "Il21",
-  "Tr1", "Tgfb1",
-  "Tr1", "Gzmb",
   "Tr1", "Lag3",
   "Tr1", "Itga2",
-  "Tr1", "Icos",
+  "Tr1", "Eomes",
+  "Tr1", "Tgfb1",
+  "Tr1", "Il21",
+  "Tr1", "Ccr5",
+  "Tr1", "Il10",
   "Tr1", "Pdcd1",
+  "Tr1", "Tigit",
+  "Tr1", "Maf",
+  "Tr1", "Batf",
+  "Tr1", "Irf1",
+  "Tr1", "Stat1",
+  "Tr1", "Stat3",
+  "Tr1", "Gzmb",
+  "Tr1", "Icos",
   "Tr1", "Ctla4",
   "Tr1", "Havcr2",
-  "Tr1", "Tigit",
   "Tr1", "Cd226",
-  "Tr1", "Maf",
   "Tr1", "Prdm1",
-  "Tr1", "Batf",
   "Tr1", "Ahr",
-  "Tr1", "Eomes",
-  "Tr1", "Irf1",
   "Tr1", "Irf4",
-  "Tr1", "Stat1",
-  "Tr1", "Stat3"
 ) %>%
   left_join(
     # dplyr::select(dgeFilt$genes, gene_name, gene_id)
@@ -779,16 +809,22 @@ highConf_df <- tribble(
   column_to_rownames("gene_id")
 p <- grp_coef[rownames(highConf_df),] %>% 
   pheatmap(
-    cluster_rows = FALSE, cluster_cols = FALSE,
+    # cluster_rows = FALSE,
+    # cluster_cols = FALSE,
+    clustering_method = "complete",
     labels_row = setNames(highConf_df$gene_name, rownames(highConf_df)),
     labels_col = c(DN = "DN", DP = "DP", LAG_3 = "Lag3+", CD49b = "CD49b+"),
     color = hcl.colors(101, "inferno"),
-    cellwidth = 15,
+    cellwidth = 15, fontsize = 13,
+    cutree_rows = 4,
+    annotation_row = dplyr::select(highConf_df, Group),
+    annotation_colors = list(
+      Group = setNames(RColorBrewer::brewer.pal(6, "Accent"), unique(highConf_df$Group))
+    ),
     silent = TRUE
-    # annotation_col = dplyr::select(highConf_df, Group)
   ) %>% 
   .[["gtable"]]
-p$grobs[[3]]$gp <- gpar(fontsize = 10, fontface = "italic")
+p$grobs[[length(p$grobs) - 4]]$gp <- gpar(fontsize = 13, fontface = "italic")
 bu <- 0.07
 grp_df <- highConf_df %>%
   mutate(i = seq_along(gene_name) / nrow(.)) %>% 
@@ -804,45 +840,45 @@ grp_df <- highConf_df %>%
   split(.$Group)
 png(
   here::here("docs", "assets", "highconf_heat.png"),
-  width = 5, height = 10, res = 300, units = "in"
+  width = 5, height = 11, res = 300, units = "in"
 )
 grid.newpage()
 grid.draw(p)
-grp_df %>% 
-  lapply(
-    function(x) {
-      grid.lines(
-        x = 0.305, 
-        y = c(x$y_max, x$y_min), 
-        gp = gpar(lwd = 2.5)
-      )
-      grid.text(
-        x$Group, x = 0.25,
-        y = 0.5 * (x$y_min + x$y_max) + 0.01
-      )
-    }
-  )
+# grp_df %>% 
+#   lapply(
+#     function(x) {
+#       grid.lines(
+#         x = 0.295, 
+#         y = c(x$y_max, x$y_min), 
+#         gp = gpar(lwd = 2.5)
+#       )
+#       grid.text(
+#         x$Group, x = 0.25,
+#         y = 0.5 * (x$y_min + x$y_max) + 0.01
+#       )
+#     }
+#   )
 dev.off()
 pdf(
   here::here("docs", "assets", "highconf_heat.pdf"),
-  width = 5, height = 10
+  width = 5, height = 11
 )
 grid.newpage()
 grid.draw(p)
-grp_df %>% 
-  lapply(
-    function(x) {
-      grid.lines(
-        x = 0.305, 
-        y = c(x$y_max, x$y_min), 
-        gp = gpar(lwd = 2.5)
-      )
-      grid.text(
-        x$Group, x = 0.25,
-        y = 0.5 * (x$y_min + x$y_max) + 0.01
-      )
-    }
-  )
+# grp_df %>%
+#   lapply(
+#     function(x) {
+#       grid.lines(
+#         x = 0.295,
+#         y = c(x$y_max, x$y_min),
+#         gp = gpar(lwd = 2.5)
+#       )
+#       grid.text(
+#         x$Group, x = 0.25,
+#         y = 0.5 * (x$y_min + x$y_max) + 0.01
+#       )
+#     }
+#   )
 dev.off()
 ```
 
@@ -889,11 +925,11 @@ p <- grp_coef[top_100,] %>%
     # annotation_legend = FALSE,
     cutree_rows = 8,
     cellwidth = 15,
-    fontsize = 8,
+    fontsize = 9,
     silent = TRUE
   ) %>% 
   .[["gtable"]]
-p$grobs[[4]]$gp <- gpar(fontsize = 8, fontface = "italic")
+p$grobs[[4]]$gp <- gpar(fontsize = 9, fontface = "italic")
 p$grobs[[3]]$gp <- gpar(fontsize = 10)
 png(
   here::here("docs", "assets", "top100_heat.png"),
@@ -931,7 +967,7 @@ p <- fit$coefficients[top_100,c(1:4, 6, 5)] %>%
     cellwidth = 15,
     labels_row = id2gene[top_100],
     cutree_rows = 5,
-    fontsize = 8,
+    fontsize = 9,
     cluster_cols = FALSE,
     labels_col = setNames(
       str_replace(colnames(.), "v", " Vs. "),
