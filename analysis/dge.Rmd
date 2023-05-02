@@ -810,21 +810,21 @@ highConf_df <- tribble(
 p <- grp_coef[rownames(highConf_df),] %>% 
   pheatmap(
     # cluster_rows = FALSE,
-    # cluster_cols = FALSE,
+    cluster_cols = FALSE,
     clustering_method = "complete",
     labels_row = setNames(highConf_df$gene_name, rownames(highConf_df)),
     labels_col = c(DN = "DN", DP = "DP", LAG_3 = "Lag3+", CD49b = "CD49b+"),
     color = hcl.colors(101, "inferno"),
     cellwidth = 15, fontsize = 13,
     cutree_rows = 4,
-    annotation_row = dplyr::select(highConf_df, Group),
-    annotation_colors = list(
-      Group = setNames(RColorBrewer::brewer.pal(6, "Accent"), unique(highConf_df$Group))
-    ),
+    # annotation_row = dplyr::select(highConf_df, Group),
+    # annotation_colors = list(
+    #   Group = setNames(RColorBrewer::brewer.pal(6, "Accent"), unique(highConf_df$Group))
+    # ),
     silent = TRUE
   ) %>% 
   .[["gtable"]]
-p$grobs[[length(p$grobs) - 4]]$gp <- gpar(fontsize = 13, fontface = "italic")
+p$grobs[[4]]$gp <- gpar(fontsize = 13, fontface = "italic")
 bu <- 0.07
 grp_df <- highConf_df %>%
   mutate(i = seq_along(gene_name) / nrow(.)) %>% 
